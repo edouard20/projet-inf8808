@@ -57,7 +57,7 @@ function App() {
     <div className="App">
       <h1 className='App-header'>Speed Through Time: The Evolution of Formula 1</h1>
       <MyD3Component />
-      <h2 className='App-header'>Waffle Chart</h2>
+      <h2 className='App-title'>Waffle Chart</h2>
       <WaffleChart data={data} />
     </div>
   );

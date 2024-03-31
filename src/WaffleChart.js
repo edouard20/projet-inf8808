@@ -12,7 +12,7 @@ function WaffleChart({ data }) {
       // Set up properties for your visualization
       const width = 400;
       const height = 400;
-      const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+      const margin = { top: 20, right: 20, bottom: 60, left: 40 };
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
 
@@ -25,7 +25,7 @@ function WaffleChart({ data }) {
       // Define y scale
       const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.count)])
-        .range([0, innerHeight]); // Change range to start from 0
+        .range([innerHeight, 0]); // Change range to start from 0
 
       // Create individual cubes for each bar
       svg.selectAll("g.bar")
@@ -37,20 +37,41 @@ function WaffleChart({ data }) {
         .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
         .enter().append("rect")
         .attr("x", (d, i) => (i % 5) * 10)
-        .attr("y", (d, i) => -(Math.floor(d.index / 5) * 10)) // Adjust y position to be negative
+        .attr("y", (d, i) => -(Math.floor(d.index / 5) * 10) - 5) // Adjust y position to be negative
         .attr("width", 8)
         .attr("height", 8)
         .attr("fill", "blue");
 
-      // Add text labels
-      svg.selectAll("text")
+      // svg.selectAll("text")
+      //   .data(data)
+      //   .enter().append("text")
+      //   .text(d => d.count)
+      //   .attr("x", d => x(d.nationality) + x.bandwidth() / 2 - 2)
+      //   .attr("y", d => -(y(d.count)) + margin.top + innerHeight) 
+      //   .attr("text-anchor", "middle")
+      //   .attr("fill", "white");
+
+      svg.selectAll(".nationality-label")
         .data(data)
         .enter().append("text")
-        .text(d => d.count)
+        .attr("class", "nationality-label")
+        .text(d => d.nationality)
         .attr("x", d => x(d.nationality) + x.bandwidth() / 2)
-        .attr("y", d => -(y(d.count)) + margin.top + innerHeight + 5) // Adjust text positioning
+        .attr("y", height - 20) // Positioned at the bottom
         .attr("text-anchor", "middle")
-        .attr("fill", "white");
+        .attr("fill", "white")
+        .style("font-size", "12px")
+        .style("font-weight", "bold");
+
+      const yAxis = d3.axisLeft(y);
+      svg.append("g")
+          .attr("class", "y-axis")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`)
+          .style("color", "white")
+          .call(yAxis);
+
+      // Add text labels
+
     }
   }, [data]);
 
