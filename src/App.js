@@ -62,14 +62,14 @@ function App() {
       <ProgressBar/>
       <div className="App">
         <h1 className='introduction-text'>Speed Through Time: The Evolution of Formula 1</h1>
-        <h2 className='App-title'>Waffle Chart</h2>
-      <WaffleChart data={waffle_data} />
       </div>
       <TitleText/>
       <div className="App">
       {items.map((item, i) => (
         <TextSection key={i} text={item}/>
       ))}
+      <h2 className='App-title'>Waffle Chart</h2>
+      <WaffleChart data={waffle_data} />
     </div>
     </>
 )};

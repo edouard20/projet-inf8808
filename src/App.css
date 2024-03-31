@@ -77,6 +77,8 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
 .card-text {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
