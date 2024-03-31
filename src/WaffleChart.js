@@ -6,26 +6,22 @@ function WaffleChart({ data }) {
 
   useEffect(() => {
     if (d3Container.current && data) {
-      // Select the container element
       const svg = d3.select(d3Container.current);
 
-      // Set up properties for your visualization
       const width = 400;
       const height = 400;
       const margin = { top: 20, right: 20, bottom: 60, left: 40 };
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
 
-      // Define x scale
       const x = d3.scaleBand()
         .domain(data.map(d => d.nationality))
         .range([margin.left, innerWidth + margin.left])
         .padding(0.1);
 
-      // Define y scale
       const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.count)])
-        .range([innerHeight, 0]); // Change range to start from 0
+        .range([innerHeight, 0]);
 
       // Create individual cubes for each bar
       svg.selectAll("g.bar")
@@ -57,7 +53,7 @@ function WaffleChart({ data }) {
         .attr("class", "nationality-label")
         .text(d => d.nationality)
         .attr("x", d => x(d.nationality) + x.bandwidth() / 2)
-        .attr("y", height - 20) // Positioned at the bottom
+        .attr("y", height - 35) 
         .attr("text-anchor", "middle")
         .attr("fill", "white")
         .style("font-size", "12px")
@@ -69,9 +65,6 @@ function WaffleChart({ data }) {
           .attr("transform", `translate(${margin.left}, ${margin.top})`)
           .style("color", "white")
           .call(yAxis);
-
-      // Add text labels
-
     }
   }, [data]);
 
