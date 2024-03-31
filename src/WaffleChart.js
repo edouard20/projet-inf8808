@@ -25,19 +25,19 @@ function WaffleChart({ data }) {
       // Define y scale
       const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.count)])
-        .range([innerHeight, 0]);
+        .range([0, innerHeight]); // Change range to start from 0
 
       // Create individual cubes for each bar
       svg.selectAll("g.bar")
         .data(data)
         .enter().append("g")
         .attr("class", "bar")
-        .attr("transform", d => `translate(${x(d.nationality)}, ${margin.top})`)
+        .attr("transform", d => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`) // Adjust initial translation
         .selectAll("rect")
-        .data(d => Array.from({ length: d.count }).map((_, i) => ({ index: i })))
+        .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
         .enter().append("rect")
-        .attr("x", 0) //(d, i) => Math.floor(i / 4) * 10) // Adjust cube stacking within columns
-        .attr("y", (d, i) => innerHeight - i * 10)//(i % 4 + 1) * 10) // Adjust cube stacking within columns
+        .attr("x", (d, i) => (i % 5) * 10)
+        .attr("y", (d, i) => -(Math.floor(d.index / 5) * 10)) // Adjust y position to be negative
         .attr("width", 8)
         .attr("height", 8)
         .attr("fill", "blue");
@@ -48,7 +48,7 @@ function WaffleChart({ data }) {
         .enter().append("text")
         .text(d => d.count)
         .attr("x", d => x(d.nationality) + x.bandwidth() / 2)
-        .attr("y", d => y(d.count) + margin.top + 5) // Adjust text positioning
+        .attr("y", d => -(y(d.count)) + margin.top + innerHeight + 5) // Adjust text positioning
         .attr("text-anchor", "middle")
         .attr("fill", "white");
     }
