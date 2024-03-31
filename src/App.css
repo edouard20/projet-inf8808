@@ -1,30 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+body {
+  --black: #010101;
+  --white: #fdfdfd;
+  --green: #22cc88;
+  --blue: #0055ff;
+  --purple: #8855ff;
+  --red: #ff0055;
+  --orange: #ee4444;
+  --yellow: #ffcc00;
+  --mustard: #ffaa00;
+
+  --background: var(--black);
+  --accent: var(--white);
+
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--accent);
+  padding-bottom: 100px;
+}
+
 .App {
   text-align: center;
-  /* height: 100vh;
-  width: 100vh;
-  color: #282c34; */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.introduction-text {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  text-align: center;
+  margin: 100px 0 40px;
+  color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
+.card {
+  width: 50vw;
+  height: 50vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0px 10px 10px 10px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #333;
 }
+/* 
+.card:nth-child(odd) {
+  align-self: flex-end;
+  background-color: #120443;
+} */
 
 .App-title {
   min-height: 20vh;
@@ -47,4 +77,8 @@
   to {
     transform: rotate(360deg);
   }
+.card-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #fff;
 }

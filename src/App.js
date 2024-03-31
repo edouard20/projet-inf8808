@@ -1,9 +1,12 @@
 import React from 'react';
-import MyD3Component from './MyD3Component.js';
 import WaffleChart from './WaffleChart.js';
+import ProgressBar from './ProgressBar';
+import TitleText from './TitleText';
+import TextSection from "./TextSection";
+import data from './texts.json';
 import './App.css';
 
-const waffle_data = [
+const nationality_data = [
   [ 'British', 165 ],
   [ 'American', 158 ],
   [ 'Italian', 99 ],
@@ -48,19 +51,27 @@ const waffle_data = [
   [ 'Chinese', 1 ]
 ]
 
-const data = waffle_data.filter(item => item[1] > 25).map(item => {
+const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
   return { nationality: item[0], count: item[1] };
 });
 
 function App() {
+  const items = data.texts;
   return (
-    <div className="App">
-      <h1 className='App-header'>Speed Through Time: The Evolution of Formula 1</h1>
-      <MyD3Component />
-      <h2 className='App-title'>Waffle Chart</h2>
-      <WaffleChart data={data} />
+    <>
+      <ProgressBar/>
+      <div className="App">
+        <h1 className='introduction-text'>Speed Through Time: The Evolution of Formula 1</h1>
+        <h2 className='App-title'>Waffle Chart</h2>
+      <WaffleChart data={waffle_data} />
+      </div>
+      <TitleText/>
+      <div className="App">
+      {items.map((item, i) => (
+        <TextSection key={i} text={item}/>
+      ))}
     </div>
-  );
-}
+    </>
+)};
 
 export default App;

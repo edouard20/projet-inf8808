@@ -1,0 +1,10 @@
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 20px;
+    background-image: url("checkered_flag.jpg");
+    background-repeat: repeat;
+    transform-origin: left center;
+  }
+  
