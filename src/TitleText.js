@@ -18,6 +18,7 @@ function TitleText() {
     <div className="introduction-text" ref={ref}>
       {text.map((el, i) => (
         <motion.span
+          whileInView={{ opacity: 1.5 }}
           initial="hidden"
           animate={controls}
           variants={{

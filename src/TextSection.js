@@ -2,21 +2,18 @@ import React from "react";
 import { motion } from "framer-motion";
 import './App.css';
 
-function Card({ text, index }) {
+function TextSection({ text }) {
   return (
     <motion.div
-      className="card"
       initial={{
         opacity: 0,
-        x: index % 2 === 0 ? 50 : -50
       }}
       whileInView={{
         opacity: 1,
-        x: 0,
         transition: {
-          duration: 1
+        duration: 3
         }
-      }}
+    }}
       viewport={{ once: true }}
     >
       <p className="card-text">{text}</p>
@@ -24,4 +21,4 @@ function Card({ text, index }) {
   );
 }
 
-export default Card;
+export default TextSection;

@@ -2,10 +2,11 @@ import React from 'react';
 import './App.css';
 import ProgressBar from './ProgressBar';
 import TitleText from './TitleText';
-import Card from "./Card";
+import TextSection from "./TextSection";
+import data from './texts.json';
 
 function App() {
-  const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"];
+  const items = data.texts;
   return (
     <>
       <ProgressBar/>
@@ -15,7 +16,7 @@ function App() {
       <TitleText/>
       <div className="App">
       {items.map((item, i) => (
-        <Card key={i} text={item} index={i} />
+        <TextSection key={i} text={item}/>
       ))}
     </div>
     </>
