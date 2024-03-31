@@ -14,7 +14,7 @@ function App() {
         <h1 className='introduction-text'>Speed Through Time: The Evolution of Formula 1</h1>
       </div>
       <TitleText/>
-      <div className="App">
+      <div className="text-section">
       {items.map((item, i) => (
         <TextSection key={i} text={item}/>
       ))}

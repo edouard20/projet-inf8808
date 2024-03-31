@@ -61,3 +61,8 @@ body {
   font-size: 28px;
   color: #fff;
 }
+
+.text-section {
+  text-align: center;
+  margin: 6em;
+}
