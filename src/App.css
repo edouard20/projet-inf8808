@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
 body {
   --black: #010101;
   --white: #fdfdfd;
@@ -21,4 +23,40 @@ body {
 
 .App {
   text-align: center;
+}
+
+.introduction-text {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  text-align: center;
+  margin: 100px 0 40px;
+  color: #fff;
+}
+
+.card {
+  width: 50vw;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0px 10px 10px 10px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #333;
+}
+
+.card:nth-child(odd) {
+  align-self: flex-end;
+  background-color: #120443;
+}
+
+.card-text {
+  font-size: 28px;
+  color: #fff;
 }
