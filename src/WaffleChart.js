@@ -68,7 +68,7 @@ function WaffleChart({ data }) {
           svg.append("text")
             .attr("class", "count-label")
             .text(`${count}`)
-            .attr("x", x(nationality) + x.bandwidth() / 2 + 10)
+            .attr("x", x(nationality) + x.bandwidth() / 2 + 9)
             .attr("y", y(count) + margin.top + 40)
             .attr("text-anchor", "middle")
             .attr("fill", "white")
@@ -77,7 +77,7 @@ function WaffleChart({ data }) {
           svg.append("image")
             .attr("xlink:href", flag)
             .attr("class", "flag-image")
-            .attr("x", x(nationality) + x.bandwidth() / 2 - flagWidth / 2 + 10)
+            .attr("x", x(nationality) + x.bandwidth() / 2 - flagWidth / 2 + 9)
             .attr("y", y(count) + margin.top + 50)
             .attr("width", flagWidth)
             .attr("height", flagHeight);
