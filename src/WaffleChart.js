@@ -29,6 +29,30 @@ function WaffleChart({ data }) {
         .enter().append("g")
         .attr("class", "bar")
         .attr("transform", d => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`) // Adjust initial translation
+        .on("mouseover", function(d, data) {
+          const count = data.count;
+          const nationality = data.nationality;
+          d3.select(this)
+            .selectAll("rect")
+            .attr("fill", "#2515ff")
+            .attr("width", 11)
+            .attr("height", 11);
+          svg.append("text")
+            .attr("class", "count-label")
+            .text(`${count}`)
+            .attr("x", x(nationality) + x.bandwidth() / 2)
+            .attr("y", y(count) + margin.top + 25)
+            .attr("text-anchor", "middle")
+            .attr("fill", "white");
+        })
+        .on("mouseout", function() {
+          d3.select(this)
+            .selectAll("rect")
+            .attr("fill", "blue")
+            .attr("width", 8)
+            .attr("height", 8);
+          svg.select(".count-label").remove();
+        })
         .selectAll("rect")
         .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
         .enter().append("rect")
