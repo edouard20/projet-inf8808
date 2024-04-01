@@ -73,7 +73,7 @@ function App() {
         </div>
       <div className="text-section">
       {items.map((item, i) => (
-        <div>
+        <div key={i}>
           <TextSection key={i} text={item}/>
           {visualizations[i]}
         </div>
