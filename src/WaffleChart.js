@@ -33,7 +33,7 @@ function WaffleChart({ data }) {
       const height = 600;
       const margin = { top: 30, right: 30, bottom: 80, left: 60 };
       const innerWidth = width - margin.left - margin.right;
-      const innerHeight = height - margin.top - margin.bottom;
+      const innerHeight = height - margin.top - margin.bottom - 10;
 
       const x = d3.scaleBand()
         .domain(data.map(d => d.nationality))
