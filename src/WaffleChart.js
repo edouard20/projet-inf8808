@@ -45,7 +45,7 @@ function WaffleChart({ data }) {
           svg.append("text")
             .attr("class", "count-label")
             .text(`${count}`)
-            .attr("x", x(nationality) + x.bandwidth() / 2 + 7)
+            .attr("x", x(nationality) + x.bandwidth() / 2 + 10)
             .attr("y", y(count) + margin.top + 40)
             .attr("text-anchor", "middle")
             .attr("fill", "white");
@@ -53,7 +53,7 @@ function WaffleChart({ data }) {
           svg.append("image")
             .attr("xlink:href", flag)
             .attr("class", "flag-image")
-            .attr("x", x(nationality) + x.bandwidth() / 2 - flagWidth / 2 + 7)
+            .attr("x", x(nationality) + x.bandwidth() / 2 - flagWidth / 2 + 10)
             .attr("y", y(count) + margin.top + 50)
             .attr("width", flagWidth)
             .attr("height", flagHeight);
@@ -63,6 +63,8 @@ function WaffleChart({ data }) {
             .attr("font-weight", "bold");
         })
         .on("mouseout", function() {
+          // const isMouseOverCountOrFlag = svg.select(".count-label").node() || svg.select(".flag-image").node();
+          // if (!isMouseOverCountOrFlag) {
           d3.select(this)
             .selectAll("rect")
             .attr("fill", "blue")
@@ -72,6 +74,7 @@ function WaffleChart({ data }) {
           svg.select(".flag-image").remove();
           svg.selectAll(".nationality-label")
             .attr("font-weight", "normal");
+          // }
         })
         .selectAll("rect")
         .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
@@ -87,7 +90,7 @@ function WaffleChart({ data }) {
         .enter().append("text")
         .attr("class", "nationality-label")
         .text(d => d.nationality)
-        .attr("x", d => x(d.nationality) + x.bandwidth() / 2 + 7)
+        .attr("x", d => x(d.nationality) + x.bandwidth() / 2 + 10)
         .attr("y", height - 35) 
         .attr("text-anchor", "middle")
         .attr("fill", "white")
