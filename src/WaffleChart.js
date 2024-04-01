@@ -61,7 +61,9 @@ function WaffleChart({ data }) {
             .selectAll("rect")
             .attr("fill", "#2515ff")
             .attr("width", 16)
-            .attr("height", 16);
+            .attr("height", 16)
+            .attr("x", (_, i) => (i % 5) * 15 - 2)
+            .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 7);
 
           svg.append("text")
             .attr("class", "count-label")
@@ -91,7 +93,9 @@ function WaffleChart({ data }) {
             .selectAll("rect")
             .attr("fill", "blue")
             .attr("width", 12)
-            .attr("height", 12);
+            .attr("height", 12)
+            .attr("x", (_, i) => (i % 5) * 15)
+            .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 5);
           svg.select(".count-label").remove();
           svg.select(".flag-image").remove();
           svg.selectAll(".nationality-label")
