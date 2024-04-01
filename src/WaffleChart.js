@@ -23,15 +23,19 @@ function WaffleChart({ data }) {
         .domain([0, d3.max(data, d => d.count)])
         .range([innerHeight, 0]);
 
+      const flagWidth = 30;
+      const flagHeight = 30;
+
       // Create individual cubes for each bar
       svg.selectAll("g.bar")
         .data(data)
         .enter().append("g")
         .attr("class", "bar")
-        .attr("transform", d => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`) // Adjust initial translation
-        .on("mouseover", function(d, data) {
+        .attr("transform", d => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`)
+        .on("mouseover", function(_, data) {
           const count = data.count;
           const nationality = data.nationality;
+          const flag = `/flags/${nationality}.png`
           d3.select(this)
             .selectAll("rect")
             .attr("fill", "#2515ff")
@@ -44,6 +48,14 @@ function WaffleChart({ data }) {
             .attr("y", y(count) + margin.top + 25)
             .attr("text-anchor", "middle")
             .attr("fill", "white");
+
+          svg.append("image")
+            .attr("xlink:href", flag)
+            .attr("class", "flag-image")
+            .attr("x", x(nationality) + x.bandwidth() / 2 - flagWidth / 2)
+            .attr("y", y(count) + margin.top + 40)
+            .attr("width", flagWidth)
+            .attr("height", flagHeight);
         })
         .on("mouseout", function() {
           d3.select(this)
@@ -52,24 +64,16 @@ function WaffleChart({ data }) {
             .attr("width", 8)
             .attr("height", 8);
           svg.select(".count-label").remove();
+          svg.select(".flag-image").remove();
         })
         .selectAll("rect")
         .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
         .enter().append("rect")
         .attr("x", (d, i) => (i % 5) * 10)
-        .attr("y", (d, i) => -(Math.floor(d.index / 5) * 10) - 5) // Adjust y position to be negative
+        .attr("y", (d, i) => -(Math.floor(d.index / 5) * 10) - 5) 
         .attr("width", 8)
         .attr("height", 8)
         .attr("fill", "blue");
-
-      // svg.selectAll("text")
-      //   .data(data)
-      //   .enter().append("text")
-      //   .text(d => d.count)
-      //   .attr("x", d => x(d.nationality) + x.bandwidth() / 2 - 2)
-      //   .attr("y", d => -(y(d.count)) + margin.top + innerHeight) 
-      //   .attr("text-anchor", "middle")
-      //   .attr("fill", "white");
 
       svg.selectAll(".nationality-label")
         .data(data)
