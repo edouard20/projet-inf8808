@@ -1,11 +1,32 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import './WaffleChart.css';
 
 function WaffleChart({ data }) {
   const d3Container = useRef(null);
 
   useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateBars();
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    
     if (d3Container.current && data) {
+      observer.observe(d3Container.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [data]);
+
+  const animateBars = () => {
+    if (!data || !d3Container.current) return;
+
       const svg = d3.select(d3Container.current);
 
       const width = 600;
@@ -48,7 +69,8 @@ function WaffleChart({ data }) {
             .attr("x", x(nationality) + x.bandwidth() / 2 + 10)
             .attr("y", y(count) + margin.top + 40)
             .attr("text-anchor", "middle")
-            .attr("fill", "white");
+            .attr("fill", "white")
+            .style("font-weight", "bold");
 
           svg.append("image")
             .attr("xlink:href", flag)
@@ -104,11 +126,10 @@ function WaffleChart({ data }) {
           .style("color", "white")
           .style("font-size", "15px")
           .call(yAxis);
-    }
-  }, [data]);
+  };
 
   return (
-    <svg ref={d3Container} width={600} height={600} />
+    <svg ref={d3Container} width={600} height={600} className="waffle-chart"/>
   );
 }
 
