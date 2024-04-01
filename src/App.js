@@ -7,6 +7,7 @@ import ImageAnimation from "./ImageAnimation";
 import data from './texts.json';
 import './App.css';
 
+// will modifiy this to a call from the preprocessing
 const nationality_data = [
   [ 'British', 165 ],
   [ 'American', 158 ],
