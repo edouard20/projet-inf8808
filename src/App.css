@@ -83,6 +83,25 @@ body {
   width: 400px;
   height: 400px;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.img-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  border: 2px solid #ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .images-box {
