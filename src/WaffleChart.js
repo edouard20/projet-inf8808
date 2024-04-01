@@ -33,7 +33,7 @@ function WaffleChart({ data }) {
       const height = 600;
       const margin = { top: 30, right: 30, bottom: 80, left: 60 };
       const innerWidth = width - margin.left - margin.right;
-      const innerHeight = height - margin.top - margin.bottom - 10;
+      const innerHeight = height - margin.top - margin.bottom;
 
       const x = d3.scaleBand()
         .domain(data.map(d => d.nationality))
@@ -63,7 +63,7 @@ function WaffleChart({ data }) {
             .attr("width", 16)
             .attr("height", 16)
             .attr("x", (_, i) => (i % 5) * 15 - 2)
-            .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 7);
+            .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 13);
 
           svg.append("text")
             .attr("class", "count-label")
@@ -95,7 +95,7 @@ function WaffleChart({ data }) {
             .attr("width", 12)
             .attr("height", 12)
             .attr("x", (_, i) => (i % 5) * 15)
-            .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 5);
+            .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11);
           svg.select(".count-label").remove();
           svg.select(".flag-image").remove();
           svg.selectAll(".nationality-label")
@@ -106,7 +106,7 @@ function WaffleChart({ data }) {
         .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
         .enter().append("rect")
         .attr("x", (_, i) => (i % 5) * 15)
-        .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 5) 
+        .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11) 
         .attr("width", 12)
         .attr("height", 12)
         .attr("fill", "blue");
