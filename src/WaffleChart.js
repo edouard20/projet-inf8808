@@ -47,7 +47,6 @@ function WaffleChart({ data }) {
       const flagWidth = 30;
       const flagHeight = 30;
 
-      // Create individual cubes for each bar
       svg.selectAll("g.bar")
         .data(data)
         .enter().append("g")
