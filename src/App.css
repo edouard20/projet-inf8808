@@ -84,3 +84,21 @@ body {
   font-size: 28px;
   color: #fff;
 }
+
+.text-section {
+  text-align: center;
+  margin: 6em;
+}
+
+.img {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+}
+
+.images-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+}

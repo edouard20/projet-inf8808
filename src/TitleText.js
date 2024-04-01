@@ -2,8 +2,8 @@ import "./App.css";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-function TitleText() {
-  const text = "The Era of Dominance: Powerhouses of Formula 1".split(" ");
+function TitleText({title}) {
+  const text = title.split(" ");
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
