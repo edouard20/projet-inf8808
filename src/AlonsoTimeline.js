@@ -9,7 +9,9 @@ function AlonsoTimeline() {
       };
     return (
     <div>
-        <TextSection text={"This is the story of Fernando Alonso Díaz"}></TextSection>
+        <div style={{fontStyle: 'italic', textAlign: 'center', fontSize: '32px'}}>
+            This is the story of Fernando Alonso Díaz
+        </div>
         <div className='timeline-box'>
             <motion.img
                 src="https://i.redd.it/zzuq6zczaj871.jpg"
@@ -24,6 +26,10 @@ function AlonsoTimeline() {
             </div>
         </div>
         <div className='timeline-box'>
+            <div>
+                <TitleText title={"2003"}/>
+                <TextSection text={"Fernando Alonso's first win at the 2003 Hungarian Grand Prix"}/>
+            </div>
             <motion.img
                 src="https://preview.redd.it/k3f026wfard31.jpg?auto=webp&s=bad72f0b5658edae1f375a051d227079e0811273"
                 className='img'
@@ -31,10 +37,6 @@ function AlonsoTimeline() {
                 initial="hidden"
                 whileInView="visible">
             </motion.img>
-            <div>
-                <TitleText title={"2003"}/>
-                <TextSection text={"Fernando Alonso's first win at the 2003 Hungarian Grand Prix"}/>
-            </div>
         </div>
         <div className='timeline-box'>
             <motion.img
@@ -50,6 +52,11 @@ function AlonsoTimeline() {
             </div>
         </div>
         <div className='timeline-box'>
+            <div>
+                <TitleText title={"2006"}/>
+                <TextSection text={"Nando wins again."}/>
+                <TextSection text={"Fernando Alonso and Renault retain both Championship Titles"}/>
+            </div>
             <motion.img
                 src="https://media.formula1.com/content/dam/fom-website/manual/d05bra1387.jpg"
                 className='img'
@@ -57,16 +64,11 @@ function AlonsoTimeline() {
                 initial="hidden"
                 whileInView="visible">
             </motion.img>
-            <div>
-                <TitleText title={"2006"}/>
-                <TextSection text={"Nando wins again."}/>
-                <TextSection text={"Fernando Alonso and Renault retain both Championship Titles"}/>
-            </div>
         </div>
         <div className='timeline-box'>
             <motion.img
                 src="https://imgresizer.eurosport.com/unsafe/2560x1440/filters:format(jpeg)/origin-imgresizer.eurosport.com/2007/01/15/330800-24100760-2560-1440.jpg"
-                className='img'
+                className='img-2'
                 variants={variant}
                 initial="hidden"
                 whileInView="visible">
@@ -77,6 +79,10 @@ function AlonsoTimeline() {
             </div>
         </div>
         <div className='timeline-box'>
+            <div>
+                <TitleText title={"2008"}/>
+                <TextSection text={"After one season with Mclaren, Alonso rejoins Renault"}/>
+            </div>
             <motion.img
                 src="https://img.rasset.ie/00015759-1600.jpg"
                 className='img'
@@ -84,10 +90,6 @@ function AlonsoTimeline() {
                 initial="hidden"
                 whileInView="visible">
             </motion.img>
-            <div>
-                <TitleText title={"2008"}/>
-                <TextSection text={"After one season with Mclaren, Alonso rejoins Renault"}/>
-            </div>
         </div>
         <div className='timeline-box'>
             <motion.img
@@ -116,17 +118,17 @@ function AlonsoTimeline() {
             </div>
         </div>
         <div className='timeline-box'>
-            <motion.img
-                src="https://i.guim.co.uk/img/media/1bc3558c5b516622e0ce4569d3b823130532c85d/645_506_4010_2406/master/4010.jpg?width=1200&quality=85&auto=format&fit=max&s=4df1514fb37c138202f8267eeee6fdbc"
-                className='img'
-                variants={variant}
-                initial="hidden"
-                whileInView="visible">
-            </motion.img>
             <div>
                 <TitleText title={"2015"}/>
                 <TextSection text={"With Lewis Hamilton moving to Mercedes, Fernando decides to make a return to McLaren"}/>
             </div>
+            <motion.img
+                src="https://i.guim.co.uk/img/media/1bc3558c5b516622e0ce4569d3b823130532c85d/645_506_4010_2406/master/4010.jpg?width=1200&quality=85&auto=format&fit=max&s=4df1514fb37c138202f8267eeee6fdbc"
+                className='img-2'
+                variants={variant}
+                initial="hidden"
+                whileInView="visible">
+            </motion.img>
         </div>
         <div className='timeline-box'>
             <motion.img
@@ -144,7 +146,7 @@ function AlonsoTimeline() {
         <div className='timeline-box'>
             <motion.img
                 src="https://cdn.racingnews365.com/2023/Alonso/_1800x945_crop_center-center_75_none/Alonso-Aston-Martin-Australian-GP-2023.jpg?v=1680269435"
-                className='img'
+                className='img-2'
                 variants={variant}
                 initial="hidden"
                 whileInView="visible">
@@ -154,7 +156,8 @@ function AlonsoTimeline() {
                 <TextSection text={"Fernando joins the Aston Martin challenge. An unexpected force with an underdog mentality"}/>
             </div>
         </div>
-        <TextSection text={"Fernando is still racing at the top level at the fine age of 42. A famous statistic about Nando is that if he had scored 11 more points across his Formula 1 career, he could have been a five-time world champion."}></TextSection>
+        <div className='description-text'>Fernando is still racing at the top level at the fine age of <span style={{fontWeight: 'bold'}}>42</span>. A famous statistic about <span style={{color: "green"}}>Nando</span> is that if he had scored 11 more points across his <span style={{color: "red"}}>Formula 1</span> career, he could have been a five-time world champion.</div>
+        {/* <TextSection text={"Fernando is still racing at the top level at the fine age of 42. A famous statistic about Nando is that if he had scored 11 more points across his Formula 1 career, he could have been a five-time world champion."}></TextSection> */}
     </div>
     );
 }
