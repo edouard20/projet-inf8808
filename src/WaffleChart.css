@@ -1,0 +1,14 @@
+.bar rect {
+    opacity: 0;
+    animation: appear 4s forwards;
+  }
+  
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
