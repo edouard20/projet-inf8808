@@ -22,32 +22,6 @@ function Timeline() {
               <div class="date">Fernando Alonso's first race at the 2001 Australian Grand Prix in a Minardi PS01</div>
             </div>
           </li>
-          
-          {/* <li class="day">
-            <div class="events">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>
-              <div class="date">18 October (Monday)</div>
-            </div>
-          </li>
-          
-          <li class="day">
-            <div class="events">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>
-              <div class="date">18 October (Monday)</div>
-            </div>
-          </li>
-          
-          <li class="day">
-            <div class="events">
-              <div class="day__img">
-                <img src="http://placehold.it/400x300" alt="" />
-                <p class="caption">
-                  Lorem ipsum dolor sit amet.
-                </p>
-              </div>
-              <div class="date">18 October (Monday)</div>
-            </div>
-          </li> */}
         </ul>
         
         <div class="year">
@@ -57,20 +31,6 @@ function Timeline() {
         </div>
 
         <ul class="days">
-          {/* <li class="day">
-            <div class="events">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>
-              <div class="date">18 October (Monday)</div>
-            </div>
-          </li>
-          
-          <li class="day">
-            <div class="events">
-              <p>Lorem dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>
-              <div class="date">18 October (Monday)</div>
-            </div>
-          </li> */}
-          
           <li class="day">
             <div class="events">
               <div class="day__img">
@@ -81,21 +41,6 @@ function Timeline() {
               <div class="date">Fernando Alonso's first win at the 2003 Hungarian Grand Prix</div>
             </div>
           </li>
-          
-          {/* <li class="day">
-            <div class="events">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>
-              <div class="date">18 October (Monday)</div>
-            </div>
-          </li>
-          
-          <li class="day">
-            <div class="events">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>
-              <div class="date">18 October (Monday)</div>
-            </div>
-          </li>
-           */}
         </ul>
         <div class="year">
           <div class="inner">

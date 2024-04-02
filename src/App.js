@@ -5,11 +5,10 @@ import TitleText from './TitleText';
 import TextSection from "./TextSection";
 import ImageAnimation from "./ImageAnimation";
 import data from './texts.json';
-import Timeline from './TimelineComponent';
+import AlonsoTimeline from './AlonsoTimeline';
 
 function App() {
-
-  const visualizations = [<TextSection/>, <TextSection/>, <TextSection/>, <TextSection/>, <TextSection/>] // Add visualizations here
+  
   const items = data.texts;
   return (
     <>
@@ -39,18 +38,11 @@ function App() {
         <TextSection text={items[2]}/>
       </div>
 
-      <TitleText title={"Aged like Fine Wine: The Timeless Veterans of the Sport"}/>
-      {/* <div className='images-box'>
-          <ImageAnimation img={"https://msmproduction.s3-eu-west-1.amazonaws.com/s3fs-public/2005brazil_1.jpg"} delay={0.5} duration={0.8}></ImageAnimation>
-          <ImageAnimation img={"https://www.gala.fr/imgre/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fprismamedia_people.2F2017.2F06.2F30.2Fbc10d992-7658-4170-81aa-d06e07a6d01a.2Ejpeg/2048x1536/quality/80/fernando-alonso.jpeg"} delay={1.5} duration={1.5} ></ImageAnimation>
-          <ImageAnimation img={"https://cdn-9.motorsport.com/images/amp/0ZRKor80/s1000/fernando-alonso-aston-martin-a.jpg"} delay={2.5} duration={2.5} ></ImageAnimation>
-          <ImageAnimation img={"https://nypost.com/wp-content/uploads/sites/2/2023/04/alonso-.jpg"} delay={2.5} duration={2.5} ></ImageAnimation>
-          <ImageAnimation img={"https://dicodusport.fr/blog/wp-content/uploads/2020/05/Vid%C3%A9o-Les-meilleurs-moments-de-Fernando-Alonso-en-F1.png"} delay={2.5} duration={2.5} ></ImageAnimation> 
-      </div> */}
-      <Timeline></Timeline>
+      <TitleText title={"Aging like Fine Wine: The Timeless Veterans of the Sport"}/>
       <div className="text-section">
         <TextSection text={items[3]}/>
       </div>
+      <AlonsoTimeline></AlonsoTimeline>
 
       <TitleText title={"The Dynamics of Competition: Analyzing Position Shifts in Races"}/>
       <div className="text-section">
