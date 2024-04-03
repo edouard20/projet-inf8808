@@ -6,6 +6,8 @@ import TextSection from "./TextSection";
 import ImageAnimation from "./ImageAnimation";
 import data from './texts.json';
 import './App.css';
+import ParallaxText from './ParallaxText';
+
 
 // will modifiy this to a call from the preprocessing
 const nationality_data = [
@@ -84,7 +86,9 @@ function App() {
         <TextSection text={items[1]}/>
         <WaffleChart data={waffle_data} />
       </div>
-
+        <ParallaxText baseVelocity={-5}> 
+          <img src="f1car.png" alt="F1 car" width="300" height="200"/>
+        </ParallaxText>
       <TitleText title={"Iconic Circuits: The Heartbeat of Formula 1"}/>
       <div className="text-section">
         <TextSection text={items[2]}/>
