@@ -44,6 +44,12 @@ function WaffleChart({ data }) {
         .domain([0, d3.max(data, d => d.count)])
         .range([innerHeight, 0]);
 
+        const customColors = ['#012169', '#BF0A30', '#027339', '#005CA8', '#edbe02', '#92D050'];
+
+        const colorScale = d3.scaleOrdinal()
+          .domain(data.map(d => d.nationality))
+          .range(customColors);
+
       const flagWidth = 30;
       const flagHeight = 30;
 
@@ -100,13 +106,13 @@ function WaffleChart({ data }) {
           // }
         })
         .selectAll("rect")
-        .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
-        .enter().append("rect")
+        .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j, nationality: d.nationality }))))
+        .enter().append("rect")        
         .attr("x", (_, i) => (i % 5) * 15)
         .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11) 
         .attr("width", 12)
         .attr("height", 12)
-        .attr("fill", "#f82630");
+        .attr("fill", d => colorScale(d.nationality));
 
       svg.selectAll(".nationality-label")
         .data(data)
