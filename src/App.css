@@ -44,9 +44,7 @@ body {
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1.2;
-  text-align: center;
   margin: 100px 0 40px;
-  color: #fff;
 }
 
 .card {
@@ -62,11 +60,6 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #333;
 }
-/* 
-.card:nth-child(odd) {
-  align-self: flex-end;
-  background-color: #120443;
-} */
 
 .App-title {
   min-height: 20vh;
@@ -102,10 +95,36 @@ body {
   margin: 6em;
 }
 
+.img-3 {
+  /* width: 400px;
+  height: 400px; */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .img {
   width: 400px;
   height: 400px;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.img-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 50%;
+  /* width: 400px;
+  height: 400px; */
+  border: 2px solid #ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .images-box {
@@ -162,3 +181,23 @@ body {
   height: 600px;
   width: 600px;
   }
+.timeline-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2em;
+}
+
+.description-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #fff;
+  text-align: center;
+  margin: 40px;
+}
+
+.img-2{
+  width: 600px;
+  height: 400px;
+  border-radius: 20%;
+}

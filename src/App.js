@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import WaffleChart from './WaffleChart.js';
 import ProgressBar from './ProgressBar';
 import TitleText from './TitleText';
 import TextSection from "./TextSection";
 import ImageAnimation from "./ImageAnimation";
 import data from './texts.json';
+import AlonsoTimeline from './AlonsoTimeline';
 import './App.css';
 import ParallaxText from './ParallaxText';
 
@@ -60,27 +61,6 @@ const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
 });
 
 function App() {
-  // const [isVisFixed, setIsVisFixed] = useState(true); // State to control the position of the vis element
-
-  // const handleScroll = () => {
-  //   // Check if the scroll position reaches a certain threshold to determine whether to fix the vis element
-  //   const scrollPosition = window.scrollY;
-  //   if (scrollPosition > 600 && scrollPosition < 800) {
-  //     setIsVisFixed(false);
-  //   } else {
-  //     setIsVisFixed(true);
-  //   }
-  // };
-
-  // // Add scroll event listener to track scroll position
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
-
-  const visualizations = [<TextSection/>, <TextSection/>, <TextSection/>, <TextSection/>, <TextSection/>] // Add visualizations here
   const items = data.texts;
   return (
     <>
@@ -95,9 +75,9 @@ function App() {
       </div>
 
       <div className='images-box'>
-          <ImageAnimation img={"https://cdn-4.motorsport.com/images/amp/0qAWQR80/s1000/formula-1-argentinian-gp-1981--2.jpg"} delay={0.5} duration={0.8}></ImageAnimation>
-          <ImageAnimation img={"https://cdn.ferrari.com/cms/network/media/img/resize/5e33f7f70bd18308db1a854b-ferrari-scuderia-1991-alesi-prost-cover-mob?width=768&height=1024"} delay={1.5} duration={1.5} ></ImageAnimation>
-          <ImageAnimation img={"https://www.creditplus.co.uk/media/6839/history-of-ferrari-in-f1-pit-stop.jpg"} delay={2.5} duration={2.5} ></ImageAnimation>
+          <ImageAnimation img={"https://cdn-4.motorsport.com/images/amp/0qAWQR80/s1000/formula-1-argentinian-gp-1981--2.jpg"} description={"Gilles Villeneuve in his Ferrari 126C at the 1981 Argentinian Grand Prix"} delay={0.5} duration={0.8} height={'307px'} width={'500px'}></ImageAnimation>
+          <ImageAnimation img={"https://cdn.ferrari.com/cms/network/media/img/resize/5e33f7f70bd18308db1a854b-ferrari-scuderia-1991-alesi-prost-cover-mob?width=768&height=1024"} description= {"Scuderia Ferrari 1981, Jean Alesi and Alain Prost"}delay={1.5} duration={1.5} height={'500px'} width={'350px'}></ImageAnimation>
+          <ImageAnimation img={"https://www.creditplus.co.uk/media/6839/history-of-ferrari-in-f1-pit-stop.jpg"} delay={2.5} duration={2.5} height={'307px'} width={'500px'}></ImageAnimation>
       </div>
 
       <TitleText title={"Racing Giants: The Dominant Nations of the Sport"}/>
@@ -105,7 +85,6 @@ function App() {
         <TextSection text={items[1]}/>
 
         <div id='vis' >
-        {/* style={{ position: isVisFixed ? 'static' : 'fixed' }} */}
           <WaffleChart data={waffle_data} />
         </div>
 
@@ -120,17 +99,16 @@ function App() {
         <TextSection text={items[2]}/>
       </div>
 
-      <TitleText title={"Aged like Fine Wine: The Timeless Veterans of the Sport"}/>
+      <TitleText title={"Aging like Fine Wine: The Timeless Veterans of the Sport"}/>
       <div className="text-section">
         <TextSection text={items[3]}/>
       </div>
+      <AlonsoTimeline></AlonsoTimeline>
 
       <TitleText title={"The Dynamics of Competition: Analyzing Position Shifts in Races"}/>
       <div className="text-section">
         <TextSection text={items[4]}/>
       </div>
-
-      <script src="scroller.js"></script>
     </>
 )};
 
