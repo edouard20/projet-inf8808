@@ -139,3 +139,26 @@ body {
   display: block;
   margin-right: 30px;
 }
+
+#sections {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  top: 0px;
+  z-index: 90;
+  }
+  
+  .step {
+  margin-bottom: 200px;
+  }
+  
+  #vis {
+  display: inline-block;
+  position: static;
+  top: 60px;
+  z-index: 1;
+  margin-left: 0;
+  
+  height: 600px;
+  width: 600px;
+  }

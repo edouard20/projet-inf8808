@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import WaffleChart from './WaffleChart.js';
 import ProgressBar from './ProgressBar';
 import TitleText from './TitleText';
@@ -60,6 +60,25 @@ const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
 });
 
 function App() {
+  // const [isVisFixed, setIsVisFixed] = useState(true); // State to control the position of the vis element
+
+  // const handleScroll = () => {
+  //   // Check if the scroll position reaches a certain threshold to determine whether to fix the vis element
+  //   const scrollPosition = window.scrollY;
+  //   if (scrollPosition > 600 && scrollPosition < 800) {
+  //     setIsVisFixed(false);
+  //   } else {
+  //     setIsVisFixed(true);
+  //   }
+  // };
+
+  // // Add scroll event listener to track scroll position
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   const visualizations = [<TextSection/>, <TextSection/>, <TextSection/>, <TextSection/>, <TextSection/>] // Add visualizations here
   const items = data.texts;
@@ -84,11 +103,29 @@ function App() {
       <TitleText title={"Racing Giants: The Dominant Nations of the Sport"}/>
       <div className="text-section">
         <TextSection text={items[1]}/>
-        <WaffleChart data={waffle_data} />
+
+        <div id='sections'>
+          <section className="step">
+            <div className="title">OpenVis Conf 2013</div>
+              I did what no presenter should ever do: I watched my own talk...
+          </section>
+          <section className="step">
+            <div className="title">OpenVis Conf 2022</div>
+              I did what no presenter should ever do: I watched my own talk lol...
+          </section>
+        </div>
+
+        <div id='vis' >
+        {/* style={{ position: isVisFixed ? 'static' : 'fixed' }} */}
+          <WaffleChart data={waffle_data} />
+        </div>
+
       </div>
-        <ParallaxText baseVelocity={-5}> 
-          <img src="f1car.png" alt="F1 car" width="300" height="200"/>
-        </ParallaxText>
+
+      <ParallaxText baseVelocity={-5}> 
+        <img src="f1car.png" alt="F1 car" width="300" height="200"/>
+      </ParallaxText>
+
       <TitleText title={"Iconic Circuits: The Heartbeat of Formula 1"}/>
       <div className="text-section">
         <TextSection text={items[2]}/>
@@ -104,7 +141,7 @@ function App() {
         <TextSection text={items[4]}/>
       </div>
 
-
+      <script src="scroller.js"></script>
     </>
 )};
 
