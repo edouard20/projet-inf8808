@@ -58,7 +58,6 @@ function WaffleChart({ data }) {
           const flag = `/flags/${nationality}.png`
           d3.select(this)
             .selectAll("rect")
-            .attr("fill", "#2515ff")
             .attr("width", 16)
             .attr("height", 16)
             .attr("x", (_, i) => (i % 5) * 15 - 2)
@@ -90,7 +89,6 @@ function WaffleChart({ data }) {
           // if (!isMouseOverCountOrFlag) {
           d3.select(this)
             .selectAll("rect")
-            .attr("fill", "blue")
             .attr("width", 12)
             .attr("height", 12)
             .attr("x", (_, i) => (i % 5) * 15)
@@ -108,7 +106,7 @@ function WaffleChart({ data }) {
         .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11) 
         .attr("width", 12)
         .attr("height", 12)
-        .attr("fill", "blue");
+        .attr("fill", "#f82630");
 
       svg.selectAll(".nationality-label")
         .data(data)
