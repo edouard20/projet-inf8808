@@ -104,17 +104,6 @@ function App() {
       <div className="text-section">
         <TextSection text={items[1]}/>
 
-        <div id='sections'>
-          <section className="step">
-            <div className="title">OpenVis Conf 2013</div>
-              I did what no presenter should ever do: I watched my own talk...
-          </section>
-          <section className="step">
-            <div className="title">OpenVis Conf 2022</div>
-              I did what no presenter should ever do: I watched my own talk lol...
-          </section>
-        </div>
-
         <div id='vis' >
         {/* style={{ position: isVisFixed ? 'static' : 'fixed' }} */}
           <WaffleChart data={waffle_data} />
