@@ -2,7 +2,7 @@ import "./App.css";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-function TitleText({title}) {
+function TitleText({title, color}) {
   const text = title.split(" ");
   const controls = useAnimation();
   const ref = useRef(null);
@@ -18,6 +18,7 @@ function TitleText({title}) {
     <div className="introduction-text" ref={ref}>
       {text.map((el, i) => (
         <motion.span
+          style={{color: color != null ? color : '#FFFF'}}
           whileInView={{ opacity: 1.5 }}
           initial="hidden"
           animate={controls}

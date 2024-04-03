@@ -2,7 +2,7 @@ import "./App.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-function ImageAnimation({img, description, delay, duration}) {
+function ImageAnimation({img, description, delay, duration, width, height}) {
 
     const [isFlipped, setIsFlipped] = useState(true);
     const [isAnimating, setIsAnimating] = useState(false);
@@ -29,7 +29,7 @@ function ImageAnimation({img, description, delay, duration}) {
                 animate={{rotateY: isFlipped ? 0: 360}}
                 transition={{duration: 1, animationDirection: "normal"}}
                 onAnimationComplete={() => setIsAnimating(false)}>
-                    {isFlipped ? <img src={img} className="img"></img> : description != null ? <div className="img-text">{description}</div> : <img src={img} className="img"></img>}
+                    {isFlipped ? <img src={img} className="img-3" style={{width: width, height: height}}></img> : description != null ? <div className="img-text" style={{width: width, height: height}}>{description}</div> : <img src={img} style={{width: width, height: height}} className="img-3"></img>}
             </motion.div>
         </div> 
     </motion.div>
