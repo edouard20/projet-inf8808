@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import WaffleChart from './WaffleChart.js';
 import ProgressBar from './ProgressBar';
 import TitleText from './TitleText';
@@ -8,7 +8,7 @@ import data from './texts.json';
 import AlonsoTimeline from './AlonsoTimeline';
 import './App.css';
 import ParallaxText from './ParallaxText';
-
+import { useInView } from 'framer-motion';
 
 // will modifiy this to a call from the preprocessing
 const nationality_data = [
@@ -62,6 +62,9 @@ const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
 
 function App() {
   const items = data.texts;
+  const textRef = useRef();
+  const textInView = useInView(textRef);
+
   return (
     <>
       <ProgressBar/>
@@ -82,12 +85,23 @@ function App() {
 
       <TitleText title={"Racing Giants: The Dominant Nations of the Sport"}/>
       <div className="text-section">
-        <TextSection text={items[1]}/>
-
-        <div id='vis' >
-          <WaffleChart data={waffle_data} />
+        <TextSection text={items[1]} />
+      </div>
+      <div className="container">
+        <div className={`text-container ${textInView ? 'in-view' : ''}`} ref={textRef}>
+          <div className='subtext'>Fact 1</div>
+          <div className='subtext'>Fact 2</div>
+          <div className='subtext'>Fact 3</div>
+          <div className='subtext'>Fact 4</div>
+          <div className='subtext'>Fact 5</div>
+          <div className='subtext'>Fact 6</div>
+          <div className='subtext'>Fact 7</div>
         </div>
-
+        {textInView && (
+          <div className="chart-container">
+            <WaffleChart data={waffle_data} />
+          </div>
+        )}
       </div>
 
       <ParallaxText baseVelocity={-5}> 

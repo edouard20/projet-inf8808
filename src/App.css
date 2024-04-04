@@ -201,3 +201,30 @@ body {
   height: 400px;
   border-radius: 20%;
 }
+
+.container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.text-container {
+  width: 50%; 
+}
+
+.chart-container {
+  position: sticky;
+  top: 50px;
+  width: 50%; 
+}
+
+.in-view .chart-container {
+  position: static;
+}
+
+.subtext {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 400px;
+}
