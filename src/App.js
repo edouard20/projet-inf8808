@@ -92,7 +92,7 @@ function App() {
         <div className={`text-container ${textInView ? 'in-view' : ''}`} ref={textRef}>
           <div className='subtext'>The visualization on the left shows the 6 nationalities with more than 25 drivers.</div>
           <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
-          <div className='subtext'>Hover on the bars to see the exact driver count.</div>
+          <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
           <div className='subtext'>Thing 4</div>
           <div className='subtext'>Thing 5</div>
           <div className='subtext'>Thing 6</div>
