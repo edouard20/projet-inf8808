@@ -222,9 +222,13 @@ body {
 }
 
 .subtext {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
+  font-size: 20px;
+  font-weight: 'normal';
   color: #fff;
   text-align: center;
-  margin-bottom: 400px;
+  margin-top: 275px;
+  margin-bottom: 650px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
+
