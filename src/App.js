@@ -118,10 +118,7 @@ function App() {
           <div className='subtext'>The visualization on the left shows the 6 nationalities with more than 25 drivers.</div>
           <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
           <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
-          <div className='subtext' ref={waffleWinnersRef}>Thing 4</div>
-          <div className='subtext'>Thing 5</div>
-          <div className='subtext'>Thing 6</div>
-          <div className='subtext'>Thing 7</div>
+          <div className='subtext' ref={waffleWinnersRef}>These are the winners per nationality! Hover to see more info!</div>
         </div>
         {waffleTextInView && !waffleWinnersInView && (
           <div className="chart-container">
