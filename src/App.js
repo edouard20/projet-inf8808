@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import WaffleChart from './WaffleChart.js';
 import ProgressBar from './ProgressBar';
 import TitleText from './TitleText';
@@ -7,6 +7,9 @@ import ImageAnimation from "./ImageAnimation";
 import data from './texts.json';
 import AlonsoTimeline from './AlonsoTimeline';
 import './App.css';
+import ParallaxText from './ParallaxText';
+import { useInView } from 'framer-motion';
+import Square from './Square.js';
 
 // will modifiy this to a call from the preprocessing
 const nationality_data = [
@@ -60,6 +63,9 @@ const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
 
 function App() {
   const items = data.texts;
+  const textRef = useRef();
+  const textInView = useInView(textRef);
+
   return (
     <>
       <ProgressBar/>
@@ -80,9 +86,28 @@ function App() {
 
       <TitleText title={"Racing Giants: The Dominant Nations of the Sport"}/>
       <div className="text-section">
-        <TextSection text={items[1]}/>
-        <WaffleChart data={waffle_data} />
+        <TextSection text={items[1]} />
       </div>
+      <div className="container">
+        <div className={`text-container ${textInView ? 'in-view' : ''}`} ref={textRef}>
+          <div className='subtext'>The visualization on the left shows the 6 nationalities with more than 25 drivers.</div>
+          <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
+          <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
+          <div className='subtext'>Thing 4</div>
+          <div className='subtext'>Thing 5</div>
+          <div className='subtext'>Thing 6</div>
+          <div className='subtext'>Thing 7</div>
+        </div>
+        {textInView && (
+          <div className="chart-container">
+            <WaffleChart data={waffle_data} />
+          </div>
+        )}
+      </div>
+
+      <ParallaxText baseVelocity={-5}> 
+        <img src="f1car.png" alt="F1 car" width="300" height="200"/>
+      </ParallaxText>
 
       <TitleText title={"Iconic Circuits: The Heartbeat of Formula 1"}/>
       <div className="text-section">

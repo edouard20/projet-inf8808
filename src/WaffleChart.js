@@ -44,21 +44,28 @@ function WaffleChart({ data }) {
         .domain([0, d3.max(data, d => d.count)])
         .range([innerHeight, 0]);
 
+      const customColors = ['#012169', '#BF0A30', '#027339', '#005CA8', '#edbe02', '#92D050'];
+
+      const colorScale = d3.scaleOrdinal()
+        .domain(data.map(d => d.nationality))
+        .range(customColors);
+
       const flagWidth = 30;
       const flagHeight = 30;
 
       svg.selectAll("g.bar")
         .data(data)
-        .enter().append("g")
+        .enter()
+        .append("g")
         .attr("class", "bar")
-        .attr("transform", d => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`)
-        .on("mouseover", function(_, data) {
+        .attr("transform", (d) => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`)
+        .on("mouseover", function (_, data) {
           const count = data.count;
           const nationality = data.nationality;
-          const flag = `/flags/${nationality}.png`
+          const flag = `/flags/${nationality}.png`;
+
           d3.select(this)
             .selectAll("rect")
-            .attr("fill", "#2515ff")
             .attr("width", 16)
             .attr("height", 16)
             .attr("x", (_, i) => (i % 5) * 15 - 2)
@@ -82,45 +89,70 @@ function WaffleChart({ data }) {
             .attr("height", flagHeight);
 
           svg.selectAll(".nationality-label")
-            .filter(d => d === data)
+            .filter((d) => d === data)
             .attr("font-weight", "bold");
         })
-        .on("mouseout", function() {
-          // const isMouseOverCountOrFlag = svg.select(".count-label").node() || svg.select(".flag-image").node();
-          // if (!isMouseOverCountOrFlag) {
-          d3.select(this)
-            .selectAll("rect")
-            .attr("fill", "blue")
-            .attr("width", 12)
-            .attr("height", 12)
-            .attr("x", (_, i) => (i % 5) * 15)
-            .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11);
-          svg.select(".count-label").remove();
-          svg.select(".flag-image").remove();
-          svg.selectAll(".nationality-label")
-            .attr("font-weight", "normal");
-          // }
+        .on("mouseout", function (event) {
+          let isMouseOverCount = false;
+          let isMouseOverFlag = false;
+
+          if (svg.select(".count-label").node()) {
+            const countElement = svg.select(".count-label").node();
+            const isMouseOverCountX = event.clientX >= countElement.getBoundingClientRect().left &&
+                                      event.clientX <= countElement.getBoundingClientRect().right;
+            const isMouseOverCountY = event.clientY >= countElement.getBoundingClientRect().top &&
+                                      event.clientY <= countElement.getBoundingClientRect().bottom;
+            isMouseOverCount = isMouseOverCountX && isMouseOverCountY;
+          }
+        
+          // check if mouse is over the flag 
+          if (svg.select(".flag-image").node()) {
+            const flagElement = svg.select(".flag-image").node();
+            const isMouseOverFlagX = event.clientX >= flagElement.getBoundingClientRect().left &&
+                                      event.clientX <= flagElement.getBoundingClientRect().right;
+            const isMouseOverFlagY = event.clientY >= flagElement.getBoundingClientRect().top &&
+                                      event.clientY <= flagElement.getBoundingClientRect().bottom;
+            isMouseOverFlag = isMouseOverFlagX && isMouseOverFlagY;
+          }
+        
+          if (!isMouseOverCount && !isMouseOverFlag) {
+            d3.select(this)
+              .selectAll("rect")
+              .attr("width", 12)
+              .attr("height", 12)
+              .attr("x", (_, i) => (i % 5) * 15)
+              .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11);
+              
+            svg.selectAll(".count-label").remove();
+            svg.selectAll(".flag-image").remove();
+            svg.selectAll(".nationality-label").attr("font-weight", "normal");
+          }
         })
         .selectAll("rect")
-        .data(d => Array.from({ length: Math.ceil(d.count / 5) }).flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) }).map((_, j) => ({ index: i * 5 + j }))))
-        .enter().append("rect")
+        .data((d) => Array.from({ length: Math.ceil(d.count / 5) })
+          .flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) })
+          .map((_, j) => ({ index: i * 5 + j, nationality: d.nationality }))
+          )
+        )
+        .enter()
+        .append("rect")
         .attr("x", (_, i) => (i % 5) * 15)
-        .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11) 
+        .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11)
         .attr("width", 12)
         .attr("height", 12)
-        .attr("fill", "blue");
+        .attr("fill", (d) => colorScale(d.nationality));
 
       svg.selectAll(".nationality-label")
         .data(data)
-        .enter().append("text")
+        .enter()
+        .append("text")
         .attr("class", "nationality-label")
         .text(d => d.nationality)
         .attr("x", d => x(d.nationality) + x.bandwidth() / 2 + 10)
         .attr("y", height - 35) 
         .attr("text-anchor", "middle")
         .attr("fill", "white")
-        .style("font-size", "15px")
-        ;
+        .style("font-size", "15px");
 
       const yAxis = d3.axisLeft(y);
       svg.append("g")
