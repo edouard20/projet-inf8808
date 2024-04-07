@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import WaffleChart from './WaffleChart.js';
 import ProgressBar from './ProgressBar';
 import TitleText from './TitleText';
@@ -61,10 +61,35 @@ const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
   return { nationality: item[0], count: item[1] };
 });
 
+const modified_data = waffle_data.map(item => ({
+  nationality: item.nationality,
+  count: item.count / 2
+}));
+
 function App() {
   const items = data.texts;
-  const textRef = useRef();
-  const textInView = useInView(textRef);
+
+  const waffleTextRef = useRef();
+  const waffleTextInView = useInView(waffleTextRef);
+
+  const waffleWinnersRef = useRef(null);
+  const [waffleWinnersInView, setWaffleWinnersInView] = useState(false);
+
+  useEffect(() => {
+    if (waffleWinnersRef.current) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          setWaffleWinnersInView(entry.isIntersecting);
+        });
+      }, { threshold: 0.5 });
+  
+      observer.observe(waffleWinnersRef.current);
+  
+      return () => {
+        observer.unobserve(waffleWinnersRef.current);
+      };
+    }
+  }, [waffleWinnersRef]);
 
   return (
     <>
@@ -89,18 +114,23 @@ function App() {
         <TextSection text={items[1]} />
       </div>
       <div className="container">
-        <div className={`text-container ${textInView ? 'in-view' : ''}`} ref={textRef}>
+        <div className={`text-container ${waffleTextInView ? 'in-view' : ''}`} ref={waffleTextRef}>
           <div className='subtext'>The visualization on the left shows the 6 nationalities with more than 25 drivers.</div>
           <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
           <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
-          <div className='subtext'>Thing 4</div>
+          <div className='subtext' ref={waffleWinnersRef}>Thing 4</div>
           <div className='subtext'>Thing 5</div>
           <div className='subtext'>Thing 6</div>
           <div className='subtext'>Thing 7</div>
         </div>
-        {textInView && (
+        {waffleTextInView && !waffleWinnersInView && (
           <div className="chart-container">
             <WaffleChart data={waffle_data} />
+          </div>
+        )}
+        {waffleTextInView && waffleWinnersInView && (
+          <div className="chart-container">
+            <WaffleChart data={modified_data} />
           </div>
         )}
       </div>
