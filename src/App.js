@@ -57,14 +57,28 @@ const nationality_data = [
   [ 'Chinese', 1 ]
 ]
 
-const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
+const winner_data =[
+  [ 'British', 20 ],   [ 'Italian', 15 ],
+  [ 'American', 15 ],  [ 'French', 14 ],
+  [ 'German', 7 ],     [ 'Brazilian', 6 ],
+  [ 'Finnish', 5 ],    [ 'Australian', 4 ],
+  [ 'Austrian', 3 ],   [ 'Argentine', 3 ],
+  [ 'Swedish', 3 ],    [ 'Spanish', 2 ],
+  [ 'Canadian', 2 ],   [ 'Belgian', 2 ],
+  [ 'Swiss', 2 ],      [ 'New Zealander', 2 ],
+  [ 'Mexican', 2 ],    [ 'Polish', 1 ],
+  [ 'Colombian', 1 ],  [ 'South African', 1 ],
+  [ 'Venezuelan', 1 ], [ 'Dutch', 1 ],
+  [ 'Monegasque', 1 ]
+]
+
+const w_data = winner_data.map(item => {
   return { nationality: item[0], count: item[1] };
 });
 
-const modified_data = waffle_data.map(item => ({
-  nationality: item.nationality,
-  count: item.count / 2
-}));
+const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
+  return { nationality: item[0], count: item[1] };
+});
 
 function App() {
   const items = data.texts;
@@ -124,7 +138,7 @@ function App() {
           <div className='subtext'>The visualization on the left shows the 6 nationalities with more than 25 drivers.</div>
           <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
           <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
-          <div className='subtext' ref={waffleWinnersRef}>These are the winners per nationality! Hover to see more info!</div>
+          <div className='subtext' ref={waffleWinnersRef}>These are the winners per nationality!</div>
           <div className='subtext' ref={waffleWinnersRef2}></div>
         </div>
         {waffleTextInView && !waffleWinnersInView && (
@@ -134,7 +148,7 @@ function App() {
         )}
         {waffleWinnersInView && waffleWinnersInView2 && (
           <div className="chart-container">
-            <WaffleChart data={modified_data} />
+            <WaffleChart data={waffle_data} winner_data={w_data}/>
           </div>
         )}
       </div>

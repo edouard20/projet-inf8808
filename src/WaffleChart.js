@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import './WaffleChart.css';
 
-function WaffleChart({ data }) {
+function WaffleChart({ data, winner_data=[] }) {
   const d3Container = useRef(null);
 
   useEffect(() => {
@@ -129,10 +129,25 @@ function WaffleChart({ data }) {
           }
         })
         .selectAll("rect")
-        .data((d) => Array.from({ length: Math.ceil(d.count / 5) })
+        .data((d) => {
+          const cubes = Array.from({ length: Math.ceil(d.count / 5) })
           .flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) })
           .map((_, j) => ({ index: i * 5 + j, nationality: d.nationality }))
           )
+          cubes.forEach((cube, index) => {
+            if (winner_data.length > 0) {
+              for (let i = 0; i < winner_data.length; i++) {
+                if (winner_data[i].nationality === d.nationality) {
+                  cube.fill = index < winner_data[i].count ? colorScale(d.nationality) : "grey";
+                }
+              }
+            }
+            else {
+              cube.fill = colorScale(d.nationality);
+            }
+          });
+          return cubes;
+        }
         )
         .enter()
         .append("rect")
@@ -140,7 +155,7 @@ function WaffleChart({ data }) {
         .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11)
         .attr("width", 12)
         .attr("height", 12)
-        .attr("fill", (d) => colorScale(d.nationality));
+        .attr("fill", (d) => d.fill);
 
       svg.selectAll(".nationality-label")
         .data(data)
