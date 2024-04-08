@@ -71,6 +71,7 @@ function WaffleChart({ data, winner_data=[] }) {
             count = winner ? winner.count : data.count;
             yLabel = y(count) + margin.top - 50;
             yFlag = y(count) + margin.top - 40;
+            count = (count / data.count * 100).toFixed(2) + "%";
           } else {
             count = data.count;
             yLabel = y(count) + margin.top + 40;

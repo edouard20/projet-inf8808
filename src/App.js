@@ -72,10 +72,10 @@ function App() {
       </div>
       <div className="container">
         <div className={`text-container ${waffleTextInView ? 'in-view' : ''}`} ref={waffleTextRef}>
-          <div className='subtext'>The visualization on the left shows the 6 nationalities with more than 25 drivers.</div>
+          <div className='subtext'>The visualization on the right shows the 6 nationalities with more than 25 drivers.</div>
           <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
           <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
-          <div className='subtext' ref={waffleWinnersRef}>These are the winners per nationality!</div>
+          <div className='subtext' ref={waffleWinnersRef}>Now you can see the percentage of winners. <br></br>Not that much!</div>
           <div className='subtext' ref={waffleWinnersRef2}></div>
         </div>
         {waffleTextInView && !waffleWinnersInView && (
