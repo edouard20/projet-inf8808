@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import WaffleChart from './WaffleChart.js';
 import ProgressBar from './ProgressBar';
 import TitleText from './TitleText';
@@ -10,61 +10,43 @@ import './App.css';
 import ParallaxText from './ParallaxText';
 import { useInView } from 'framer-motion';
 import Square from './Square.js';
+import preprocessDrivers from './waffle_preprocess/waffle_preprocess.js';
+import driversData from './waffle_preprocess/drivers.json';
+import standingsData from './waffle_preprocess/results.json';
 
-// will modifiy this to a call from the preprocessing
-const nationality_data = [
-  [ 'British', 165 ],
-  [ 'American', 158 ],
-  [ 'Italian', 99 ],
-  [ 'French', 73 ],
-  [ 'German', 50 ],
-  [ 'Brazilian', 32 ],
-  [ 'Argentine', 24 ],
-  [ 'Swiss', 23 ],
-  [ 'Belgian', 23 ],
-  [ 'South African', 23 ],
-  [ 'Japanese', 20 ],
-  [ 'Australian', 18 ],
-  [ 'Dutch', 18 ],
-  [ 'Spanish', 15 ],
-  [ 'Austrian', 15 ],
-  [ 'Canadian', 14 ],
-  [ 'Swedish', 10 ],
-  [ 'Finnish', 9 ],
-  [ 'New Zealander', 9 ],
-  [ 'Mexican', 6 ],
-  [ 'Irish', 5 ],
-  [ 'Danish', 5 ],
-  [ 'Portuguese', 4 ],
-  [ 'Monegasque', 4 ],
-  [ 'Rhodesian', 4 ],
-  [ 'Uruguayan', 4 ],
-  [ 'Russian', 4 ],
-  [ 'Colombian', 3 ],
-  [ 'Venezuelan', 3 ],
-  [ 'East German', 3 ],
-  [ 'Indian', 2 ],
-  [ 'Thai', 2 ],
-  [ 'Polish', 1 ],
-  [ 'Hungarian', 1 ],
-  [ 'Czech', 1 ],
-  [ 'Malaysian', 1 ],
-  [ 'Chilean', 1 ],
-  [ 'Liechtensteiner', 1 ],
-  [ 'American-Italian', 1 ],
-  [ 'Argentine-Italian', 1 ],
-  [ 'Indonesian', 1 ],
-  [ 'Chinese', 1 ]
-]
-
-const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
-  return { nationality: item[0], count: item[1] };
-});
+const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
+const {waffle_data, winner_data} = preprocessDrivers(driversData, columnsToDropDrivers, standingsData);
 
 function App() {
   const items = data.texts;
-  const textRef = useRef();
-  const textInView = useInView(textRef);
+
+  const waffleTextRef = useRef();
+  const waffleTextInView = useInView(waffleTextRef);
+
+  const waffleWinnersRef = useRef(null);
+  const [waffleWinnersInView, setWaffleWinnersInView] = useState(false);
+
+  const waffleWinnersRef2 = useRef(null);
+  const [waffleWinnersInView2, setWaffleWinnersInView2] = useState(false);
+
+  useEffect(() => {
+    if (waffleWinnersRef.current) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          setWaffleWinnersInView(entry.isIntersecting);
+          setWaffleWinnersInView2(entry.isIntersecting);
+        });
+      }, { threshold: 0.5 });
+  
+      observer.observe(waffleWinnersRef.current);
+      observer.observe(waffleWinnersRef2.current);
+  
+      return () => {
+        observer.unobserve(waffleWinnersRef.current);
+        observer.unobserve(waffleWinnersRef2.current);
+      };
+    }
+  }, [waffleWinnersRef, waffleWinnersRef2]);
 
   return (
     <>
@@ -89,18 +71,21 @@ function App() {
         <TextSection text={items[1]} />
       </div>
       <div className="container">
-        <div className={`text-container ${textInView ? 'in-view' : ''}`} ref={textRef}>
-          <div className='subtext'>The visualization on the left shows the 6 nationalities with more than 25 drivers.</div>
+        <div className={`text-container ${waffleTextInView ? 'in-view' : ''}`} ref={waffleTextRef}>
+          <div className='subtext'>The visualization on the right shows the 6 nationalities with more than 25 drivers.</div>
           <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
           <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
-          <div className='subtext'>Thing 4</div>
-          <div className='subtext'>Thing 5</div>
-          <div className='subtext'>Thing 6</div>
-          <div className='subtext'>Thing 7</div>
+          <div className='subtext' ref={waffleWinnersRef}>Now you can see the percentage of winners. <br></br>Not that much!</div>
+          <div className='subtext' ref={waffleWinnersRef2}></div>
         </div>
-        {textInView && (
+        {waffleTextInView && !waffleWinnersInView && (
           <div className="chart-container">
-            <WaffleChart data={waffle_data} />
+            <WaffleChart data={waffle_data}/>
+          </div>
+        )}
+        {waffleWinnersInView && waffleWinnersInView2 && (
+          <div className="chart-container">
+            <WaffleChart data={waffle_data} winner_data={winner_data}/>
           </div>
         )}
       </div>

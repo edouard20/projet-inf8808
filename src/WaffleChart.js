@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import './WaffleChart.css';
 
-function WaffleChart({ data }) {
+function WaffleChart({ data, winner_data=[] }) {
   const d3Container = useRef(null);
 
   useEffect(() => {
@@ -60,9 +60,23 @@ function WaffleChart({ data }) {
         .attr("class", "bar")
         .attr("transform", (d) => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`)
         .on("mouseover", function (_, data) {
-          const count = data.count;
+          let count;
+          let yFlag;
+          let yLabel;
           const nationality = data.nationality;
           const flag = `/flags/${nationality}.png`;
+
+          if (winner_data.length > 0) {
+            const winner = winner_data.find(winner => winner.nationality === nationality);
+            count = winner ? winner.count : data.count;
+            yLabel = y(count) + margin.top - 50;
+            yFlag = y(count) + margin.top - 40;
+            count = (count / data.count * 100).toFixed(2) + "%";
+          } else {
+            count = data.count;
+            yLabel = y(count) + margin.top + 40;
+            yFlag = y(count) + margin.top + 50;
+          }
 
           d3.select(this)
             .selectAll("rect")
@@ -75,7 +89,7 @@ function WaffleChart({ data }) {
             .attr("class", "count-label")
             .text(`${count}`)
             .attr("x", x(nationality) + x.bandwidth() / 2 + 9)
-            .attr("y", y(count) + margin.top + 40)
+            .attr("y", yLabel)
             .attr("text-anchor", "middle")
             .attr("fill", "white")
             .style("font-weight", "bold");
@@ -84,7 +98,7 @@ function WaffleChart({ data }) {
             .attr("xlink:href", flag)
             .attr("class", "flag-image")
             .attr("x", x(nationality) + x.bandwidth() / 2 - flagWidth / 2 + 9)
-            .attr("y", y(count) + margin.top + 50)
+            .attr("y", yFlag) 
             .attr("width", flagWidth)
             .attr("height", flagHeight);
 
@@ -129,10 +143,25 @@ function WaffleChart({ data }) {
           }
         })
         .selectAll("rect")
-        .data((d) => Array.from({ length: Math.ceil(d.count / 5) })
+        .data((d) => {
+          const cubes = Array.from({ length: Math.ceil(d.count / 5) })
           .flatMap((_, i) => Array.from({ length: Math.min(5, d.count - i * 5) })
           .map((_, j) => ({ index: i * 5 + j, nationality: d.nationality }))
           )
+          cubes.forEach((cube, index) => {
+            if (winner_data.length > 0) {
+              for (let i = 0; i < winner_data.length; i++) {
+                if (winner_data[i].nationality === d.nationality) {
+                  cube.fill = index < winner_data[i].count ? colorScale(d.nationality) : "grey";
+                }
+              }
+            }
+            else {
+              cube.fill = colorScale(d.nationality);
+            }
+          });
+          return cubes;
+        }
         )
         .enter()
         .append("rect")
@@ -140,7 +169,7 @@ function WaffleChart({ data }) {
         .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11)
         .attr("width", 12)
         .attr("height", 12)
-        .attr("fill", (d) => colorScale(d.nationality));
+        .attr("fill", (d) => d.fill);
 
       svg.selectAll(".nationality-label")
         .data(data)
