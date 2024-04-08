@@ -10,75 +10,12 @@ import './App.css';
 import ParallaxText from './ParallaxText';
 import { useInView } from 'framer-motion';
 import Square from './Square.js';
+import preprocessDrivers from './waffle_preprocess/waffle_preprocess.js';
+import driversData from './waffle_preprocess/drivers.json';
+import standingsData from './waffle_preprocess/results.json';
 
-// will modifiy this to a call from the preprocessing
-const nationality_data = [
-  [ 'British', 165 ],
-  [ 'American', 158 ],
-  [ 'Italian', 99 ],
-  [ 'French', 73 ],
-  [ 'German', 50 ],
-  [ 'Brazilian', 32 ],
-  [ 'Argentine', 24 ],
-  [ 'Swiss', 23 ],
-  [ 'Belgian', 23 ],
-  [ 'South African', 23 ],
-  [ 'Japanese', 20 ],
-  [ 'Australian', 18 ],
-  [ 'Dutch', 18 ],
-  [ 'Spanish', 15 ],
-  [ 'Austrian', 15 ],
-  [ 'Canadian', 14 ],
-  [ 'Swedish', 10 ],
-  [ 'Finnish', 9 ],
-  [ 'New Zealander', 9 ],
-  [ 'Mexican', 6 ],
-  [ 'Irish', 5 ],
-  [ 'Danish', 5 ],
-  [ 'Portuguese', 4 ],
-  [ 'Monegasque', 4 ],
-  [ 'Rhodesian', 4 ],
-  [ 'Uruguayan', 4 ],
-  [ 'Russian', 4 ],
-  [ 'Colombian', 3 ],
-  [ 'Venezuelan', 3 ],
-  [ 'East German', 3 ],
-  [ 'Indian', 2 ],
-  [ 'Thai', 2 ],
-  [ 'Polish', 1 ],
-  [ 'Hungarian', 1 ],
-  [ 'Czech', 1 ],
-  [ 'Malaysian', 1 ],
-  [ 'Chilean', 1 ],
-  [ 'Liechtensteiner', 1 ],
-  [ 'American-Italian', 1 ],
-  [ 'Argentine-Italian', 1 ],
-  [ 'Indonesian', 1 ],
-  [ 'Chinese', 1 ]
-]
-
-const winner_data =[
-  [ 'British', 20 ],   [ 'Italian', 15 ],
-  [ 'American', 15 ],  [ 'French', 14 ],
-  [ 'German', 7 ],     [ 'Brazilian', 6 ],
-  [ 'Finnish', 5 ],    [ 'Australian', 4 ],
-  [ 'Austrian', 3 ],   [ 'Argentine', 3 ],
-  [ 'Swedish', 3 ],    [ 'Spanish', 2 ],
-  [ 'Canadian', 2 ],   [ 'Belgian', 2 ],
-  [ 'Swiss', 2 ],      [ 'New Zealander', 2 ],
-  [ 'Mexican', 2 ],    [ 'Polish', 1 ],
-  [ 'Colombian', 1 ],  [ 'South African', 1 ],
-  [ 'Venezuelan', 1 ], [ 'Dutch', 1 ],
-  [ 'Monegasque', 1 ]
-]
-
-const w_data = winner_data.map(item => {
-  return { nationality: item[0], count: item[1] };
-});
-
-const waffle_data = nationality_data.filter(item => item[1] > 25).map(item => {
-  return { nationality: item[0], count: item[1] };
-});
+const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
+const {waffle_data, winner_data} = preprocessDrivers(driversData, columnsToDropDrivers, standingsData);
 
 function App() {
   const items = data.texts;
@@ -143,12 +80,12 @@ function App() {
         </div>
         {waffleTextInView && !waffleWinnersInView && (
           <div className="chart-container">
-            <WaffleChart data={waffle_data} />
+            <WaffleChart data={waffle_data}/>
           </div>
         )}
         {waffleWinnersInView && waffleWinnersInView2 && (
           <div className="chart-container">
-            <WaffleChart data={waffle_data} winner_data={w_data}/>
+            <WaffleChart data={waffle_data} winner_data={winner_data}/>
           </div>
         )}
       </div>
