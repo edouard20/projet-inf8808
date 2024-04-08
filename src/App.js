@@ -75,21 +75,27 @@ function App() {
   const waffleWinnersRef = useRef(null);
   const [waffleWinnersInView, setWaffleWinnersInView] = useState(false);
 
+  const waffleWinnersRef2 = useRef(null);
+  const [waffleWinnersInView2, setWaffleWinnersInView2] = useState(false);
+
   useEffect(() => {
     if (waffleWinnersRef.current) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           setWaffleWinnersInView(entry.isIntersecting);
+          setWaffleWinnersInView2(entry.isIntersecting);
         });
       }, { threshold: 0.5 });
   
       observer.observe(waffleWinnersRef.current);
+      observer.observe(waffleWinnersRef2.current);
   
       return () => {
         observer.unobserve(waffleWinnersRef.current);
+        observer.unobserve(waffleWinnersRef2.current);
       };
     }
-  }, [waffleWinnersRef]);
+  }, [waffleWinnersRef, waffleWinnersRef2]);
 
   return (
     <>
@@ -119,13 +125,14 @@ function App() {
           <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
           <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
           <div className='subtext' ref={waffleWinnersRef}>These are the winners per nationality! Hover to see more info!</div>
+          <div className='subtext' ref={waffleWinnersRef2}></div>
         </div>
         {waffleTextInView && !waffleWinnersInView && (
           <div className="chart-container">
             <WaffleChart data={waffle_data} />
           </div>
         )}
-        {waffleTextInView && waffleWinnersInView && (
+        {waffleWinnersInView && waffleWinnersInView2 && (
           <div className="chart-container">
             <WaffleChart data={modified_data} />
           </div>
