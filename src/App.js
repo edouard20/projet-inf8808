@@ -20,34 +20,70 @@ const {waffle_data, winner_data} = preprocessDrivers(driversData, columnsToDropD
 function App() {
   const items = data.texts;
 
-  const waffleTextRef = useRef();
-  const waffleTextInView = useInView(waffleTextRef);
+  const waffleWinnersRef = useRef();
+  const waffleWinnersInView = useInView(waffleWinnersRef);
 
-  const waffleWinnersRef = useRef(null);
-  const [waffleWinnersInView, setWaffleWinnersInView] = useState(false);
+  const waffleEmptyRef = useRef(null);
+  const [waffleEmptyInView, setwaffleEmptyInView] = useState(false);
 
-  const waffleWinnersRef2 = useRef(null);
-  const [waffleWinnersInView2, setWaffleWinnersInView2] = useState(false);
+  const waffleBarsRef = useRef(null);
+  const [waffleBarsInView, setWaffleBarsInView] = useState(false);
+
+  const waffleHoverRef = useRef(null);
+  const [waffleHoverInView, setWaffleHoverInView] = useState(false);
 
   useEffect(() => {
-    if (waffleWinnersRef.current) {
+    if (waffleEmptyRef.current) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          setWaffleWinnersInView(entry.isIntersecting);
-          setWaffleWinnersInView2(entry.isIntersecting);
+          setwaffleEmptyInView(entry.isIntersecting);
         });
       }, { threshold: 0.5 });
   
-      observer.observe(waffleWinnersRef.current);
-      observer.observe(waffleWinnersRef2.current);
+      observer.observe(waffleEmptyRef.current);
   
       return () => {
-        observer.unobserve(waffleWinnersRef.current);
-        observer.unobserve(waffleWinnersRef2.current);
+        observer.unobserve(waffleEmptyRef.current);
       };
     }
-  }, [waffleWinnersRef, waffleWinnersRef2]);
 
+  }, [waffleEmptyRef]);
+
+
+  useEffect(() => {
+    if (waffleBarsRef.current) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          setWaffleBarsInView(entry.isIntersecting);
+        });
+      }, { threshold: 0.5 });
+  
+      observer.observe(waffleBarsRef.current);
+  
+      return () => {
+        observer.unobserve(waffleBarsRef.current);
+      };
+    }
+
+  }, [waffleBarsRef]);
+
+  useEffect(() => {
+    if (waffleHoverRef.current) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          setWaffleHoverInView(entry.isIntersecting);
+        });
+      }, { threshold: 0.5 });
+  
+      observer.observe(waffleHoverRef.current);
+  
+      return () => {
+        observer.unobserve(waffleHoverRef.current);
+      };
+    }
+
+  }, [waffleHoverRef]);
+  
   return (
     <>
       <ProgressBar/>
@@ -70,20 +106,30 @@ function App() {
       <div className="text-section">
         <TextSection text={items[1]} />
       </div>
+      <div className="text-section presentation">The following visualization will show the 6 nationalities with the most drivers.</div>
       <div className="container">
-        <div className={`text-container ${waffleTextInView ? 'in-view' : ''}`} ref={waffleTextRef}>
-          <div className='subtext'>The visualization on the right shows the 6 nationalities with more than 25 drivers.</div>
-          <div className='subtext square'>Every single cube is one F1 driver.<div><Square /></div></div>
-          <div className='subtext hover-text'>Hover on the bars to see the exact driver count.</div>
-          <div className='subtext' ref={waffleWinnersRef}>Now you can see the percentage of winners. <br></br>Not that much!</div>
-          <div className='subtext' ref={waffleWinnersRef2}></div>
+        <div className={`text-container ${waffleWinnersInView ? 'in-view' : ''}`} ref={waffleWinnersRef}>
+          <div className='subtext' ref={waffleEmptyRef}></div>
+          <div className='subtext square' ref={waffleBarsRef}>Every single cube is one F1 driver.<div><Square /></div></div>
+          <div className='subtext hover-text' ref={waffleHoverRef}>Hover on the bars to see the exact driver count.</div>
+          <div className='subtext'>Now you can see the percentage of winners. <br></br>Not that much!</div>
         </div>
-        {waffleTextInView && !waffleWinnersInView && (
+        {waffleEmptyInView && !waffleBarsInView && (
+          <div className="chart-container">
+            <WaffleChart data={waffle_data} colors={false} hover={false}/>
+          </div>
+        )}
+        {waffleBarsInView && !waffleHoverInView && (
+          <div className="chart-container">
+            <WaffleChart data={waffle_data} hover={false} animate={false}/>
+          </div>
+        )}
+        {waffleHoverInView && (
           <div className="chart-container">
             <WaffleChart data={waffle_data}/>
           </div>
         )}
-        {waffleWinnersInView && waffleWinnersInView2 && (
+        {waffleWinnersInView && !waffleEmptyInView && !waffleBarsInView && !waffleHoverInView && (
           <div className="chart-container">
             <WaffleChart data={waffle_data} winner_data={winner_data}/>
           </div>
