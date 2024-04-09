@@ -13,6 +13,7 @@ const Square = () => {
                     d3.select(squareNode)
                         .select('rect')
                         .transition()
+                        .delay(2000)
                         .duration(1000) 
                         .attrTween('transform', function() {
                             return d3.interpolateString('rotate(0, 25, 25)', 'rotate(360, 25, 25)'); 

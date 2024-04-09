@@ -119,22 +119,22 @@ function App() {
         </div>
         {waffleEmptyInView && !waffleBarsInView && (
           <div className="chart-container">
-            <WaffleChart data={waffle_data} colors={false} hover={false}/>
+            <WaffleChart data={waffle_data} colors={false} hover={false} animate={false}/>
           </div>
         )}
         {waffleBarsInView && !waffleHoverInView && (
           <div className="chart-container">
-            <WaffleChart data={waffle_data} hover={false} animate={false}/>
+            <WaffleChart data={waffle_data} hover={false}/>
           </div>
         )}
         {waffleHoverInView && (
           <div className="chart-container">
-            <WaffleChart data={waffle_data}/>
+            <WaffleChart data={waffle_data} animate={false}/>
           </div>
         )}
         {waffleWinnersInView && !waffleEmptyInView && !waffleBarsInView && !waffleHoverInView && (
           <div className="chart-container">
-            <WaffleChart data={waffle_data} winner_data={winner_data}/>
+            <WaffleChart data={waffle_data} winner_data={winner_data} animate={false}/>
           </div>
         )}
       </div>
