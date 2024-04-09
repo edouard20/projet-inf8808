@@ -2,33 +2,15 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import './WaffleChart.css';
 
-function WaffleChart({ data, winner_data=[] }) {
+function WaffleChart({ data, winner_data=[], colors=true, hover=true, animate=true }) {
   const d3Container = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateBars();
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-    
-    if (d3Container.current && data) {
-      observer.observe(d3Container.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [data]);
-
-  const animateBars = () => {
-    if (!data || !d3Container.current) return;
+    const animateBars = () => {
+      if (!data || !d3Container.current) return;
 
       const svg = d3.select(d3Container.current);
-
+    
       const width = 600;
       const height = 600;
       const margin = { top: 30, right: 30, bottom: 80, left: 60 };
@@ -60,6 +42,7 @@ function WaffleChart({ data, winner_data=[] }) {
         .attr("class", "bar")
         .attr("transform", (d) => `translate(${x(d.nationality)}, ${margin.top + innerHeight})`)
         .on("mouseover", function (_, data) {
+          if (!hover) return;
           let count;
           let yFlag;
           let yLabel;
@@ -107,6 +90,7 @@ function WaffleChart({ data, winner_data=[] }) {
             .attr("font-weight", "bold");
         })
         .on("mouseout", function (event) {
+          if (!hover) return;
           let isMouseOverCount = false;
           let isMouseOverFlag = false;
 
@@ -157,7 +141,8 @@ function WaffleChart({ data, winner_data=[] }) {
               }
             }
             else {
-              cube.fill = colorScale(d.nationality);
+              if (colors) cube.fill = colorScale(d.nationality); 
+              else cube.fill = 'black';
             }
           });
           return cubes;
@@ -169,7 +154,8 @@ function WaffleChart({ data, winner_data=[] }) {
         .attr("y", (d) => -(Math.floor(d.index / 5) * 15) - 11)
         .attr("width", 12)
         .attr("height", 12)
-        .attr("fill", (d) => d.fill);
+        .attr("fill", (d) => d.fill)
+        .attr("data-animate", animate ? "true" : "false");
 
       svg.selectAll(".nationality-label")
         .data(data)
@@ -190,7 +176,25 @@ function WaffleChart({ data, winner_data=[] }) {
           .style("color", "white")
           .style("font-size", "15px")
           .call(yAxis);
-  };
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateBars();
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    
+    if (d3Container.current && data) {
+      observer.observe(d3Container.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [data, d3Container, winner_data, colors, hover, animate]);
 
   return (
     <svg ref={d3Container} width={600} height={600} className="waffle-chart"/>
