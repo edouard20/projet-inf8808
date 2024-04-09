@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "d3": "^7.9.0",
+    "d3-svg-legend": "^2.25.6",
     "framer-motion": "^11.0.22",
     "in-view": "^0.6.1",
     "react": "^18.2.0",
