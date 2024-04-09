@@ -41,9 +41,10 @@ function App() {
       }, { threshold: 0.5 });
   
       observer.observe(waffleEmptyRef.current);
+      const currentRef = waffleEmptyRef.current;
   
       return () => {
-        observer.unobserve(waffleEmptyRef.current);
+        observer.unobserve(currentRef);
       };
     }
 
@@ -59,9 +60,10 @@ function App() {
       }, { threshold: 0.5 });
   
       observer.observe(waffleBarsRef.current);
+      const currentRef = waffleBarsRef.current;
   
       return () => {
-        observer.unobserve(waffleBarsRef.current);
+        observer.unobserve(currentRef);
       };
     }
 
@@ -76,9 +78,10 @@ function App() {
       }, { threshold: 0.5 });
   
       observer.observe(waffleHoverRef.current);
+      const currentRef = waffleHoverRef.current;
   
       return () => {
-        observer.unobserve(waffleHoverRef.current);
+        observer.unobserve(currentRef);
       };
     }
 
