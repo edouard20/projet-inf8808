@@ -176,10 +176,10 @@ body {
   top: 60px;
   z-index: 1;
   margin-left: 0;
-  
   height: 600px;
   width: 600px;
   }
+
 .timeline-box {
   display: flex;
   justify-content: space-around;
@@ -258,10 +258,13 @@ body {
   font-weight: 'normal';
   color: #fff;
   text-align: center;
-  margin-top: 275px;
-  margin-bottom: 650px;
+  margin-bottom: 85%;
   margin-left: 40px;
   margin-right: 40px;
+}
+
+.presentation {
+  font-size: 20px;
 }
 
 .hover-text:hover 

@@ -29,7 +29,7 @@ function ImageAnimation({img, description, delay, duration, width, height}) {
                 animate={{rotateY: isFlipped ? 0: 360}}
                 transition={{duration: 1, animationDirection: "normal"}}
                 onAnimationComplete={() => setIsAnimating(false)}>
-                    {isFlipped ? <img src={img} className="img-3" style={{width: width, height: height}}></img> : description != null ? <div className="img-text" style={{width: width, height: height}}>{description}</div> : <img src={img} style={{width: width, height: height}} className="img-3"></img>}
+                    {isFlipped ? <img src={img} className="img-3" style={{width: width, height: height}} alt="ferrari"></img> : description != null ? <div className="img-text" style={{width: width, height: height}}>{description}</div> : <img src={img} style={{width: width, height: height}} className="img-3" alt="ferrari"></img>}
             </motion.div>
         </div> 
     </motion.div>
