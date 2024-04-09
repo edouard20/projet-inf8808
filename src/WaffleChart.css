@@ -1,14 +1,41 @@
-.bar rect {
-    opacity: 0;
-    animation: appear 4s forwards;
-  }
-  
-  @keyframes appear {
+.bar rect[data-animate="false"] {
+    opacity: 1;
+}
+
+@keyframes stackUp {
     from {
-      opacity: 0;
+        opacity: 0;
+        transform: translateY(-500px);
     }
     to {
-      opacity: 1;
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
+}
   
+.bar rect[data-animate="true"] {
+    opacity: 1;
+    animation: stackUp 1s forwards;
+    transform: translateY(-500px);
+    animation-fill-mode: forwards;
+}
+
+.bar rect[data-animate="true"]:nth-last-child(5) {
+    animation-delay: 0.2s;
+}
+
+.bar rect[data-animate="true"]:nth-last-child(4) {
+    animation-delay: 0.3s;
+}
+
+.bar rect[data-animate="true"]:nth-last-child(3) {
+    animation-delay: 0.4s;
+}
+
+.bar rect[data-animate="true"]:nth-last-child(2) {
+    animation-delay: 0.5s;
+}
+
+.bar rect[data-animate="true"]:last-child {
+    animation-delay: 0.6s;
+}
