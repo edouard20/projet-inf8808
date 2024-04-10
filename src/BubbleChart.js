@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import './BubbleChart.css';
-const radiusMultiplier = 3;
 
 function BubbleChart({
     data,
@@ -68,7 +67,6 @@ function BubbleChart({
                 const radii = [];
                 const values = [];
                 nodes.forEach((node, i) => {
-                    console.log(node);
                     if (i !== 0) {
                         radii.push(node.r);
                         values.push(node.data.value);
