@@ -317,7 +317,7 @@ function App() {
             </div>
 
             {/* Barchart */}
-      <div className="text-section presentation">The following visualization will show the 6 nationalities with the most drivers.</div>
+      <div className="text-section presentation">Let's look at the most active drivers in F1!</div>
         <div ref={barchartRef} className="container">
         <div className="chart-container">
          <Barchart data={barchartData} isVisible={isVisible}  /> 
