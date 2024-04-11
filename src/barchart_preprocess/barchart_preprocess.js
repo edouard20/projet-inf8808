@@ -1,4 +1,3 @@
-// Importer directement les données JSON
 import drivers from './drivers.json';
 import races from './races.json';
 import results from './results.json';
