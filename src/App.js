@@ -21,6 +21,8 @@ import races from './Preprocessing/races.json';
 import countriesByContinent from './Preprocessing/country_by_continent.json';
 import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
+import HeatMap from './HeatMap.tsx';
+import preprocessResults from './proprocessResult.js';
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -28,6 +30,8 @@ const { waffle_data, winner_data } = preprocessDrivers(
     columnsToDropDrivers,
     standingsData,
 );
+
+const processedResults = preprocessResults(results);
 
 function App() {
     const bubbleChartRef = useRef(null);
@@ -361,6 +365,7 @@ function App() {
             <div style={{ paddingBottom: '100px' }}>
                 <F1CarAnimation currentYear={currentYear} />
             </div>
+            <HeatMap width={1000} height={800} data={processedResults}  />
         </>
     );
 }
