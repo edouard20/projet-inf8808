@@ -40,22 +40,23 @@ const RankFlowChart = ({ data }) => {
             .y((d) => yScale(d.rank))
             .curve(d3.curveMonotoneX)
 
-        const colors = ["blue", "orange", "red", "purple", "green"];
+        const colors = Object.keys(data).map((team) => data[team]['color'])
 
         const teamNames = Object.keys(data);
 
         teamNames.forEach((teamName, i) => {
-            const teamData = data[teamName];
+            const teamColor = data[teamName]['color'];
+            const teamRankingData = data[teamName]['ranking'];
             // const maxRanking = preprocess.getMaxRankingFromData(data)
-            const lineData = Object.keys(teamData).map((year) => ({
+            const lineData = Object.keys(teamRankingData).map((year) => ({
                 year: +year,
-                rank: teamData[year],
+                rank: teamRankingData[year],
             }));
 
             g.append("path")
                 .datum(lineData)
                 .attr("fill", "none")
-                .attr("stroke", colors[i])
+                .attr("stroke", teamColor)
                 .attr("stroke-width", 30)
                 .attr("stroke-opacity", 0.5)
                 .attr("d", line);
@@ -67,7 +68,7 @@ const RankFlowChart = ({ data }) => {
                 .attr("cx", (d) => xScale(d.year))
                 .attr("cy", (d) => yScale(d.rank))
                 .attr("r", 20)
-                .attr("fill", colors[i]);
+                .attr("fill", teamColor);
 
             const labelG = svg.append("g")
                 .attr("transform", `translate(${margin.left}, ${margin.top + svg.height})`);

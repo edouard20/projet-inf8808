@@ -221,6 +221,12 @@ function App() {
                 ></ImageAnimation>
             </div>
 
+            <TitleText title={"F1 Teams/Drivers Dominance"}/>
+            <div className="text-section">
+                <TextSection text={items[6]}/>
+            </div>
+            <RankFlowChart data={f1_teams_data}></RankFlowChart>
+
             <TitleText
                 title={'Racing Giants: The Dominant Nations of the Sport'}
             />
@@ -366,11 +372,7 @@ function App() {
             <div style={{ paddingBottom: '100px' }}>
                 <F1CarAnimation currentYear={currentYear} />
             </div>
-            <TitleText title={"F1 Teams/Drivers Dominance"}/>
-            <div className="text-section">
-                <TextSection text={items[6]}/>
-            </div>
-            <RankFlowChart data={f1_teams_data}></RankFlowChart>
+
         </>
     );
 }

@@ -29,7 +29,7 @@ export function setXScaleYears(width, data) {
     const years = new Set();
 
     Object.keys(data).forEach((teamName) => {
-        Object.keys(data[teamName]).forEach((year) => {
+        Object.keys(data[teamName]['ranking']).forEach((year) => {
             years.add(parseInt(year));
         });
     });
