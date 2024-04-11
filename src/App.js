@@ -6,6 +6,7 @@ import TextSection from "./TextSection";
 import ImageAnimation from "./ImageAnimation";
 import data from './texts.json';
 import AlonsoTimeline from './AlonsoTimeline';
+import RankFlowChart from './rankflow/RankFlowChart.js';
 import './App.css';
 import ParallaxText from './ParallaxText';
 import { useInView } from 'framer-motion';
@@ -13,9 +14,12 @@ import Square from './Square.js';
 import preprocessDrivers from './waffle_preprocess/waffle_preprocess.js';
 import driversData from './waffle_preprocess/drivers.json';
 import standingsData from './waffle_preprocess/results.json';
+import f1TeamsData from './rankflow/data/f1_teams.json';
+import preprocessF1Teams from './rankflow/preprocess.js';
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const {waffle_data, winner_data} = preprocessDrivers(driversData, columnsToDropDrivers, standingsData);
+const f1_teams_data = preprocessF1Teams(f1TeamsData);
 
 function App() {
   const items = data.texts;
@@ -158,6 +162,12 @@ function App() {
       <div className="text-section">
         <TextSection text={items[4]}/>
       </div>
+
+      <TitleText title={"F1 team dominance"}/>
+      <div className="text-section">
+        <TextSection text={items[5]}/>
+      </div>
+      <RankFlowChart data={f1_teams_data}></RankFlowChart>
     </>
 )};
 
