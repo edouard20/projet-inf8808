@@ -21,6 +21,8 @@ import races from './Preprocessing/races.json';
 import countriesByContinent from './Preprocessing/country_by_continent.json';
 import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
+import Barchart from './Barchart.js';
+import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -164,6 +166,38 @@ function App() {
         }
     }, [waffleHoverRef]);
 
+    //barchart
+  const [barchartData, setBarchartData] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const barchartRef = useRef();
+ 
+
+  useEffect(() => {
+    async function loadData() {
+      const processedData = await barchartPreprocess();
+      setBarchartData(processedData);
+    }
+
+    loadData();
+  }, []); 
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect(); 
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(barchartRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+
     return (
         <>
             <ProgressBar />
@@ -281,6 +315,16 @@ function App() {
                         </div>
                     )}
             </div>
+
+            {/* Barchart */}
+      <div className="text-section presentation">The following visualization will show the 6 nationalities with the most drivers.</div>
+        <div ref={barchartRef} className="container">
+        <div className="chart-container">
+         <Barchart data={barchartData} isVisible={isVisible}  /> 
+         <div id="tooltip" className="tooltip" style={{ opacity: 0 }}>
+        </div>  
+        </div>
+       </div>
 
             <ParallaxText baseVelocity={-5}>
                 <img src='f1car.png' alt='F1 car' width='300' height='200' />
