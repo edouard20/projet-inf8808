@@ -2,11 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import './BubbleChart.css';
 
-function BubbleChart({
-    data,
-    setMaxRadius,
-    setMaxValue,
-}) {
+function BubbleChart({ data, setMaxRadius, setMaxValue }) {
     const d3Container = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     useEffect(() => {
@@ -43,15 +39,14 @@ function BubbleChart({
             const width = 928;
             const height = width;
             const margin = 1;
-
             const continentColors = {
                 Asia: '#EA1515',
                 Europe: '#73C010',
-                Africa: '#B06A00',
+                Africa: '#EA65D5',
                 Oceania: '#B06A00',
-                Americas: '#376BF0',
+                'North America': '#376BF0',
                 'South America': '#E7EA65',
-                Unknown: '#8c564b',
+                Unknown: '#FFFFFF',
             };
             const color = (d) =>
                 continentColors[d.continent] || continentColors['Unknown'];
@@ -98,7 +93,7 @@ function BubbleChart({
                 })
                 .on('mousemove', function (event) {
                     d3.select('#tooltip')
-                        .style('left', event.pageX + 10 + 'px') 
+                        .style('left', event.pageX + 10 + 'px')
                         .style('top', event.pageY + 10 + 'px');
                 })
                 .on('mouseout', function () {

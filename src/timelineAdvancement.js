@@ -8,9 +8,9 @@ const F1CarAnimation = ({ currentYear }) => {
   useEffect(() => {
     const svgWidth = svgRef.current.clientWidth;
     const arcWidth = svgWidth - 200;
-    const arcHeight = 70;
+    const arcHeight = 10;
     const arcStartX = 50;
-    const arcStartY = 50;
+    const arcStartY = 10;
 
     const arcPathD = `M ${arcStartX} ${arcStartY} A ${arcWidth / 2} ${arcHeight} 0 0 0 ${svgWidth - 50} ${arcStartY}`;
     const textArcPathD  = `M ${arcStartX} ${arcStartY} A ${arcWidth / 2} ${arcHeight} 0 0 0 ${svgWidth - 50} ${arcStartY}`;
