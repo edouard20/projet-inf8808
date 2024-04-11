@@ -17,6 +17,10 @@
     font-size: 12px;
   }
 
+  .axis-title {
+    fill: white;
+  }
+  
   .tooltip {
     position: absolute;
     text-align: center;

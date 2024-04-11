@@ -30,7 +30,7 @@ const Barchart = ({ data }) => {
     d3.select(svgRef.current).selectAll("*").remove();
 
     const margin = { top: 20, right: 30, bottom: 40, left: 200 };
-    const width = 800 - margin.left - margin.right;
+    const width = 900 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
     const tooltip = 
     d3.select('body').append('div')
@@ -62,22 +62,6 @@ const Barchart = ({ data }) => {
       .domain(data.map(d => d.name))
       .range([0, height])
       .padding(0.4)
-      
-
-    //Titre
-    svg.append("text")
-    .attr("transform", `translate(${width / 2}, ${height + margin.top - 0})`) 
-    .style("text-anchor", "middle")
-    .text("Pilotes");
-
-    svg.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left + 0) 
-    .attr("x", 0 - (height / 2))
-    .style("text-anchor", "middle")
-    .text("Années actives");
-
-
 
     // Axes
     svg.append("g")
@@ -90,6 +74,21 @@ const Barchart = ({ data }) => {
             .tickFormat(d3.format("d"))
             .tickValues(d3.range(xScale.domain()[0], xScale.domain()[1] + 1)));
             
+      //Titre des axes
+      svg.append("text")
+      .attr("class", "axis-title")
+      .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`) 
+      .style("text-anchor", "middle")
+      .text("Active Years");
+
+      svg.append("text")
+      .attr("class", "axis-title")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left + 50) 
+      .attr("x", 0 - (height / 2))
+      .style("text-anchor", "middle")
+      .text("Pilotes");
+
 
         // Barres
       svg.selectAll(".bar")
@@ -117,6 +116,20 @@ const Barchart = ({ data }) => {
               .duration(500)  
               .style('opacity', 0);
           });
+
+          if (isVisible) {
+            svg.selectAll(".bar")
+              .data(data)
+              .join("rect")
+              .attr("class", "bar")
+              .attr("x", 0)
+              .attr("y", d => yScale(d.name))
+              .attr("height", yScale.bandwidth())
+              .attr("width", 0)
+              .transition() 
+              .duration(1000) 
+              .attr("width", d => xScale(d.yearsActive)); 
+          }
 
       }, [data, isVisible]);
 
