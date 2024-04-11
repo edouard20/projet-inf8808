@@ -163,7 +163,7 @@ function App() {
         <TextSection text={items[4]}/>
       </div>
 
-      <TitleText title={"F1 team dominance"}/>
+      <TitleText title={"F1 Teams Dominance"}/>
       <div className="text-section">
         <TextSection text={items[5]}/>
       </div>

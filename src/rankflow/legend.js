@@ -6,10 +6,11 @@ import d3Legend from 'd3-svg-legend'
  * @param {*} colorScale The color scale used for the legend
  * @param {*} g The d3 Selection of the SVG g elemnt containing the legend
  */
-export function drawLegend(colorScale, g) {
+export function drawLegend(colorScale, g, width) {
     // TODO : Generate the legend
     const legendGroup = g.append('g')
-        .attr('transform', 'translate(700, 50)')
+        .attr('id', 'legend')
+        .attr('transform', 'translate(' + (width) + ',0)')
         .attr('font-family', 'Open Sans Condensed')
         .attr("fill", "white");
 

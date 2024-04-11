@@ -1,6 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import * as legend from './legend.js'
+import * as scales from './scales.js'
+import * as preprocess from './preprocess.js'
+import * as helpers from './helpers.js'
 
 const RankFlowChart = ({ data }) => {
 
@@ -8,35 +11,34 @@ const RankFlowChart = ({ data }) => {
 
     useEffect(() => {
 
-        const svgWidth = 900;
-        const svgHeight = 500;
+        let svgSize, graphSize
 
         const margin = { top: 30, right: 50, bottom: 50, left: 100 };
 
-        const width = svgWidth - margin.left - margin.right;
-        const height = svgHeight - margin.top - margin.bottom;
+        svgSize = {
+            width: window.innerWidth,
+            height: 600
+        }
+
+        graphSize = {
+            width: Math.round(svgSize.width * 0.8) - margin.right - margin.left,
+            height: svgSize.height - margin.bottom - margin.top
+        }
 
         const svg = d3.select(svgRef.current)
-            .attr("width", svgWidth)
-            .attr("height", svgHeight);
-
+            .attr("width", svgSize.width)
+            .attr("height", svgSize.height);
 
         const g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-        const xScale = d3
-            .scaleLinear()
-            .domain([2013.5, 2023])
-            .range([0, width]);
-
-        const yScale = d3
-            .scaleLinear()
-            .domain([0, 5])
-            .range([height, 0]);
+        const xScale = scales.setXScaleYears(graphSize.width, data)
+        const yScale = scales.setYScaleRank(graphSize.height, data)
 
         const line = d3
             .line()
             .x((d) => xScale(d.year))
-            .y((d) => yScale(d.rank));
+            .y((d) => yScale(d.rank))
+            .curve(d3.curveMonotoneX)
 
         const colors = ["blue", "orange", "red", "purple", "green"];
 
@@ -44,6 +46,7 @@ const RankFlowChart = ({ data }) => {
 
         teamNames.forEach((teamName, i) => {
             const teamData = data[teamName];
+            // const maxRanking = preprocess.getMaxRankingFromData(data)
             const lineData = Object.keys(teamData).map((year) => ({
                 year: +year,
                 rank: teamData[year],
@@ -53,8 +56,8 @@ const RankFlowChart = ({ data }) => {
                 .datum(lineData)
                 .attr("fill", "none")
                 .attr("stroke", colors[i])
-                .attr("stroke-width", 20)
-                .attr("stroke-opacity", 0.8)
+                .attr("stroke-width", 30)
+                .attr("stroke-opacity", 0.5)
                 .attr("d", line);
 
             g.selectAll("dot")
@@ -67,23 +70,23 @@ const RankFlowChart = ({ data }) => {
                 .attr("fill", colors[i]);
 
             const labelG = svg.append("g")
-                .attr("transform", `translate(${margin.left}, ${margin.top + height})`);
+                .attr("transform", `translate(${margin.left}, ${margin.top + svg.height})`);
 
         }, [data]);
 
         g.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(xScale))
+            .attr("transform", `translate(0,${graphSize.height})`)
+            .call(d3.axisBottom(xScale).tickFormat(d3.format(".0f")))
             .selectAll("text")
             .attr("angle", -45)
             .attr("text-anchor", "end");
 
         g.append("g")
-            .call(d3.axisLeft(yScale)
+            .call(d3.axisLeft(yScale).tickFormat(d3.format(".0f"))
                 .tickFormat((d) => (Number.isInteger(d) ? d : ""))); //display only integer values
 
         const legendColorScale = d3.scaleOrdinal().domain(teamNames).range(colors);
-        legend.drawLegend(legendColorScale, d3.select(svgRef.current))
+        legend.drawLegend(legendColorScale, d3.select(svgRef.current), Math.round(svgSize.width * 0.8))
 
     }, [data]);
 
