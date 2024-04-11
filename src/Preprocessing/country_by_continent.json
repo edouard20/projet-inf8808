@@ -636,6 +636,10 @@
         "continent": "Asia"
     },
     {
+        "country": "Korea",
+        "continent": "Asia"
+    },
+    {
         "country": "Northern Ireland",
         "continent": "Europe"
     },
@@ -909,6 +913,10 @@
     },
     {
         "country": "United Arab Emirates",
+        "continent": "Asia"
+    },
+    {
+        "country": "UAE",
         "continent": "Asia"
     },
     {
