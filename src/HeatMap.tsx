@@ -20,8 +20,6 @@ const HeatMap = ({width, height, data}: HeatMapProps) => {
   const allXGroups = useMemo(() => [...new Set(data.map((d) => d.x))], [data]);
   const allYGroups = useMemo(() => [...new Set(data.map((d) => d.y))], [data]);
 
-  console.log(allXGroups.sort(), allYGroups.sort());
-
   const xScale = useMemo(() => {
     return d3
       .scaleBand()
