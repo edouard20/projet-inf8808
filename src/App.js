@@ -341,14 +341,15 @@ function App() {
             />
             <div className='text-section'>
                 <TextSection text={items[3]} />
-            </div>
-            <div ref={barchartRef} className="bcontainer">
+            </div>            
+            <AlonsoTimeline></AlonsoTimeline>
+            <div ref={barchartRef}>
                 <div className="barchart-container">
                     <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>  
-                    <Barchart className="barchart" data={barchartData} isVisible={isVisible}  /> 
+                    <Barchart data={barchartData} isVisible={isVisible}  /> 
                 </div>
             </div>
-            <AlonsoTimeline></AlonsoTimeline>
+
 
             <TitleText
                 title={
