@@ -57,14 +57,12 @@ const HeatMapRenderer = ({width, height, data, setHoveredCell}: HeatMapRendererP
     return (
       <rect
         key={i}
-        r={4}
         x={xScale(d.x)}
         y={yScale(d.y)}
         width={xScale.bandwidth()}
         height={yScale.bandwidth()}
         opacity={1}
         fill={colorScale(d.count)}
-        rx={5}
         stroke={"white"}
         onMouseEnter={(e) => {
           setHoveredCell({

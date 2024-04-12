@@ -313,6 +313,8 @@ function App() {
             <div className='text-section'>
                 <TextSection text={items[4]} />
             </div>
+            
+            <HeatMap width={1000} height={800} data={processedResults}  />
 
             <TitleText
                 title={'Unleashed Chaos: The Dark Side of Formula 1 Accidents'}
@@ -365,7 +367,6 @@ function App() {
             <div style={{ paddingBottom: '100px' }}>
                 <F1CarAnimation currentYear={currentYear} />
             </div>
-            <HeatMap width={1000} height={800} data={processedResults}  />
         </>
     );
 }
