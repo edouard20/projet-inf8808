@@ -2,8 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import * as legend from './legend.js'
 import * as scales from './scales.js'
-import * as preprocess from './preprocess.js'
-import * as helpers from './helpers.js'
+import * as tooltip from './tooltip.js'
+import d3Tip from 'd3-tip'
 
 const RankFlowChart = ({ data }) => {
 
@@ -31,6 +31,13 @@ const RankFlowChart = ({ data }) => {
 
         const g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+        const tip = d3Tip()
+            .attr('class', 'd3-tip')
+            .html(function (d) {
+                return tooltip.getTooltipHtmlContent(d)
+            });
+        g.call(tip)
+
         const xScale = scales.setXScaleYears(graphSize.width, data)
         const yScale = scales.setYScaleRank(graphSize.height, data)
 
@@ -39,6 +46,7 @@ const RankFlowChart = ({ data }) => {
             .x((d) => xScale(d.year))
             .y((d) => yScale(d.rank))
             .curve(d3.curveMonotoneX)
+
 
         const colors = Object.keys(data).map((team) => data[team]['color'])
 
@@ -51,6 +59,7 @@ const RankFlowChart = ({ data }) => {
             const lineData = Object.keys(teamRankingData).map((year) => ({
                 year: +year,
                 rank: teamRankingData[year],
+                teamName: teamName,
             }));
 
             g.append("path")
@@ -68,10 +77,37 @@ const RankFlowChart = ({ data }) => {
                 .attr("cx", (d) => xScale(d.year))
                 .attr("cy", (d) => yScale(d.rank))
                 .attr("r", 20)
-                .attr("fill", teamColor);
+                .attr("fill", teamColor)
+                .on('mouseover', (event, d) => {
+                    d3.select(event.currentTarget)
+                        .transition()
+                        .duration(200)
+                        .attr('r', 25)
+                        .style('stroke', 'white')
+                        .style('stroke-width', 2)
+                        .style('opacity', 1)
+                        .style('cursor', 'pointer');
 
-            const labelG = svg.append("g")
-                .attr("transform", `translate(${margin.left}, ${margin.top + svg.height})`);
+                    const content = tooltip.getTooltipHtmlContent(d)
+                    d3.select(event.currentTarget).style('opacity', 1)
+                    tip.offsetX = event.offsetX
+                    tip.offsetY = event.offsetY
+                    tip.html(content)
+                    tip.style('left', event.pageX + 'px')
+                        .style('top', event.pageY + 'px')
+                        .style('font-weight', 300)
+                        .show(data, event.currentTarget)
+                })
+                .on('mouseout', (event) => {
+                    d3.select(event.currentTarget)
+                        .transition()
+                        .duration(200)
+                        .attr('r', 20)
+                        .style('stroke', 'none')
+                        .style('opacity', 0.7)
+                        .style('cursor', 'none');
+                    tip.hide()
+                })
 
         }, [data]);
 
