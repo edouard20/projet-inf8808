@@ -234,8 +234,8 @@ function App() {
                 <TextSection text={items[1]} />
             </div>
             <div className='text-section presentation'>
-                The following visualization will show the 6 nationalities with
-                the most drivers.
+                The following visualization will show the nationalities with
+                the most drivers throughout history.
             </div>
             <div className='container'>
                 <div
@@ -244,9 +244,11 @@ function App() {
                     }`}
                     ref={waffleWinnersRef}
                 >
-                    <div className='subtext' ref={waffleEmptyRef}></div>
+                    <div className='subtext' ref={waffleEmptyRef}>
+                        <b>858</b> drivers across <b>42</b> nationalities
+                    </div>
                     <div className='subtext square' ref={waffleBarsRef}>
-                        Every single cube is one F1 driver.
+                        Every cube is an F1 driver.
                         <div>
                             <Square />
                         </div>
@@ -255,8 +257,7 @@ function App() {
                         Hover on the bars to see the exact driver count.
                     </div>
                     <div className='subtext'>
-                        Now you can see the percentage of winners. <br></br>Not
-                        that much!
+                    You can now hover to see the percentage of race winners.<br></br>Not as many as you would think...
                     </div>
                 </div>
                 {waffleEmptyInView && !waffleBarsInView && (

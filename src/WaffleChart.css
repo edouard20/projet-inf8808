@@ -38,4 +38,19 @@
 
 .bar rect[data-animate="true"]:last-child {
     animation-delay: 0.6s;
+} 
+
+ @keyframes greyDown {
+    from {
+        opacity: 1; 
+    }
+    to {
+        opacity: 1; 
+        fill: grey; 
+    }
 }
+  
+.bar rect[data-animate-grey="true"] {
+    animation: greyDown 1s forwards;
+    animation-fill-mode: forwards;
+} 
