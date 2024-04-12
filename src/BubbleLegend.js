@@ -41,13 +41,12 @@ const BubbleLegend = ({ maxRadius, maxCrash }) => {
         scaleSvg.selectAll('line').style('stroke', 'white');
         scaleSvg.selectAll('text').style('fill', 'white');
         const continentColors = {
+            Africa: '#EA65D5',
             Asia: '#EA1515',
             Europe: '#73C010',
-            Africa: '#B06A00',
+            'North America': '#376BF0',
             Oceania: '#B06A00',
-            Americas: '#376BF0',
             'South America': '#E7EA65',
-            Unknown: '#8c564b',
         };
 
         const colorScale = d3
@@ -57,14 +56,17 @@ const BubbleLegend = ({ maxRadius, maxCrash }) => {
         const legend = legendColor()
             .scale(colorScale)
             .shape('circle')
-            .shapePadding(2)
-            .labelOffset(20)
-            .orient('vertical');
+            .shapePadding(0)
+            .labelOffset(10);
 
         const legendG = svg
             .append('g')
             .attr('class', 'legendColor')
             .call(legend);
+
+        legendG
+            .selectAll('g.cell')
+            .attr('transform', (d, i) => `translate(${i * 140}, 0)`);
 
         const legendBBox = legendG.node().getBBox();
 
@@ -78,7 +80,7 @@ const BubbleLegend = ({ maxRadius, maxCrash }) => {
         <div className='legend-box'>
             <svg ref={scale} width='600' height='50' />
             <div style={{ marginTop: '-15px' }}>Crash Count</div>
-            <svg ref={ref} width='300' height='200' />
+            <svg ref={ref} width='1000' height='50' />
         </div>
     );
 };

@@ -23,6 +23,11 @@ import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
 import HeatMap from './HeatMap.tsx';
 import preprocessResults from './proprocessResult.js';
+import Barchart from './Barchart.js';
+import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
+import preprocessF1Teams from './rankflow/preprocess.js';
+import f1TeamsData from './rankflow/data/f1_teams.json';
+import RankFlowChart from './rankflow/RankFlowChart.js';
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -32,6 +37,7 @@ const { waffle_data, winner_data } = preprocessDrivers(
 );
 
 const processedResults = preprocessResults(results);
+const f1_teams_data = preprocessF1Teams(f1TeamsData)
 
 function App() {
     const bubbleChartRef = useRef(null);
@@ -168,6 +174,38 @@ function App() {
         }
     }, [waffleHoverRef]);
 
+    //barchart
+  const [barchartData, setBarchartData] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const barchartRef = useRef();
+ 
+
+  useEffect(() => {
+    async function loadData() {
+      const processedData = await barchartPreprocess();
+      setBarchartData(processedData);
+    }
+
+    loadData();
+  }, []); 
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect(); 
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(barchartRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+
     return (
         <>
             <ProgressBar />
@@ -219,6 +257,9 @@ function App() {
                     width={'500px'}
                 ></ImageAnimation>
             </div>
+            <div className="rankflow-container">
+                <RankFlowChart data={f1_teams_data}></RankFlowChart>
+            </div>
 
             <TitleText
                 title={'Racing Giants: The Dominant Nations of the Sport'}
@@ -227,8 +268,8 @@ function App() {
                 <TextSection text={items[1]} />
             </div>
             <div className='text-section presentation'>
-                The following visualization will show the 6 nationalities with
-                the most drivers.
+                The following visualization will show the nationalities with
+                the most drivers throughout history.
             </div>
             <div className='container'>
                 <div
@@ -237,9 +278,11 @@ function App() {
                     }`}
                     ref={waffleWinnersRef}
                 >
-                    <div className='subtext' ref={waffleEmptyRef}></div>
+                    <div className='subtext' ref={waffleEmptyRef}>
+                        <b>858</b> drivers across <b>42</b> nationalities
+                    </div>
                     <div className='subtext square' ref={waffleBarsRef}>
-                        Every single cube is one F1 driver.
+                        Every cube is an F1 driver.
                         <div>
                             <Square />
                         </div>
@@ -248,8 +291,7 @@ function App() {
                         Hover on the bars to see the exact driver count.
                     </div>
                     <div className='subtext'>
-                        Now you can see the percentage of winners. <br></br>Not
-                        that much!
+                    You can now hover to see the percentage of race winners.<br></br>Not as many as you would think...
                     </div>
                 </div>
                 {waffleEmptyInView && !waffleBarsInView && (
@@ -302,8 +344,15 @@ function App() {
             />
             <div className='text-section'>
                 <TextSection text={items[3]} />
-            </div>
+            </div>            
             <AlonsoTimeline></AlonsoTimeline>
+            <div ref={barchartRef}>
+                <div className="barchart-container">
+                    <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>  
+                    <Barchart data={barchartData} isVisible={isVisible}  /> 
+                </div>
+            </div>
+
 
             <TitleText
                 title={
@@ -367,6 +416,7 @@ function App() {
             <div style={{ paddingBottom: '100px' }}>
                 <F1CarAnimation currentYear={currentYear} />
             </div>
+
         </>
     );
 }
