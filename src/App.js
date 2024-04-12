@@ -254,10 +254,10 @@ function App() {
                     width={'500px'}
                 ></ImageAnimation>
             </div>
-            
+
             <TitleText title={"F1 Teams/Drivers Dominance"}/>
             <div className="text-section">
-                <TextSection text={items[6]}/>
+                <TextSection text={items[5]}/>
             </div>
             <RankFlowChart data={f1_teams_data}></RankFlowChart>
 
