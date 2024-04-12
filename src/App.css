@@ -210,6 +210,7 @@ body {
   display: flex;
   align-items: flex-start;
 }
+
 .bubble-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -258,7 +259,7 @@ body {
   font-weight: 'normal';
   color: #fff;
   text-align: center;
-  margin-bottom: 85%;
+  margin-bottom: 80%;
   margin-left: 40px;
   margin-right: 40px;
 }
@@ -274,4 +275,12 @@ body {
 
 b {
   color:#BF0A30;
+}
+
+.barchart-container {
+  margin-bottom: 100px;
+}
+
+.rankflow-container {
+  margin-top: 100px;
 }

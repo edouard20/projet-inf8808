@@ -21,6 +21,8 @@ import races from './Preprocessing/races.json';
 import countriesByContinent from './Preprocessing/country_by_continent.json';
 import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
+import Barchart from './Barchart.js';
+import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
 import preprocessF1Teams from './rankflow/preprocess.js';
 import f1TeamsData from './rankflow/data/f1_teams.json';
 import RankFlowChart from './rankflow/RankFlowChart.js';
@@ -169,6 +171,38 @@ function App() {
         }
     }, [waffleHoverRef]);
 
+    //barchart
+  const [barchartData, setBarchartData] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const barchartRef = useRef();
+ 
+
+  useEffect(() => {
+    async function loadData() {
+      const processedData = await barchartPreprocess();
+      setBarchartData(processedData);
+    }
+
+    loadData();
+  }, []); 
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect(); 
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(barchartRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+
     return (
         <>
             <ProgressBar />
@@ -220,12 +254,9 @@ function App() {
                     width={'500px'}
                 ></ImageAnimation>
             </div>
-
-            <TitleText title={"F1 Teams/Drivers Dominance"}/>
-            <div className="text-section">
-                <TextSection text={items[6]}/>
+            <div className="rankflow-container">
+                <RankFlowChart data={f1_teams_data}></RankFlowChart>
             </div>
-            <RankFlowChart data={f1_teams_data}></RankFlowChart>
 
             <TitleText
                 title={'Racing Giants: The Dominant Nations of the Sport'}
@@ -310,6 +341,12 @@ function App() {
             />
             <div className='text-section'>
                 <TextSection text={items[3]} />
+            </div>
+            <div ref={barchartRef} className="bcontainer">
+                <div className="barchart-container">
+                    <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>  
+                    <Barchart className="barchart" data={barchartData} isVisible={isVisible}  /> 
+                </div>
             </div>
             <AlonsoTimeline></AlonsoTimeline>
 
