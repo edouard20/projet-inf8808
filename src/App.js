@@ -21,6 +21,9 @@ import races from './Preprocessing/races.json';
 import countriesByContinent from './Preprocessing/country_by_continent.json';
 import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
+import preprocessF1Teams from './rankflow/preprocess.js';
+import f1TeamsData from './rankflow/data/f1_teams.json';
+import RankFlowChart from './rankflow/RankFlowChart.js';
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -28,6 +31,8 @@ const { waffle_data, winner_data } = preprocessDrivers(
     columnsToDropDrivers,
     standingsData,
 );
+
+const f1_teams_data = preprocessF1Teams(f1TeamsData)
 
 function App() {
     const bubbleChartRef = useRef(null);
@@ -216,6 +221,12 @@ function App() {
                 ></ImageAnimation>
             </div>
 
+            <TitleText title={"F1 Teams/Drivers Dominance"}/>
+            <div className="text-section">
+                <TextSection text={items[6]}/>
+            </div>
+            <RankFlowChart data={f1_teams_data}></RankFlowChart>
+
             <TitleText
                 title={'Racing Giants: The Dominant Nations of the Sport'}
             />
@@ -362,6 +373,7 @@ function App() {
             <div style={{ paddingBottom: '100px' }}>
                 <F1CarAnimation currentYear={currentYear} />
             </div>
+
         </>
     );
 }
