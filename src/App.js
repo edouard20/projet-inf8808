@@ -23,6 +23,9 @@ import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
 import Barchart from './Barchart.js';
 import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
+import preprocessF1Teams from './rankflow/preprocess.js';
+import f1TeamsData from './rankflow/data/f1_teams.json';
+import RankFlowChart from './rankflow/RankFlowChart.js';
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -30,6 +33,8 @@ const { waffle_data, winner_data } = preprocessDrivers(
     columnsToDropDrivers,
     standingsData,
 );
+
+const f1_teams_data = preprocessF1Teams(f1TeamsData)
 
 function App() {
     const bubbleChartRef = useRef(null);
@@ -249,6 +254,9 @@ function App() {
                     width={'500px'}
                 ></ImageAnimation>
             </div>
+            <div className="rankflow-container">
+                <RankFlowChart data={f1_teams_data}></RankFlowChart>
+            </div>
 
             <TitleText
                 title={'Racing Giants: The Dominant Nations of the Sport'}
@@ -257,8 +265,8 @@ function App() {
                 <TextSection text={items[1]} />
             </div>
             <div className='text-section presentation'>
-                The following visualization will show the 6 nationalities with
-                the most drivers.
+                The following visualization will show the nationalities with
+                the most drivers throughout history.
             </div>
             <div className='container'>
                 <div
@@ -267,9 +275,11 @@ function App() {
                     }`}
                     ref={waffleWinnersRef}
                 >
-                    <div className='subtext' ref={waffleEmptyRef}></div>
+                    <div className='subtext' ref={waffleEmptyRef}>
+                        <b>858</b> drivers across <b>42</b> nationalities
+                    </div>
                     <div className='subtext square' ref={waffleBarsRef}>
-                        Every single cube is one F1 driver.
+                        Every cube is an F1 driver.
                         <div>
                             <Square />
                         </div>
@@ -278,8 +288,7 @@ function App() {
                         Hover on the bars to see the exact driver count.
                     </div>
                     <div className='subtext'>
-                        Now you can see the percentage of winners. <br></br>Not
-                        that much!
+                    You can now hover to see the percentage of race winners.<br></br>Not as many as you would think...
                     </div>
                 </div>
                 {waffleEmptyInView && !waffleBarsInView && (
@@ -316,16 +325,6 @@ function App() {
                     )}
             </div>
 
-            {/* Barchart */}
-      <div className="text-section presentation">Let's look at the most active drivers in F1!</div>
-        <div ref={barchartRef} className="container">
-        <div className="chart-container">
-         <Barchart data={barchartData} isVisible={isVisible}  /> 
-         <div id="tooltip" className="tooltip" style={{ opacity: 0 }}>
-        </div>  
-        </div>
-       </div>
-
             <ParallaxText baseVelocity={-5}>
                 <img src='f1car.png' alt='F1 car' width='300' height='200' />
             </ParallaxText>
@@ -342,6 +341,12 @@ function App() {
             />
             <div className='text-section'>
                 <TextSection text={items[3]} />
+            </div>
+            <div ref={barchartRef} className="bcontainer">
+                <div className="barchart-container">
+                    <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>  
+                    <Barchart className="barchart" data={barchartData} isVisible={isVisible}  /> 
+                </div>
             </div>
             <AlonsoTimeline></AlonsoTimeline>
 
@@ -405,6 +410,7 @@ function App() {
             <div style={{ paddingBottom: '100px' }}>
                 <F1CarAnimation currentYear={currentYear} />
             </div>
+
         </>
     );
 }
