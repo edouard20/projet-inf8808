@@ -18,7 +18,7 @@ const HeatMapTooltip = ({ interactionData }: TooltipProps) => {
         color: interactionData.count > 140 ? "white" : "black",
       }}
     >
-      {interactionData.count}
+      {Math.round(interactionData.count)}
     </div>
   )
 }
