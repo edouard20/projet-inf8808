@@ -42,11 +42,13 @@ function preprocessResults(results) {
   for (let x = 1; x <= 33; x++) {
     for (let y = 1; y <= 33; y++) {
       if (!heatmapData.find((item) => item.x === x && item.y === y)) {
-        heatmapData.push({ x, y, count: 0.00001 });
+        heatmapData.push({ x, y, count: 0.0001 });
       }
     }
   }
-  return heatmapData;
+
+  heatmapData.sort((a, b) => a.x - b.x || a.y - b.y);
+  return heatmapData.filter((item) => item.x < 21 && item.y < 21);
 }
 
 export default preprocessResults;
