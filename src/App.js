@@ -254,9 +254,12 @@ function App() {
                     width={'500px'}
                 ></ImageAnimation>
             </div>
-            <div className="rankflow-container">
-                <RankFlowChart data={f1_teams_data}></RankFlowChart>
+            
+            <TitleText title={"F1 Teams/Drivers Dominance"}/>
+            <div className="text-section">
+                <TextSection text={items[6]}/>
             </div>
+            <RankFlowChart data={f1_teams_data}></RankFlowChart>
 
             <TitleText
                 title={'Racing Giants: The Dominant Nations of the Sport'}
