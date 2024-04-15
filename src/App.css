@@ -278,7 +278,10 @@ b {
 }
 
 .barchart-container {
-  margin-bottom: 100px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
 }
 
 .rankflow-container {

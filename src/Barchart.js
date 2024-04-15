@@ -45,15 +45,12 @@ const Barchart = ({ data }) => {
       .style('border-radius', '8px')
       .style('pointer-events', 'none'); 
 
-
-    // Ajoute le SVG au ref créé
     const svg = d3.select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Echelles
     const xScale = d3.scaleLinear()
         .domain([d3.min(data, d => d.yearsActive)-1, d3.max(data, d => d.yearsActive)])
         .range([0, width]);
@@ -63,18 +60,17 @@ const Barchart = ({ data }) => {
       .range([0, height])
       .padding(0.4)
 
-    // Axes
     svg.append("g")
+      .style("font-size", 15)
       .call(d3.axisLeft(yScale));  
 
-
       svg.append("g")
+         .style("font-size", 15)
          .attr("transform", `translate(0,${height})`)
          .call(d3.axisBottom(xScale)
             .tickFormat(d3.format("d"))
             .tickValues(d3.range(xScale.domain()[0], xScale.domain()[1] + 1)));
             
-      //Titre des axes
       svg.append("text")
       .attr("class", "axis-title")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`) 
@@ -84,13 +80,11 @@ const Barchart = ({ data }) => {
       svg.append("text")
       .attr("class", "axis-title")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left + 50) 
+      .attr("y", 0 - margin.left + 30) 
       .attr("x", 0 - (height / 2))
       .style("text-anchor", "middle")
       .text("Pilotes");
 
-
-        // Barres
       svg.selectAll(".bar")
           .data(data)
           .join("rect")
