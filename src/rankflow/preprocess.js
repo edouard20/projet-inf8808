@@ -1,5 +1,4 @@
 function preprocessF1Teams(jsonData) {
-    console.log(jsonData)
     return jsonData
 }
 

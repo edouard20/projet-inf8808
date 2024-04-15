@@ -1,9 +1,9 @@
 .bar {
-    fill: #BF0A30;
+    fill: #ec234f;
   }
   
   .bar:hover {
-    fill: #ec2752;
+    fill: #d9002f;
   }
   
   .axis path,
