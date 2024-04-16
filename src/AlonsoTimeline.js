@@ -9,8 +9,9 @@ function AlonsoTimeline() {
       };
     return (
     <div>
-        <div style={{fontStyle: 'italic', textAlign: 'center', fontSize: '32px', fontFamily: 'serif'}}>
-            This is the story of Fernando Alonso Díaz, the driver that has driven the most races in Formula 1 history and to this date, is still at the top of the sport.
+        <div style={{textAlign: 'center', fontSize: '32px', fontFamily: 'serif'}}>
+            This is the story of <b>Fernando Alonso Díaz</b><br></br>
+            <br></br>The driver that has driven the most races in Formula 1 history and that is still at the top of the sport
         </div>
         <div className='timeline-box'>
             <motion.img
@@ -33,7 +34,7 @@ function AlonsoTimeline() {
                         }
                     }}
                     viewport={{ once: true }}>
-                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando Alonso's first race at the 2001 Australian Grand Prix in a Minardi PS01</p>
+                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando Alonso's first race at the Australian Grand Prix in a Minardi PS01</p>
                 </motion.div>
             </div>
         </div>
@@ -51,7 +52,7 @@ function AlonsoTimeline() {
                         }
                     }}
                     viewport={{ once: true }}>
-                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando Alonso's first win at the 2003 Hungarian Grand Prix</p>
+                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando Alonso's first win at the Hungarian Grand Prix</p>
                 </motion.div>
             </div>
             <motion.img
@@ -83,7 +84,7 @@ function AlonsoTimeline() {
                         }
                     }}
                     viewport={{ once: true }}>
-                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando Alonso wins the 2005 F1 World Championship</p>
+                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando Alonso wins the F1 World Championship</p>
                 </motion.div>
             </div>
         </div>
@@ -146,7 +147,7 @@ function AlonsoTimeline() {
                         }
                     }}
                     viewport={{ once: true }}>
-                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando Alonso joins Mclaren to drive alongside rookie Lewis Hamilton</p>
+                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Alonso joins Mclaren to drive alongside rookie Lewis Hamilton</p>
                 </motion.div>
             </div>
         </div>
@@ -295,13 +296,12 @@ function AlonsoTimeline() {
                         }
                     }}
                     viewport={{ once: true }}>
-                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Fernando joins the Aston Martin challenge. An unexpected force with an underdog mentality</p>
+                    <p style={{fontFamily: 'serif', fontSize: '32px', color: '#ffff'}}>Nando joins Aston Martin. An unexpected force with an underdog mentality</p>
                 </motion.div>
                 <TextSection text={""}/>
             </div>
         </div>
         <div className='description-text'>To this day, Fernando is still racing at the top level at the fine age of <span style={{color: "green"}}>42</span>. A famous statistic about Nando is that if he had scored 11 more points across his Formula 1 career, he could have been a <span style={{color: "red"}}>five</span>-time world champion.</div>
-        {/* <TextSection text={"Fernando is still racing at the top level at the fine age of 42. A famous statistic about Nando is that if he had scored 11 more points across his Formula 1 career, he could have been a five-time world champion."}></TextSection> */}
     </div>
     );
 }

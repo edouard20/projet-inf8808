@@ -18,7 +18,7 @@ function TitleText({title, color}) {
     <div className="introduction-text" ref={ref}>
       {text.map((el, i) => (
         <motion.span
-          style={{color: color != null ? color : '#FFFF'}}
+          style={{color: color != null ? color : '#FFFF', fontSize: '50px'}}
           whileInView={{ opacity: 1.5 }}
           initial="hidden"
           animate={controls}

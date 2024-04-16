@@ -24,10 +24,11 @@ function BubbleChart({ data, setMaxRadius, setMaxValue }) {
         if (d3Container.current) {
             observer.observe(d3Container.current);
         }
+        const currentRef = d3Container.current;
 
         return () => {
-            if (d3Container.current) {
-                observer.unobserve(d3Container.current);
+            if (currentRef) {
+                observer.unobserve(currentRef);
             }
         };
     }, []);
@@ -120,7 +121,7 @@ function BubbleChart({ data, setMaxRadius, setMaxValue }) {
                 .style('font-size', `0.7vw`)
                 .style('font-weight', 'bold');
         }
-    }, [data, isVisible]);
+    }, [data, isVisible, setMaxRadius, setMaxValue]);
 
     return (
         <>

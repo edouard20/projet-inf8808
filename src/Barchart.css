@@ -1,9 +1,9 @@
 .bar {
-    fill: coral;
+    fill: #fb2b58;
   }
   
   .bar:hover {
-    fill: darkorange;
+    fill: #dd0a38;
   }
   
   .axis path,
@@ -25,12 +25,12 @@
     position: absolute;
     text-align: center;
     width: 200px;
-    height: 200px;
+    height: 90px;
     padding: 8px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
+    font: 14px sans-serif;
+    background: rgb(159, 162, 160);
     border: 0px;
-    border-radius: 8px;
+    border-radius: 6px;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s;
