@@ -77,6 +77,7 @@ const Barchart = ({ data }) => {
       .attr("y", 0 - margin.left + 30) 
       .attr("x", 0 - (height / 2))
       .style("text-anchor", "middle")
+      .style("font-size", "20px")
       .text("Pilotes");
 
     svg.selectAll(".bar")
@@ -94,7 +95,8 @@ const Barchart = ({ data }) => {
           .style('left', `${event.pageX + 100}px`)
           .style('top', `${event.pageY}px`)
           .style('background-image', `url(${flagUrl})`)
-          .style('background-size', 'cover')
+          .style('background-size', '25%' )
+          .style('background-repeat', 'no-repeat')
           .transition()
           .duration(200)
           .style('opacity', 1);

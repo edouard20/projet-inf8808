@@ -171,11 +171,9 @@ function App() {
         }
     }, [waffleHoverRef]);
 
-    //barchart
   const [barchartData, setBarchartData] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const barchartRef = useRef();
- 
 
   useEffect(() => {
     async function loadData() {
@@ -201,7 +199,6 @@ function App() {
 
     return () => observer.disconnect();
   }, []);
-
 
     return (
         <>
