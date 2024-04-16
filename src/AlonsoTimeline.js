@@ -22,7 +22,7 @@ function AlonsoTimeline() {
                 whileInView="visible">
             </motion.img>
             <div>
-                <TitleText className="year" title={"2001"} color={'#4d6fcb'}/>
+                <TitleText title={"2001"} color={'#4d6fcb'}/>
                 <motion.div
                     initial={{
                         opacity: 0,
