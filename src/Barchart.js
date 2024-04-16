@@ -82,7 +82,7 @@ const Barchart = ({ data }) => {
       .on('mouseover', (event, d) => {
         const flagUrl = `https://flagsapi.com/${d.countryCode}/shiny/64.png`;
         tooltip
-          .html(`<div><b>${d.name}</b><br/>Actives years: ${d.yearsActive}</div><img src="${flagUrl}" />`)
+          .html(`<div><b>${d.name}</b><br/>Active years: ${d.yearsActive}</div><img src="${flagUrl}" />`)
           .style('left', `${event.pageX + 100}px`)
           .style('top', `${event.pageY}px`)
           .transition()
