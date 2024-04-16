@@ -28,16 +28,7 @@ const Barchart = ({ data }) => {
 
     const tooltip = 
     d3.select('body').append('div')
-      .attr('class', 'tooltip') 
-      .style('opacity', 0)
-      .style('position', 'absolute')
-      .style('text-align', 'center')
-      .style('padding', '8px')
-      .style('font', '12px sans-serif')
-      .style('background', 'lightsteelblue')
-      .style('border', '0px')
-      .style('border-radius', '8px')
-      .style('pointer-events', 'none'); 
+      .attr('class', 'tooltip');
 
     const svg = d3.select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
@@ -91,19 +82,16 @@ const Barchart = ({ data }) => {
       .on('mouseover', (event, d) => {
         const flagUrl = `https://flagsapi.com/${d.countryCode}/shiny/64.png`;
         tooltip
-          .html(`${d.name}<br/>Années actives: ${d.yearsActive}`)
+          .html(`<div><b>${d.name}</b><br/>Années actives : ${d.yearsActive}</div><img src="${flagUrl}" />`)
           .style('left', `${event.pageX + 100}px`)
           .style('top', `${event.pageY}px`)
-          .style('background-image', `url(${flagUrl})`)
-          .style('background-size', '25%' )
-          .style('background-repeat', 'no-repeat')
           .transition()
-          .duration(200)
+          .duration(400)
           .style('opacity', 1);
       })
       .on('mouseout', () => {
         tooltip.transition()
-          .duration(500)  
+          .duration(400)  
           .style('opacity', 0);
       });
 
@@ -136,7 +124,6 @@ const Barchart = ({ data }) => {
           .duration(1500) 
           .attr("width", d => xScale(d.yearsActive)); 
       }
-
       }, [data, isVisible]);
 
       return <svg ref={svgRef}></svg>;
