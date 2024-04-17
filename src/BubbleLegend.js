@@ -67,7 +67,7 @@ const BubbleLegend = ({ maxRadius, maxCrash }) => {
         const legendY = (height - legendBBox.height) / 2;
 
         legendG.attr('transform', `translate(${legendX}, ${legendY})`);
-    }, [maxRadius]);
+    }, [maxRadius,maxCrash]);
 
     return (
         <div className='legend-box'>
