@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { legendColor } from 'd3-svg-legend';
 import './BubbleLegend.css';
+import continentColors from './Preprocessing/continent_colors.json';
 const BubbleLegend = ({ maxRadius, maxCrash }) => {
     const ref = useRef(null);
     const scale = useRef(null);
@@ -40,14 +41,6 @@ const BubbleLegend = ({ maxRadius, maxCrash }) => {
         scaleSvg.selectAll('path').style('stroke', 'white');
         scaleSvg.selectAll('line').style('stroke', 'white');
         scaleSvg.selectAll('text').style('fill', 'white');
-        const continentColors = {
-            Africa: '#EA65D5',
-            Asia: '#EA1515',
-            Europe: '#73C010',
-            'North America': '#376BF0',
-            Oceania: '#B06A00',
-            'South America': '#E7EA65',
-        };
 
         const colorScale = d3
             .scaleOrdinal()

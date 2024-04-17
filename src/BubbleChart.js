@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import './BubbleChart.css';
+import continentColors from './Preprocessing/continent_colors.json';
 
 function BubbleChart({ data, setMaxRadius, setMaxValue }) {
     const d3Container = useRef(null);
@@ -39,15 +40,6 @@ function BubbleChart({ data, setMaxRadius, setMaxValue }) {
             const width = 928;
             const height = width;
             const margin = 1;
-            const continentColors = {
-                Asia: '#EA1515',
-                Europe: '#73C010',
-                Africa: '#EA65D5',
-                Oceania: '#B06A00',
-                'North America': '#376BF0',
-                'South America': '#E7EA65',
-                Unknown: '#FFFFFF',
-            };
             const color = (d) =>
                 continentColors[d.continent] || continentColors['Unknown'];
             const pack = d3
@@ -117,7 +109,8 @@ function BubbleChart({ data, setMaxRadius, setMaxValue }) {
                 .attr('x', 0)
                 .attr('y', (d, i, nodes) => `${i - nodes.length / 2 + 0.35}em`)
                 .text((d) => d)
-                .style('font-size', `0.7vw`)
+                .style('font-size', `1.4vw`)
+                .style('fill', 'white')
                 .style('font-weight', 'bold');
         }
     }, [data, isVisible]);
