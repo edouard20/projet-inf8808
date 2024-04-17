@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import important_crashes from './Preprocessing/important_crashes.json';
+import important_crashes from '../bubble_preprocess/important_crashes.json';
 import './timelineAdvancement.css';
-
-const F1CarAnimation = ({ currentYear }) => {
+/**
+ * Component for the timeline under the bubble legend.
+ *
+ * @param {*} currentYear The current displayed year
+ */
+const BubbleChartTimeline = ({ currentYear }) => {
     const svgRef = useRef(null);
     const carRef = useRef(null);
 
@@ -143,4 +147,4 @@ const F1CarAnimation = ({ currentYear }) => {
     );
 };
 
-export default F1CarAnimation;
+export default BubbleChartTimeline;

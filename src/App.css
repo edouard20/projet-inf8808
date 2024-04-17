@@ -237,7 +237,7 @@ body {
 .grid-item:nth-child(4), .grid-item:nth-child(6) {
   align-self: start;
   height: 50%;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .text-container {

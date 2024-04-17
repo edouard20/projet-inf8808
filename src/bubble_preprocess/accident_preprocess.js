@@ -1,3 +1,12 @@
+/**
+ * The data preprocessing for the bubble charts
+ *
+ * @param {*} circuits A json format list of F1 circuits
+ * @param {*} racesResults A json format list of the race results
+ * @param {*} races A json format list of the race tracks
+ * @param {*} countriesContinents A json format list of the countries and their continents
+ * @param {*} drivers A json format list of the drivers
+ */
 function processRaces(
     circuits,
     racesResults,

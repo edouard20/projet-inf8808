@@ -2,7 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { legendColor } from 'd3-svg-legend';
 import './BubbleLegend.css';
-import continentColors from './Preprocessing/continent_colors.json';
+import continentColors from '../bubble_preprocess/continent_colors.json';
+/**
+ * Component for the responsive legend of the bubble chart.
+ *
+ * @param {*} maxRadius The maximum radius of the bubbles
+ * @param {*} maxCrash The maximum number of crashes
+ */
 const BubbleLegend = ({ maxRadius, maxCrash }) => {
     const ref = useRef(null);
     const scale = useRef(null);
