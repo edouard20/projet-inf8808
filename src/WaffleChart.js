@@ -134,10 +134,12 @@ function WaffleChart({ data, winner_data=[], colors=true, hover=true, animate=tr
           )
           cubes.forEach((cube, index) => {
             if (winner_data.length > 0) {
-              for (let i = 0; i < winner_data.length; i++) {
-                if (winner_data[i].nationality === d.nationality) {
-                  cube.fill = index < winner_data[i].count ? colorScale(d.nationality) : "grey";
-                }
+              const winner = winner_data.find((winner) => winner.nationality === d.nationality);
+              const isWinnerCube = index < (winner ? winner.count : d.count);
+              cube.fill = colorScale(d.nationality); 
+              if (!isWinnerCube) {
+                cube.fill = colorScale(d.nationality);
+                cube.animateGrey = true;
               }
             }
             else {
@@ -155,7 +157,8 @@ function WaffleChart({ data, winner_data=[], colors=true, hover=true, animate=tr
         .attr("width", 12)
         .attr("height", 12)
         .attr("fill", (d) => d.fill)
-        .attr("data-animate", animate ? "true" : "false");
+        .attr("data-animate", animate)
+        .attr("data-animate-grey", (d) => d.animateGrey); 
 
       svg.selectAll(".nationality-label")
         .data(data)
