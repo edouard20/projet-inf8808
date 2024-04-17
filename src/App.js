@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import WaffleChart from './WaffleChart.js';
 import ProgressBar from './ProgressBar';
-import BubbleChart from './BubbleChart.js';
+import BubbleChart from './bubble_chart/BubbleChart.js';
 import TitleText from './TitleText';
 import TextSection from './TextSection';
 import ImageAnimation from './ImageAnimation';
 import data from './texts.json';
 import AlonsoTimeline from './AlonsoTimeline';
-import processRaces from './Preprocessing/accident_preprocess';
+import processRaces from './bubble_preprocess/accident_preprocess.js';
 import './App.css';
 import ParallaxText from './ParallaxText';
 import { useInView } from 'framer-motion';
@@ -15,12 +15,12 @@ import Square from './Square.js';
 import preprocessDrivers from './waffle_preprocess/waffle_preprocess.js';
 import driversData from './waffle_preprocess/drivers.json';
 import standingsData from './waffle_preprocess/results.json';
-import circuit from './Preprocessing/circuits.json';
-import results from './Preprocessing/results.json';
-import races from './Preprocessing/races.json';
-import countriesByContinent from './Preprocessing/country_by_continent.json';
-import F1CarAnimation from './timelineAdvancement.js';
-import BubbleLegend from './BubbleLegend.js';
+import circuit from './bubble_preprocess/circuits.json';
+import results from './bubble_preprocess/results.json';
+import races from './bubble_preprocess/races.json';
+import countriesByContinent from './bubble_preprocess/country_by_continent.json';
+import BubbleChartTimeline from './bubble_chart/timelineAdvancement.js';
+import BubbleLegend from './bubble_chart/BubbleLegend.js';
 import Barchart from './Barchart.js';
 import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
 import preprocessF1Teams from './rankflow/preprocess.js';
@@ -386,7 +386,7 @@ function App() {
                     className='grid-item'
                     data={currentYearData}
                     setMaxRadius={setMaxRadius}
-                    setMaxValue={setMaxCrash}
+                    setMaxCrashes={setMaxCrash}
                 />
                 {currentYear + 1 <= 2023 ? (
                     <div className='grid-item'>
@@ -406,7 +406,7 @@ function App() {
                 <BubbleLegend maxRadius={maxRadius} maxCrash={maxCrash} />
             </div>
             <div style={{ paddingBottom: '100px' }}>
-                <F1CarAnimation currentYear={currentYear} />
+                <BubbleChartTimeline currentYear={currentYear} />
             </div>
 
         </>

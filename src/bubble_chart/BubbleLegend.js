@@ -2,6 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { legendColor } from 'd3-svg-legend';
 import './BubbleLegend.css';
+import continentColors from '../bubble_preprocess/continent_colors.json';
+/**
+ * Component for the responsive legend of the bubble chart.
+ *
+ * @param {*} maxRadius The maximum radius of the bubbles
+ * @param {*} maxCrash The maximum number of crashes
+ */
 const BubbleLegend = ({ maxRadius, maxCrash }) => {
     const ref = useRef(null);
     const scale = useRef(null);
@@ -40,14 +47,6 @@ const BubbleLegend = ({ maxRadius, maxCrash }) => {
         scaleSvg.selectAll('path').style('stroke', 'white');
         scaleSvg.selectAll('line').style('stroke', 'white');
         scaleSvg.selectAll('text').style('fill', 'white');
-        const continentColors = {
-            Africa: '#EA65D5',
-            Asia: '#EA1515',
-            Europe: '#73C010',
-            'North America': '#376BF0',
-            Oceania: '#B06A00',
-            'South America': '#E7EA65',
-        };
 
         const colorScale = d3
             .scaleOrdinal()
@@ -74,7 +73,7 @@ const BubbleLegend = ({ maxRadius, maxCrash }) => {
         const legendY = (height - legendBBox.height) / 2;
 
         legendG.attr('transform', `translate(${legendX}, ${legendY})`);
-    }, [maxRadius]);
+    }, [maxRadius,maxCrash]);
 
     return (
         <div className='legend-box'>

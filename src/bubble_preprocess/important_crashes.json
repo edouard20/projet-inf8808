@@ -1,0 +1,51 @@
+[
+    {
+        "name": "Niki Lauda",
+        "year": 1976,
+        "location":"Nurburgring",
+        "src":"https://www.thedetroitbureau.com/wp-content/uploads/2019/05/Niki-Lauda-Nurburgring-Crash.jpg",
+        "more":"https://en.wikipedia.org/wiki/Niki_Lauda#1976_N%C3%BCrburgring_crash"
+    },
+    {
+        "name": "Gilles Villeneuve",
+        "year": 1982,
+        "location": "Zolder",
+        "src":"https://i.ytimg.com/vi/P2zygXE_DPk/maxresdefault.jpg",
+        "more":"https://en.wikipedia.org/wiki/1982_Belgian_Grand_Prix"
+    },
+    {
+        "name": "Gerhard Berger",
+        "year": 1989,
+        "location": "Autodromo Enzo e Dino Ferrari, Italy",
+        "src":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlqV2AHHG3pT3yjT4xy6djdEJRxv3_R7DfXKAfIHhYvg&s",
+        "more":"https://en.wikipedia.org/wiki/1989_San_Marino_Grand_Prix#Race"
+    },
+    {
+        "name": "Ayrton Senna",
+        "year": 1994,
+        "location": "Autodromo Enzo e Dino Ferrari, Italy",
+        "src":"https://content.api.news/v3/images/bin/33cfed6117b5a6d381ae6fad687a7f0f",
+        "more":"https://en.wikipedia.org/wiki/Death_of_Ayrton_Senna#1994_San_Marino_Grand_Prix"
+    },
+    {
+        "name": "Jarno Trulli",
+        "year": 2004,
+        "location": "Silverstone",
+        "src":"https://i.ytimg.com/vi/P2zygXE_DPk/maxresdefault.jpg",
+        "more":"https://www.youtube.com/watch?v=Z-d-qa6NaIc"
+    },
+    {
+        "name": "Jules Bianchi",
+        "year": 2014,
+        "location": "Suzuka",
+        "src":"https://www.usatoday.com/gcdn/-mm-/7da718ce4b37bae13f3a25ea0e71f836909675de/c=0-114-5184-3038/local/-/media/USATODAY/None/2014/10/05/1412513068000-GTY-456668914-67792056.JPG",
+        "more":"https://en.wikipedia.org/wiki/Jules_Bianchi#2014_Suzuka_accident"
+    },
+    {
+        "name": "Romain Grosjean",
+        "year": 2020,
+        "location": "Bahrain",
+        "src":"https://i.tribune.com.pk/media/images/Grosjean1615029504-0/Grosjean1615029504-0.jpg",
+        "more":"https://en.wikipedia.org/wiki/2020_Bahrain_Grand_Prix#First_lap_and_Romain_Grosjean's_crash"
+    }
+]
