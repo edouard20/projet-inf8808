@@ -22,7 +22,7 @@ import countriesByContinent from './Preprocessing/country_by_continent.json';
 import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
 import HeatMap from './HeatMap/HeatMap.js';
-import preprocessResults from './proprocessResult.js';
+import processResults from './proprocessResult.js';
 import Barchart from './Barchart.js';
 import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
 import preprocessF1Teams from './rankflow/preprocess.js';
@@ -36,7 +36,8 @@ const { waffle_data, winner_data } = preprocessDrivers(
     standingsData,
 );
 
-const processedResults = preprocessResults(results);
+// const processedResults = preprocessResults(results);
+const processedResults = processResults(results);
 const f1_teams_data = preprocessF1Teams(f1TeamsData)
 
 function App() {
