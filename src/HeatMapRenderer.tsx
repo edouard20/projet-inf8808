@@ -66,8 +66,8 @@ const HeatMapRenderer = ({width, height, data, setHoveredCell}: HeatMapRendererP
         stroke={"white"}
         onMouseEnter={(e) => {
           setHoveredCell({
-            xPos: x + xScale.bandwidth() + 510,
-            yPos: y + xScale.bandwidth() - 30,
+            xPos: xScale(d.x) + xScale.bandwidth() / 2 + boundsWidth /2 - 12,
+            yPos: yScale(d.y) + xScale.bandwidth() / 2 - 8,
             count: d.count,
           });
         }}
@@ -136,6 +136,48 @@ const HeatMapRenderer = ({width, height, data, setHoveredCell}: HeatMapRendererP
       </svg>
     </div>
   );
+}
+
+export function initLegendBar () {
+  const svg = d3.select("#svg-container");
+  const defs = svg.append("defs");
+
+  const linearGradient = defs
+    .append("linearGradient")
+    .attr("id", "linear-gradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "0%");
+
+  linearGradient
+    .append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "white");
+
+  linearGradient
+    .append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "red");
+
+  svg
+    .append("rect")
+    .attr("width", 100)
+    .attr("height", 20)
+    .style("fill", "url(#linear-gradient)")
+    .attr("transform", "translate(10, 10)");
+
+  svg
+    .append("text")
+    .attr("x", 10)
+    .attr("y", 40)
+    .text("0");
+
+  svg
+    .append("text")
+    .attr("x", 90)
+    .attr("y", 40)
+    .text("140");
 }
 
 export default HeatMapRenderer;
