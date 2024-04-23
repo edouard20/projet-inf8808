@@ -26,6 +26,9 @@ const HeatMap = ({ data }) => {
         const minValue = Math.min(...counts);
         const maxValue = Math.max(...counts);
         const colorScale = d3.scaleSequential(d3.interpolateOrRd)
+        .domain([1, Math.log(maxValue + 1)]) // Adjust the domain to the log scale
+        .interpolator(d => d3.interpolateOrRd(Math.log(d + 1) / Math.log(maxValue + 1)));
+        const colorLegendScale = d3.scaleSequential(d3.interpolateOrRd)
                              .domain([minValue, maxValue]);
     
         d3.select(svgContainerRef.current).selectAll("svg").remove();
@@ -106,7 +109,7 @@ const HeatMap = ({ data }) => {
                     .attr('y', y.bandwidth() / 2 + 10)
                     .attr('text-anchor', 'middle')
                     .style('font-size', '1em')
-                    .style('fill', d.count < 140 ? '#000000': '#ffffff')
+                    .style('fill', d.count < 100 ? '#000000': '#ffffff')
                     .style('pointer-events', 'none');
               })
               .on('mouseleave', function(event) {

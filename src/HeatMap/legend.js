@@ -6,26 +6,33 @@ import * as d3 from 'd3';
  *
  * @param {*} colorScale The color scale to use
  */
-export function initGradient (colorScale) {
-    const svg = d3.select('.heatmap-svg')
-  
-    const defs = svg.append('defs')
-  
-    const linearGradient = defs
-      .append('linearGradient')
+export function initGradient(colorScale) {
+  const svg = d3.select('.heatmap-svg');
+  const defs = svg.append('defs');
+  const linearGradient = defs.append('linearGradient')
       .attr('id', 'gradient')
-      .attr('x1', 0).attr('y1', 1).attr('x2', 0).attr('y2', 0)
-  
-    linearGradient.selectAll('stop')
-      .data(colorScale.ticks().map((tick, i, nodes) => (
-        {
-          offset: `${100 * (i / nodes.length)}%`,
-          color: colorScale(tick)
-        })))
-      .join('stop')
+      .attr('x1', 0).attr('y1', 1).attr('x2', 0).attr('y2', 0);
+
+  const numStops = 10;
+  const domain = colorScale.domain();
+  const range = [domain[0], Math.exp(domain[1])];
+
+  const stops = Array.from({length: numStops}, (_, i) => {
+      const value = range[0] + (range[1] - range[0]) * i / (numStops - 1);
+      return {
+          offset: `${100 * i / (numStops - 1)}%`,
+          color: colorScale(value)
+      };
+  });
+
+  linearGradient.selectAll('stop')
+      .data(stops)
+      .enter()
+      .append('stop')
       .attr('offset', d => d.offset)
-      .attr('stop-color', d => d.color)
-  }
+      .attr('stop-color', d => d.color);
+}
+
   
   /**
    * Initializes the SVG rectangle for the legend.
@@ -62,17 +69,25 @@ export function initGradient (colorScale) {
       .attr('height', height)
       .attr('width', width)
       .style('fill', fill);
-    const axisScale = d3.scaleLinear()
-                        .domain(colorScale.domain())
+
+    const ticks = [5, 10, 20, 50, 100, 200, 400];
+
+    const logDomain = colorScale.domain();
+    const range = [Math.exp(logDomain[0]), Math.exp(logDomain[1])];
+    const axisScale = d3.scaleLog()
+                        .domain([Math.max(1, range[0]), range[1]])
                         .range([height, 0]);
-  
-    const axis = d3.axisLeft(axisScale).ticks(7) 
-  
+
+    const axis = d3.axisLeft(axisScale)
+                   .tickValues(ticks)
+
     d3.select('.legend-axis')
       .attr('transform', `translate(${x}, ${y})`)
-      .call(axis)
-      
+      .call(axis);
+
     const padding = 15;
     d3.select('.legend-axis').selectAll('text')
-      .attr('transform', `translate(${width - padding}, 0)`)
-  }
+      .attr('transform', `translate(${width - padding}, 0)`);
+}
+
+
