@@ -32,7 +32,7 @@ export function initGradient (colorScale) {
    */
   export function initLegendBar () {
     const svg = d3.select('.heatmap-svg')
-    svg.append('rect').attr('class', 'legend bar')
+    svg.append('rect').attr('class', 'legend-bar')
   }
   
   /**
@@ -42,7 +42,7 @@ export function initGradient (colorScale) {
     const svg = d3.select('.heatmap-svg')
     svg
       .append('g')
-      .attr('class', 'legend axis')
+      .attr('class', 'legend-axis')
   }
   
   /**

@@ -13,9 +13,6 @@ const margin = { top: 35, right: 200, bottom: 35, left: 200 }
 
 const HeatMap = ({ data }) => {
 
-    const svgRef = useRef(null);
-    const colorScale = d3.scaleSequential(d3Chromatic.interpolateReds).nice();
-
     const allXGroups = useMemo(() => [...new Set(data.map((d) => d.x))], [data]);
     const allYGroups = useMemo(() => [...new Set(data.map((d) => d.y))], [data]);
 
@@ -38,7 +35,7 @@ const HeatMap = ({ data }) => {
         const colorScale = d3.scaleSequential(d3.interpolateOrRd)
                              .domain([minValue, maxValue]);
 
-        d3.select(svgContainerRef.current).select("svg").remove();
+        d3.select(svgContainerRef.current).selectAll("svg").remove();
 
         const svg = d3.select(svgContainerRef.current)
                       .append("svg")
@@ -46,6 +43,10 @@ const HeatMap = ({ data }) => {
                       .attr("height", svgSize.height)
                       .append("g")
                       .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        d3.select(svgContainerRef.current)
+        .append('svg')
+        .attr('class', 'heatmap-svg');
 
         const x = d3.scaleBand()
                     .domain(allXGroups)
@@ -91,15 +92,21 @@ const HeatMap = ({ data }) => {
            .style("fill", d => colorScale(d.count));
 
         legend.initGradient(colorScale);
-        legend.initLegendBar();
-        legend.initLegendAxis();
+
+        // set up legend bar and axis
+        d3.select('.heatmap-svg')
+            .append('rect')
+            .attr('class', 'legend-bar');
+        
+        d3.select('.heatmap-svg')
+            .append('g')
+            .attr('class', 'legend-axis');
         legend.draw(margin.left / 2, margin.top + 5, graphSize.height - 10, 15, 'url(#gradient)', colorScale);
 
     }, [data]);
 
     return (
         <div ref={svgContainerRef} className="viz-container">
-            <svg class="heatmap-svg"></svg>
         </div>
     );
 };
