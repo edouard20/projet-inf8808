@@ -65,7 +65,7 @@ const HeatMap = ({ data }) => {
            .call(d3.axisLeft(y).tickSize(0));
 
         xAxis.append("text")
-            .attr("x", graphSize.width / 2)
+            .attr("x", graphSize.width / 1.75)
             .attr("y", -margin.top / 2)
             .attr("text-anchor", "end")
             .attr("font-size", "2em")
