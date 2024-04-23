@@ -34,99 +34,84 @@ const HeatMap = ({ data }) => {
         const maxValue = Math.max(...counts);
         const colorScale = d3.scaleSequential(d3.interpolateOrRd)
                              .domain([minValue, maxValue]);
-
+    
+        // Clean up any existing SVG to avoid duplication
         d3.select(svgContainerRef.current).selectAll("svg").remove();
-
+    
         const svg = d3.select(svgContainerRef.current)
                       .append("svg")
                       .attr("width", svgSize.width)
                       .attr("height", svgSize.height)
                       .append("g")
                       .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-        d3.select(svgContainerRef.current)
-        .append('svg')
-        .attr('class', 'heatmap-svg');
-
+    
         const x = d3.scaleBand()
                     .domain(allXGroups)
                     .range([0, graphSize.width])
                     .padding(0.1);
-
-        const xAxis = svg.append("g")
-           .call(d3.axisTop(x).tickSize(0));
-
+    
         const y = d3.scaleBand()
                     .domain(allYGroups)
                     .range([0, graphSize.height])
                     .padding(0.1);
-
-        const yAxis = svg.append("g")
-           .call(d3.axisLeft(y).tickSize(0));
-
-        xAxis.append("text")
-            .attr("x", graphSize.width / 2)
-            .attr("y", -margin.top / 2)
-            .attr("text-anchor", "end")
-            .attr("font-size", "2em")
-            .attr("fill", "white")
-            .text("Ending Position")
-        
-        yAxis.append("text")
-            .attr("x", -graphSize.width / 4)
-            .attr("y", -margin.top)
-            .attr("text-anchor", "end")
-            .attr("font-size", "2em")
-            .attr("fill", "white")
-            .attr("transform", "rotate(-90)")
-            .text("Starting Position")
-
-        svg.selectAll("rect")
-           .data(data)
-           .enter()
-           .append("rect")
-           .attr("x", d => x(d.x))
-           .attr("y", d => y(d.y))
-           .attr("width", x.bandwidth())
-           .attr("height", y.bandwidth())
-           .style("fill", d => colorScale(d.count))
-           .on('mouseenter', function(event) {
-            const rect = d3.select(event.currentTarget);
-            const x = parseFloat(rect.attr('x')) + parseFloat(rect.attr('width')) / 2;
-            const y = parseFloat(rect.attr('y')) + parseFloat(rect.attr('height')) / 2;
-
-            rect
-            .style('transform-origin', `${x}px ${y}px`)
-            .transition()
-            .duration(200)
-            .attr('transform', 'scale(1.2)')
-            .style('stroke', '#ffffff')
-            .style('stroke-width', 2)
-            .style('cursor', 'pointer');
-          })
-          .on('mouseleave', function(event) {
-            d3.select(event.currentTarget)
-              .transition()
-              .duration(200)
-              .attr('transform', 'scale(1)')
-              .style('stroke', 'none')
-              .style('stroke-width', 1);
-           });
-
+    
+        svg.append("g").call(d3.axisTop(x).tickSize(0));
+        svg.append("g").call(d3.axisLeft(y).tickSize(0));
+    
+        const groups = svg.selectAll(".rect-group")
+                          .data(data)
+                          .enter()
+                          .append("g")
+                          .attr("class", "rect-group")
+                          .attr("transform", d => `translate(${x(d.x)}, ${y(d.y)})`);
+    
+        groups.append("rect")
+              .attr("width", x.bandwidth())
+              .attr("height", y.bandwidth())
+              .style("fill", d => colorScale(d.count))
+              .on('mouseenter', function(event, d) {
+                  d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('transform', 'scale(1.2)')
+                    .style('stroke', '#ffffff')
+                    .style('stroke-width', 2)
+                    .style('cursor', 'pointer');
+    
+                  d3.select(this.parentNode)
+                    .append('text')
+                    .text(d.count)
+                    .attr('x', x.bandwidth() / 2)
+                    .attr('y', y.bandwidth() / 2 + 10)
+                    .attr('text-anchor', 'middle')
+                    .style('font-size', '1.5em')
+                    .style('fill', d.count < 150 ? '#000000': '#ffffff');
+              })
+              .on('mouseleave', function(event) {
+                  d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('transform', '')
+                    .style('stroke', 'none')
+                    .style('stroke-width', 1);
+    
+                  d3.select(this.parentNode).select('text').remove();
+              });
+    
         legend.initGradient(colorScale);
-
-        // set up legend bar and axis
-        d3.select('.heatmap-svg')
+        d3.select(svgContainerRef.current)
+            .append('svg')
+            .attr('class', 'heatmap-svg')
             .append('rect')
             .attr('class', 'legend-bar');
-        
+            
         d3.select('.heatmap-svg')
             .append('g')
             .attr('class', 'legend-axis');
-
+    
         legend.draw(margin.left / 2, margin.top + 5, graphSize.height - 10, 15, 'url(#gradient)', colorScale);
-
     }, [data]);
+    
 
     return (
         <div ref={svgContainerRef} className="viz-container">
