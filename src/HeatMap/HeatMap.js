@@ -1,34 +1,27 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import * as d3Chromatic from 'd3-scale-chromatic';
 import { useMemo } from 'react';
 import * as legend from './legend.js'
 import '../HeatMap.css'
-// import * as legend from './legend.js'
-// import * as scales from './scales.js'
-// import * as tooltip from './tooltip.js'
-import d3Tip from 'd3-tip'
 
 const margin = { top: 35, right: 200, bottom: 35, left: 200 }
 
 const HeatMap = ({ data }) => {
-
+    const svgContainerRef = useRef(null);
     const allXGroups = useMemo(() => [...new Set(data.map((d) => d.x))], [data]);
     const allYGroups = useMemo(() => [...new Set(data.map((d) => d.y))], [data]);
 
-    const svgSize = {
-        width: 1200,
-        height: 800
-    }
-
-    const graphSize = {
-        width: svgSize.width - margin.right - margin.left,
-        height: svgSize.height - margin.bottom - margin.top
-    }
-
-    const svgContainerRef = useRef(null);
-
     useEffect(() => {
+
+        const svgSize = {
+            width: 1200,
+            height: 800
+        }
+    
+        const graphSize = {
+            width: svgSize.width - margin.right - margin.left,
+            height: svgSize.height - margin.bottom - margin.top
+        }
         const counts = data.map(d => d.count);
         const minValue = Math.min(...counts);
         const maxValue = Math.max(...counts);
@@ -137,7 +130,7 @@ const HeatMap = ({ data }) => {
             .attr('class', 'legend-axis');
     
         legend.draw(margin.left / 2, margin.top + 5, graphSize.height - 10, 15, 'url(#gradient)', colorScale);
-    }, [data]);
+    }, [data, allXGroups, allYGroups]);
     
 
     return (
