@@ -52,7 +52,7 @@ const HeatMap = ({ data }) => {
                     .range([0, graphSize.width])
                     .padding(0.1);
 
-        svg.append("g")
+        const xAxis = svg.append("g")
            .call(d3.axisTop(x).tickSize(0));
 
         const y = d3.scaleBand()
@@ -60,8 +60,25 @@ const HeatMap = ({ data }) => {
                     .range([0, graphSize.height])
                     .padding(0.1);
 
-        svg.append("g")
+        const yAxis = svg.append("g")
            .call(d3.axisLeft(y).tickSize(0));
+
+        xAxis.append("text")
+            .attr("x", graphSize.width / 2)
+            .attr("y", -margin.top / 2)
+            .attr("text-anchor", "end")
+            .attr("font-size", "2em")
+            .attr("fill", "white")
+            .text("Ending Position")
+        
+        yAxis.append("text")
+            .attr("x", -graphSize.width / 4)
+            .attr("y", -margin.top)
+            .attr("text-anchor", "end")
+            .attr("font-size", "2em")
+            .attr("fill", "white")
+            .attr("transform", "rotate(-90)")
+            .text("Starting Position")
 
         svg.selectAll("rect")
            .data(data)
@@ -77,7 +94,7 @@ const HeatMap = ({ data }) => {
         legend.initLegendBar();
         legend.initLegendAxis();
         legend.draw(margin.left / 2, margin.top + 5, graphSize.height - 10, 15, 'url(#gradient)', colorScale);
-        
+
     }, [data]);
 
     return (
