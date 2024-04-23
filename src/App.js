@@ -21,7 +21,7 @@ import races from './Preprocessing/races.json';
 import countriesByContinent from './Preprocessing/country_by_continent.json';
 import F1CarAnimation from './timelineAdvancement.js';
 import BubbleLegend from './BubbleLegend.js';
-import HeatMap from './HeatMap.tsx';
+import HeatMap from './HeatMap/HeatMap.js';
 import preprocessResults from './proprocessResult.js';
 import Barchart from './Barchart.js';
 import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
@@ -362,8 +362,8 @@ function App() {
             <div className='text-section'>
                 <TextSection text={items[4]} />
             </div>
-            
             <HeatMap width={1000} height={800} data={processedResults}  />
+            {/* <HeatMap width={1000} height={800} data={processedResults}  /> */}
 
             <TitleText
                 title={'Unleashed Chaos: The Dark Side of Formula 1 Accidents'}
