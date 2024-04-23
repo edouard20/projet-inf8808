@@ -89,7 +89,29 @@ const HeatMap = ({ data }) => {
            .attr("y", d => y(d.y))
            .attr("width", x.bandwidth())
            .attr("height", y.bandwidth())
-           .style("fill", d => colorScale(d.count));
+           .style("fill", d => colorScale(d.count))
+           .on('mouseenter', function(event) {
+            const rect = d3.select(event.currentTarget);
+            const x = parseFloat(rect.attr('x')) + parseFloat(rect.attr('width')) / 2;
+            const y = parseFloat(rect.attr('y')) + parseFloat(rect.attr('height')) / 2;
+
+            rect
+            .style('transform-origin', `${x}px ${y}px`)
+            .transition()
+            .duration(200)
+            .attr('transform', 'scale(1.2)')
+            .style('stroke', '#ffffff')
+            .style('stroke-width', 2)
+            .style('cursor', 'pointer');
+          })
+          .on('mouseleave', function(event) {
+            d3.select(event.currentTarget)
+              .transition()
+              .duration(200)
+              .attr('transform', 'scale(1)')
+              .style('stroke', 'none')
+              .style('stroke-width', 1);
+           });
 
         legend.initGradient(colorScale);
 
