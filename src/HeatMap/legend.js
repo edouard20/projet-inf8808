@@ -56,7 +56,7 @@ export function initGradient (colorScale) {
    * @param {*} colorScale The color scale represented by the legend
    */
   export function draw(x, y, height, width, fill, colorScale) {
-    d3.select('.legend.bar')
+    d3.select('.legend-bar')
       .attr('x', x)
       .attr('y', y)
       .attr('height', height)
@@ -68,11 +68,11 @@ export function initGradient (colorScale) {
   
     const axis = d3.axisLeft(axisScale).ticks(7) 
   
-    d3.select('.legend.axis')
+    d3.select('.legend-axis')
       .attr('transform', `translate(${x}, ${y})`)
       .call(axis)
       
     const padding = 15;
-    d3.select('.legend.axis').selectAll('text')
+    d3.select('.legend-axis').selectAll('text')
       .attr('transform', `translate(${width - padding}, 0)`)
   }

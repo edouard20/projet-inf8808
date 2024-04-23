@@ -3,32 +3,25 @@ import * as d3 from 'd3';
 import * as d3Chromatic from 'd3-scale-chromatic';
 import { useMemo } from 'react';
 import * as legend from './legend.js'
+import '../HeatMap.css'
 // import * as legend from './legend.js'
 // import * as scales from './scales.js'
 // import * as tooltip from './tooltip.js'
 import d3Tip from 'd3-tip'
 
-const MARGIN = { top: 10, right: 10, bottom: 30, left: 30 };
 const margin = { top: 35, right: 200, bottom: 35, left: 200 }
-
-const width = 1000
-const height = 800
 
 const HeatMap = ({ data }) => {
 
     const svgRef = useRef(null);
     const colorScale = d3.scaleSequential(d3Chromatic.interpolateReds).nice();
-    // const svgSize = { width: 800, height: 800 };
-
-    const boundsWidth = width - MARGIN.right - MARGIN.left;
-    const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
     const allXGroups = useMemo(() => [...new Set(data.map((d) => d.x))], [data]);
     const allYGroups = useMemo(() => [...new Set(data.map((d) => d.y))], [data]);
 
     const svgSize = {
-        width: 550,
-        height: 550
+        width: 1200,
+        height: 800
     }
 
     const graphSize = {
@@ -36,67 +29,62 @@ const HeatMap = ({ data }) => {
         height: svgSize.height - margin.bottom - margin.top
     }
 
-    useEffect (() => {
-        const svg = d3.select(svgRef.current)
-            .attr("class", "heatmap-svg")
-            .attr("width", svgSize.width)
-            .attr("height", svgSize.height);
+    const svgContainerRef = useRef(null);
 
-        const g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);   
-
-        const counts = data.map((d) => d.count);
+    useEffect(() => {
+        const counts = data.map(d => d.count);
         const minValue = Math.min(...counts);
         const maxValue = Math.max(...counts);
-        colorScale.domain([minValue, maxValue]);
+        const colorScale = d3.scaleSequential(d3.interpolateOrRd)
+                             .domain([minValue, maxValue]);
 
-        const groups = svg.selectAll('g').data(data).enter().append('g');
+        d3.select(svgContainerRef.current).select("svg").remove();
 
-        groups
-            .append('rect')
-            .attr('Count', (d) => d.count)
-            .attr('x', (d) => d.x)
-            .attr('y', (d) => d.y);
+        const svg = d3.select(svgContainerRef.current)
+                      .append("svg")
+                      .attr("width", svgSize.width)
+                      .attr("height", svgSize.height)
+                      .append("g")
+                      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        const x = d3.scaleBand()
+                    .domain(allXGroups)
+                    .range([0, graphSize.width])
+                    .padding(0.1);
+
+        svg.append("g")
+           .call(d3.axisTop(x).tickSize(0));
+
+        const y = d3.scaleBand()
+                    .domain(allYGroups)
+                    .range([0, graphSize.height])
+                    .padding(0.1);
+
+        svg.append("g")
+           .call(d3.axisLeft(y).tickSize(0));
+
+        svg.selectAll("rect")
+           .data(data)
+           .enter()
+           .append("rect")
+           .attr("x", d => x(d.x))
+           .attr("y", d => y(d.y))
+           .attr("width", x.bandwidth())
+           .attr("height", y.bandwidth())
+           .style("fill", d => colorScale(d.count));
+
+        legend.initGradient(colorScale);
+        legend.initLegendBar();
+        legend.initLegendAxis();
+        legend.draw(margin.left / 2, margin.top + 5, graphSize.height - 10, 15, 'url(#gradient)', colorScale);
         
-        // update XScale
-        const xData = data.map((d) => d.x);
-        const xScale = d3.scaleBand().domain(xData.sort()).range([0, boundsWidth]);
-
-        // update YScale
-        const yData = data.map((d) => d.y);
-        const yScale = d3.scaleBand().domain(yData.sort()).range([0, boundsHeight]);
-
-        // draw X axis
-        d3.select('.x').call(d3.axisTop(xScale));
-
-        // draw Y axis
-        d3.select('.y')
-            .attr('transform', `translate(${boundsWidth}, 0)`)
-            .call(d3.axisRight(yScale));
-        
-        // rotate Y ticks
-        d3.selectAll('.y .tick text').attr('transform', 'rotate(-30)');
-
-        // update rects
-        const rects = d3.select('#heatmap').select('svg').select('#graph-g').selectAll('rect');
-
-        rects
-            .attr('x', (d) => xScale(d.x))
-            .attr('y', (d) => yScale(d.y))
-            .attr('width', (d) => xScale(d.x))
-            .attr('height', (d) => xScale(d.y))
-            .attr('fill', (d) => colorScale(d.count));
-
-        legend.initGradient(colorScale)
-        legend.initLegendBar()
-        legend.initLegendAxis()
-
-        legend.draw(margin.left / 2, margin.top + 5, graphSize.height - 10, 15, 'url(#gradient)', colorScale)
-
-    }, [data])
+    }, [data]);
 
     return (
-        <svg ref={svgRef}></svg>
-    )
+        <div ref={svgContainerRef} className="viz-container">
+            <svg class="heatmap-svg"></svg>
+        </div>
+    );
 };
 
 // viz.updateXScale(xScale, data, graphSize.width, util.range)
