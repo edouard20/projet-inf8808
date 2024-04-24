@@ -36,7 +36,6 @@ const { waffle_data, winner_data } = preprocessDrivers(
     standingsData,
 );
 
-// const processedResults = preprocessResults(results);
 const processedResults = processResults(results);
 const f1_teams_data = preprocessF1Teams(f1TeamsData)
 
@@ -364,8 +363,9 @@ function App() {
                 <TextSection text={items[4]} />
             </div>
             <HeatMap width={1000} height={800} data={processedResults}  />
-            {/* <HeatMap width={1000} height={800} data={processedResults}  /> */}
-
+            <div className='text-section'>
+                <TextSection text={items[6]} />
+            </div>
             <TitleText
                 title={'Unleashed Chaos: The Dark Side of Formula 1 Accidents'}
             />

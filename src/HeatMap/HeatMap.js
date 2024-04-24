@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import * as legend from './legend.js'
 import '../HeatMap.css'
 
-const margin = { top: 35, right: 200, bottom: 35, left: 200 }
+const margin = { top: 35, right: 0, bottom: 35, left: 200 }
 
 const HeatMap = ({ data }) => {
     const svgContainerRef = useRef(null);
@@ -23,13 +23,10 @@ const HeatMap = ({ data }) => {
             height: svgSize.height - margin.bottom - margin.top
         }
         const counts = data.map(d => d.count);
-        const minValue = Math.min(...counts);
         const maxValue = Math.max(...counts);
         const colorScale = d3.scaleSequential(d3.interpolateOrRd)
-        .domain([1, Math.log(maxValue + 1)]) // Adjust the domain to the log scale
+        .domain([1, Math.log(maxValue + 1)])
         .interpolator(d => d3.interpolateOrRd(Math.log(d + 1) / Math.log(maxValue + 1)));
-        const colorLegendScale = d3.scaleSequential(d3.interpolateOrRd)
-                             .domain([minValue, maxValue]);
     
         d3.select(svgContainerRef.current).selectAll("svg").remove();
         
