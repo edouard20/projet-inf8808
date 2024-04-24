@@ -237,7 +237,7 @@ body {
 .grid-item:nth-child(4), .grid-item:nth-child(6) {
   align-self: start;
   height: 50%;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .text-container {
@@ -273,12 +273,15 @@ body {
   font-weight: bold;
 }
 
-b {
+.subtext b {
   color:#BF0A30;
 }
 
 .barchart-container {
-  margin-bottom: 100px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
 }
 
 .rankflow-container {

@@ -1,0 +1,11 @@
+
+  #tooltip-bubble {
+    position: absolute;
+    display: none;
+    padding: 8px 12px;
+    background: rgb(218, 67, 67);
+    color: #ffffff;
+    border-radius: 6px;
+    z-index: 10;
+    opacity: 0.7;
+}

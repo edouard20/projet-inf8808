@@ -34,7 +34,6 @@ const nationalityToCountryCode = {
 
 function preprocessData() {
     const raceYearMap = new Map(races.map(r => [r.raceId, r.year]));
-    console.log(drivers[0].nationality)
 
     const driverResults = results.filter(d => raceYearMap.has(d.raceId));
     const driverYears = driverResults.reduce((acc, result) => {
@@ -57,12 +56,9 @@ function preprocessData() {
 
     const sortedData = driverCareerLengths.sort((a, b) => b.yearsActive - a.yearsActive);
 
-    // Sélectionner seulement les 8 premiers pilotes
     const topDrivers = sortedData.slice(0, 8);
 
   return topDrivers;
 }
-
-
 
 export default preprocessData;
