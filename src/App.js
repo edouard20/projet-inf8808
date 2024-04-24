@@ -14,7 +14,8 @@ import { useInView } from 'framer-motion';
 import Square from './Square.js';
 import preprocessDrivers from './waffle_preprocess/waffle_preprocess.js';
 import driversData from './waffle_preprocess/drivers.json';
-import standingsData from './waffle_preprocess/results.json';
+import HeatMap from './HeatMap/HeatMap.js';
+import processResults from './proprocessResult.js';
 import circuit from './bubble_preprocess/circuits.json';
 import results from './bubble_preprocess/results.json';
 import races from './bubble_preprocess/races.json';
@@ -34,6 +35,7 @@ const { waffle_data, winner_data } = preprocessDrivers(
     standingsData,
 );
 
+const processedResults = processResults(results);
 const f1_teams_data = preprocessF1Teams(f1TeamsData)
 
 function App() {
@@ -356,7 +358,10 @@ function App() {
             <div className='text-section'>
                 <TextSection text={items[4]} />
             </div>
-
+            <HeatMap width={1000} height={800} data={processedResults}  />
+            <div className='text-section'>
+                <TextSection text={items[6]} />
+            </div>
             <TitleText
                 title={'Unleashed Chaos: The Dark Side of Formula 1 Accidents'}
             />
