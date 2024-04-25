@@ -238,9 +238,13 @@ export const TopDriversRankFlowChart = ({ data }) => {
                     tip.offsetX = event.offsetX
                     tip.offsetY = event.offsetY
                     tip.html(content)
-                    tip.style('left', event.pageX + 'px')
-                        .style('top', event.pageY + 'px')
+                    tip.style('left', (event.pageX - 30) + 'px')
+                        .style('top', (event.pageY - 30) + 'px')
                         .style('font-weight', 300)
+                        .style('color', 'black')
+                        .style('padding', '20px')
+                        .style('border-radius', '20px')
+                        .style('background-color', 'white')
                         .show(data, event.currentTarget)
                 })
                 .on('mouseout', (event) => {

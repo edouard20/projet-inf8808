@@ -56,6 +56,7 @@ export function getDriversTooltipHtmlContent(d) {
         .text(label)
       itemContainer.append('span')
         .attr('class', 'tooltip-value')
+        .style('font-weight', '500')
         .text(value)
     })
     return container.html()
