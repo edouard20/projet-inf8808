@@ -281,9 +281,8 @@ body {
 
 .barchart-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  justify-content: center; 
+  align-items: center; 
 }
 
 .rankflow-container {
@@ -294,4 +293,19 @@ body {
   margin: 30px 95px;
   display: 'flex';
   justify-content: 'center';
+}
+
+.methodology-link {
+  color: #0077cc;
+  cursor: pointer;
+  font-size: 16px; 
+}
+
+.methodology-link span {
+  text-decoration: underline; 
+  font-weight: bold;
+}
+
+.methodology-link:hover {
+  color: #0055a5; 
 }

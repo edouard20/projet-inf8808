@@ -1,33 +1,34 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import WaffleChart from './WaffleChart.js';
-import ProgressBar from './ProgressBar';
+import WaffleChart from './waffle_chart/WaffleChart.js';
+import ProgressBar from './progress_bar/ProgressBar.js';
 import BubbleChart from './bubble_chart/BubbleChart.js';
 import TitleText from './TitleText';
 import TextSection from './TextSection';
 import ImageAnimation from './ImageAnimation';
 import data from './texts.json';
 import AlonsoTimeline from './AlonsoTimeline';
-import processRaces from './bubble_preprocess/accident_preprocess.js';
+import processRaces from './bubble_chart/bubble_preprocess/accident_preprocess.js';
 import './App.css';
 import ParallaxText from './ParallaxText';
 import { useInView } from 'framer-motion';
 import Square from './Square.js';
-import preprocessDrivers from './waffle_preprocess/waffle_preprocess.js';
-import driversData from './waffle_preprocess/drivers.json';
-import HeatMap from './HeatMap/HeatMap.js';
-import processResults from './proprocessResult.js';
-import circuit from './bubble_preprocess/circuits.json';
-import results from './bubble_preprocess/results.json';
-import races from './bubble_preprocess/races.json';
-import countriesByContinent from './bubble_preprocess/country_by_continent.json';
+import preprocessDrivers from './waffle_chart/wafflechart_preprocess/waffle_preprocess.js';
+import driversData from './waffle_chart/wafflechart_preprocess/drivers.json';
+import HeatMap from './heat_map/HeatMap.js';
+import processResults from './heat_map/heatmap_preprocess/preprocessResult.js';
+import circuit from './bubble_chart/bubble_preprocess/circuits.json';
+import results from './bubble_chart/bubble_preprocess/results.json';
+import races from './bubble_chart/bubble_preprocess/races.json';
+import countriesByContinent from './bubble_chart/bubble_preprocess/country_by_continent.json';
 import BubbleChartTimeline from './bubble_chart/timelineAdvancement.js';
 import BubbleLegend from './bubble_chart/BubbleLegend.js';
-import Barchart from './Barchart.js';
-import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
 import { preprocessF1Teams, preprocessTopDrivers } from './rankflow/preprocess.js';
-import standingsData from './waffle_preprocess/results.json';
-import f1TeamsData from './rankflow/data/f1_teams.json';
 import { F1TeamsRankFlowChart, TopDriversRankFlowChart } from './rankflow/RankFlowChart.js';
+import Barchart from './bar_chart/Barchart.js';
+import barchartPreprocess from './bar_chart/barchart_preprocess/barchart_preprocess.js';
+import standingsData from './waffle_chart/wafflechart_preprocess/results.json';
+import f1TeamsData from './rankflow/data/f1_teams.json';
+import Methodology from './Methodology.js'
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -205,6 +206,12 @@ function App() {
         return () => observer.disconnect();
     }, []);
 
+  const [showMethodology, setShowMethodology] = useState(false);
+  
+    const handleClose = () => {
+      setShowMethodology(false);
+    };
+
     return (
         <>
             <ProgressBar />
@@ -212,6 +219,18 @@ function App() {
                 <h1 className='title-text'>
                     Speed Through Time: The Evolution of Formula 1
                 </h1>
+                <h4>
+                    By: Alexis Lavigne, Édouard Fréchette, Maxime Pichet, Ahmed Hammami, Ndeye Fagnan Beye, Franck Tiomo Epongo Einstein
+                </h4>
+                <h4>
+                    Project for the course INF8808 - Data Visualization at Polytechnique Montréal
+                </h4>
+                <h4>
+                    Presented to professor Thomas Hurtut
+                </h4>
+                <h4>
+                    April 25, 2024
+                </h4>
             </div>
 
             <TitleText
@@ -238,9 +257,7 @@ function App() {
                     img={
                         'https://cdn.ferrari.com/cms/network/media/img/resize/5e33f7f70bd18308db1a854b-ferrari-scuderia-1991-alesi-prost-cover-mob?width=768&height=1024'
                     }
-                    description={
-                        'Scuderia Ferrari 1981, Jean Alesi and Alain Prost'
-                    }
+                    description={'Scuderia Ferrari 1981, Jean Alesi and Alain Prost'}
                     delay={1.5}
                     duration={1.5}
                     height={'500px'}
@@ -339,20 +356,21 @@ function App() {
                 <img src='f1car.png' alt='F1 car' width='300' height='200' />
             </ParallaxText>
 
-            <TitleText title={'Iconic Circuits: The Heartbeat of Formula 1'} />
-            <div className='text-section'>
-                <TextSection text={items[2]} />
-            </div>
-
             <TitleText
-                title={
-                    'Aging like Fine Wine: The Timeless Veterans of the Sport'
-                }
+                title={'Aging like Fine Wine: The Timeless Veterans of the Sport'}
             />
             <div className='text-section'>
                 <TextSection text={items[3]} />
             </div>
             <AlonsoTimeline></AlonsoTimeline>
+            
+            <div ref={barchartRef}>
+                <div className="barchart-container"></div>
+            </div>            
+            <AlonsoTimeline></AlonsoTimeline>
+            <div className='text-section'>
+                <TextSection text={items[7]} />
+            </div>
             <div ref={barchartRef}>
                 <div className="barchart-container">
                     <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>
@@ -423,6 +441,20 @@ function App() {
             </div>
             <div style={{ paddingBottom: '100px' }}>
                 <BubbleChartTimeline currentYear={currentYear} />
+            </div>
+
+            <ParallaxText baseVelocity={-5}>
+                <img src='f1car.png' alt='F1 car' width='300' height='200' />
+            </ParallaxText>
+
+            
+            <div>
+                <p className="methodology-link" onClick={() => setShowMethodology(true)}>
+                   <center>Vous souhaitez connaître la méthodologie ? <span>Cliquez ici pour en savoir plus.</span></center> 
+                </p>
+                {showMethodology && (
+                    <Methodology onClose={handleClose} />
+                )}
             </div>
 
         </>
