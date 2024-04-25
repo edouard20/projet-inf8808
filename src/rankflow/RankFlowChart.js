@@ -197,12 +197,14 @@ export const TopDriversRankFlowChart = ({ data }) => {
         driverNames.forEach((driverName, i) => {
             const driverColor = data[driverName]['color'];
             const driverRankingData = data[driverName]['ranking'];
-            const driverPoints = data[driverName]['points'];
+            const driverPointsData = data[driverName]['points'];
+            const driverAllTimePoints = data[driverName]['allTimePoints'];
             const lineData = Object.keys(driverRankingData).map((year) => ({
                 year: +year,
                 rank: driverRankingData[year],
-                driverName: driverName,
-                points: driverPoints
+                name: driverName,
+                points: driverPointsData[year],
+                allTimePoints: driverAllTimePoints
             }));
 
             g.append("path")

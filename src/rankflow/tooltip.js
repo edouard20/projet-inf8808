@@ -40,10 +40,11 @@ export function getF1TeamsTooltipHtmlContent(d) {
 export function getDriversTooltipHtmlContent(d) {
   const createDataItem = (label, value) => ({ label, value })
   const data = [
-    createDataItem('Driver: ', d.driverName),
+    createDataItem('Driver: ', d.name),
     createDataItem('Year: ', d.year),
     createDataItem('Rank: ', d.rank),
-    createDataItem('Points: ', d.points),
+    createDataItem('Current year points: ', d.points),
+    createDataItem('All time points: ', d.allTimePoints),
   ]
 
   const createContent = (data) => {

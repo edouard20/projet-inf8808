@@ -58,32 +58,37 @@ export function preprocessTopDrivers(n, m) {
         const year = data.race.year;
 
         if (!driversData[driverName]) {
-            driversData[driverName] = { ranking: {}, points: 0 };
+            driversData[driverName] = { ranking: {}, points: {}, allTimePoints: 0 };
         }
 
         if (!driversData[driverName].ranking[year]) {
             driversData[driverName].ranking[year] = undefined;
         }
 
+        if (!driversData[driverName].points[year]) {
+            driversData[driverName].points[year] = undefined;
+        }
+
         driversData[driverName].ranking[year] = data.rank;
-        driversData[driverName].points += data.points;
+        driversData[driverName].points[year] = data.points;
+        driversData[driverName].allTimePoints += data.points;
     });
 
     // Sort drivers by total points across the target year range
     const sortedDrivers = Object.entries(driversData).sort((a, b) => {
-        const sumA = a[1].points;
-        const sumB = b[1].points;
+        const sumA = a[1].allTimePoints;
+        const sumB = b[1].allTimePoints;
         return sumB - sumA;
     });
 
     // Generate a bright random color for each driver (avoiding dark colors)
     const colors = {};
     for (const driver of sortedDrivers) {
-      let color;
-      do {
-        color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-      } while (isColorDark(color) || color === '#000000' || color.length !== 7); // Ensure 6-digit hex code
-      colors[driver[0]] = color;
+        let color;
+        do {
+            color = generateRandomColor();
+        } while (isColorDark(color) || color === '#000000' || color.length !== 7); // Ensure 6-digit hex code
+        colors[driver[0]] = color;
     }
 
     // Select the top n drivers and format the output with random colors
@@ -92,17 +97,25 @@ export function preprocessTopDrivers(n, m) {
         const driver = sortedDrivers[i][0];
         const ranking = sortedDrivers[i][1].ranking;
         const points = sortedDrivers[i][1].points;
-        topDrivers[driver] = { points, ranking, color: colors[driver] };
+        const allTimePoints = sortedDrivers[i][1].allTimePoints;
+        topDrivers[driver] = { points, allTimePoints, ranking, color: colors[driver] };
     }
 
-    console.log(topDrivers)
-
     return topDrivers;
+}
+
+// Function to generate a random color
+function generateRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    const hex = ((r << 16) | (g << 8) | b).toString(16);
+    return "#" + ("000000" + hex).slice(-6);
 }
 
 // Function to check if a hex color is dark 
 function isColorDark(color) {
     const rgb = color.slice(1).match(/.{2}/g).map(val => parseInt(val, 16));
     const brightness = (rgb[0] * 2 + rgb[1] + rgb[2]) / 4;
-    return brightness < 128; // Adjust threshold for desired brightness level
-  }
+    return brightness < 128;
+}   

@@ -28,6 +28,10 @@ import { preprocessF1Teams, preprocessTopDrivers } from './rankflow/preprocess.j
 import standingsData from './waffle_preprocess/results.json';
 import f1TeamsData from './rankflow/data/f1_teams.json';
 import { F1TeamsRankFlowChart, TopDriversRankFlowChart } from './rankflow/RankFlowChart.js';
+import NumberInput from './NumberInput';
+import { ThemeProvider } from '@mui/material/styles';
+import materialTheme from './matherialTheme.js';
+
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -38,7 +42,6 @@ const { waffle_data, winner_data } = preprocessDrivers(
 
 const processedResults = processResults(results);
 const f1_teams_data = preprocessF1Teams(f1TeamsData)
-const top_drivers_data = preprocessTopDrivers(5, 10);
 
 function App() {
     const bubbleChartRef = useRef(null);
@@ -204,6 +207,31 @@ function App() {
         return () => observer.disconnect();
     }, []);
 
+
+    /* Drivers Rankflow Chart related */
+    const [driversNumber, setDriversNumber] = useState(2);
+    const [driversYears] = useState(10);
+    const [topDrivers, setTopDrivers] = useState(preprocessTopDrivers(driversNumber, driversYears));
+    const [redrawDriversChart, setRedrawDriversChart] = useState(false);
+
+    const handleDriversNumberChange = (newValue) => {
+        setRedrawDriversChart(true)
+        setDriversNumber(parseInt(newValue));
+        setTopDrivers(preprocessTopDrivers(newValue, driversYears))
+        setTimeout(() => {
+            setRedrawDriversChart(false)
+        }, 5);
+    };
+
+    // const handleDriversYearsChange = (newValue) => {
+    //     setRedrawDriversChart(true)
+    //     setDriversYears(parseInt(newValue));
+    //     setTopDrivers(preprocessTopDrivers(driversNumber, newValue))
+    //     setTimeout(() => {
+    //         setRedrawDriversChart(false)
+    //     }, 5);
+    // };
+
     return (
         <>
             <ProgressBar />
@@ -256,10 +284,27 @@ function App() {
                 ></ImageAnimation>
             </div>
             <div className="rankflow-container">
+                <div className='text-section'>
+                    <TextSection text='Top F1 teams dominance over the last 10 years' />
+                </div>
                 <F1TeamsRankFlowChart data={f1_teams_data}></F1TeamsRankFlowChart>
             </div>
             <div className="rankflow-container">
-                <TopDriversRankFlowChart data={top_drivers_data}></TopDriversRankFlowChart>
+                <div className='text-section'>
+                    <TextSection text='Top F1 drivers dominance over the last 10 years' />
+                </div>
+                <div className='rankflow-input-container'>
+                    <ThemeProvider theme={materialTheme}>
+                        <div style={{ display: 'flex', justifyContent: 'end', marginBottom: '20px', maxWidth: '200px' }}>
+                            <NumberInput label="Top N Drivers" value={driversNumber} onChange={handleDriversNumberChange} />
+                            {/* <NumberInput label="Last M Years" value={driversYears} onChange={handleDriversYearsChange} /> */}
+                        </div>
+                    </ThemeProvider>
+                </div>
+                {
+                    !redrawDriversChart
+                    && (<TopDriversRankFlowChart data={topDrivers}></TopDriversRankFlowChart>)
+                }
             </div>
 
             <TitleText
