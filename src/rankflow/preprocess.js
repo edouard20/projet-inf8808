@@ -39,19 +39,16 @@ export function preprocessTopDrivers(n, m) {
     const today = new Date();
     const targetYear = today.getFullYear() - m + 1;
 
-    // Combine results, driver data and races for efficient lookup
     const combinedData = results.map(result => ({
         ...result,
         driver: drivers.find(driver => driver.driverId === result.driverId),
         race: races.find(race => race.raceId === result.raceId)
     }));
 
-    // Filter data for the target year range
     const filteredData = combinedData.filter(data => {
         return data.race.year >= targetYear;
     });
 
-    // Calculate points for each driver in each year
     const driversData = {};
     filteredData.forEach(data => {
         const driverName = data.driver.forename + " " + data.driver.surname;
@@ -74,14 +71,12 @@ export function preprocessTopDrivers(n, m) {
         driversData[driverName].allTimePoints += data.points;
     });
 
-    // Sort drivers by total points across the target year range
     const sortedDrivers = Object.entries(driversData).sort((a, b) => {
         const sumA = a[1].allTimePoints;
         const sumB = b[1].allTimePoints;
         return sumB - sumA;
     });
 
-    // Generate a bright random color for each driver (avoiding dark colors)
     const colors = {};
     for (const driver of sortedDrivers) {
         let color;
@@ -91,7 +86,6 @@ export function preprocessTopDrivers(n, m) {
         colors[driver[0]] = color;
     }
 
-    // Select the top n drivers and format the output with random colors
     const topDrivers = {};
     for (let i = 0; i < n && i < sortedDrivers.length; i++) {
         const driver = sortedDrivers[i][0];
@@ -104,7 +98,9 @@ export function preprocessTopDrivers(n, m) {
     return topDrivers;
 }
 
-// Function to generate a random color
+/**
+ * Generates a random color
+ */
 function generateRandomColor() {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
@@ -113,7 +109,10 @@ function generateRandomColor() {
     return "#" + ("000000" + hex).slice(-6);
 }
 
-// Function to check if a hex color is dark 
+/**
+ * Checks if a color is black or its variant
+ * @param {*} color The desired nmber of years from now to return
+ */
 function isColorDark(color) {
     const rgb = color.slice(1).match(/.{2}/g).map(val => parseInt(val, 16));
     const brightness = (rgb[0] * 2 + rgb[1] + rgb[2]) / 4;
