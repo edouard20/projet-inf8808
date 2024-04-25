@@ -44,7 +44,6 @@ export function getDriversTooltipHtmlContent(d) {
     createDataItem('Year: ', d.year),
     createDataItem('Rank: ', d.rank),
     createDataItem('Current year points: ', d.points),
-    createDataItem('All time points: ', d.allTimePoints),
   ]
 
   const createContent = (data) => {

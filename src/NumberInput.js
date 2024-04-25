@@ -11,7 +11,6 @@ const NumberInput = ({ label, value, onChange }) => {
             onChange={e => onChange(e.target.value)}
             fullWidth
             variant="outlined"
-            // style={{ margin: '20px', color: 'white' }}
             inputProps={{
                 min: 1,
                 max: 10,
