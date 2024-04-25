@@ -3,14 +3,6 @@ import './Methodology.css';
 
 const Methodology = ({ onClose }) => {
     const contentRef = useRef(null);
-
-    const scrollContent = (direction) => {
-        if (contentRef.current) {
-        const currentScroll = contentRef.current.scrollTop;
-        const scrollAmount = direction === 'up' ? -300 : 300; 
-        contentRef.current.scrollTo({ top: currentScroll + scrollAmount, behavior: 'smooth' });
-        }
-  };
   return (
     <>
       <div className="overlay" onClick={onClose}></div>
@@ -21,7 +13,7 @@ const Methodology = ({ onClose }) => {
         
         <div id="source">
           <h2>1. Source des Données</h2>
-          <p>Les données pour les visualisations sont extraites de <a href="https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020" target = "_blank">Kaggle</a>, sous forme de fichiers CSV initialement, puis converties en JSON pour les raisons suivantes :</p>
+          <p>Les données pour les visualisations sont extraites de <a href="https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020">Kaggle</a>, sous forme de fichiers CSV initialement, puis converties en JSON pour les raisons suivantes :</p>
           <ul>
             <li><strong>Intercompatibilité :</strong> Le format JSON est largement reconnu pour sa facilité d'intégration avec les technologies web, en particulier avec JavaScript et les bibliothèques de visualisation comme D3.js.</li>
             <li><strong>Structure de données :</strong> JSON supporte des structures de données complexes telles que les objets imbriqués et les tableaux, ce qui est idéal pour représenter des données relationnelles complexes.</li>
@@ -54,9 +46,6 @@ const Methodology = ({ onClose }) => {
           <p>Les visualisations sont conçues pour être accessibles et interactives, permettant aux utilisateurs de filtrer, de trier et de naviguer à travers les données selon leurs préférences.</p>
         </div>
       </div>
-
-      {/* <button className="scroll-btn up" onClick={() => scrollContent('up')}>&#9650;</button>
-        <button className="scroll-btn down" onClick={() => scrollContent('down')}>&#9660;</button> */}
       </div>
     </>
   );
