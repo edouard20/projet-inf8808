@@ -24,10 +24,10 @@ import BubbleChartTimeline from './bubble_chart/timelineAdvancement.js';
 import BubbleLegend from './bubble_chart/BubbleLegend.js';
 import Barchart from './Barchart.js';
 import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
-import preprocessF1Teams from './rankflow/preprocess.js';
+import { preprocessF1Teams, preprocessTopDrivers } from './rankflow/preprocess.js';
 import standingsData from './waffle_preprocess/results.json';
 import f1TeamsData from './rankflow/data/f1_teams.json';
-import RankFlowChart from './rankflow/RankFlowChart.js';
+import { F1TeamsRankFlowChart, TopDriversRankFlowChart } from './rankflow/RankFlowChart.js';
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -38,6 +38,7 @@ const { waffle_data, winner_data } = preprocessDrivers(
 
 const processedResults = processResults(results);
 const f1_teams_data = preprocessF1Teams(f1TeamsData)
+const top_drivers_data = preprocessTopDrivers(5, 10);
 
 function App() {
     const bubbleChartRef = useRef(null);
@@ -174,34 +175,34 @@ function App() {
         }
     }, [waffleHoverRef]);
 
-  const [barchartData, setBarchartData] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const barchartRef = useRef();
+    const [barchartData, setBarchartData] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
+    const barchartRef = useRef();
 
-  useEffect(() => {
-    async function loadData() {
-      const processedData = await barchartPreprocess();
-      setBarchartData(processedData);
-    }
-
-    loadData();
-  }, []); 
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-          obs.disconnect(); 
+    useEffect(() => {
+        async function loadData() {
+            const processedData = await barchartPreprocess();
+            setBarchartData(processedData);
         }
-      },
-      { threshold: 0.5 }
-    );
 
-    observer.observe(barchartRef.current);
+        loadData();
+    }, []);
 
-    return () => observer.disconnect();
-  }, []);
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries, obs) => {
+                if (entries[0].isIntersecting) {
+                    setIsVisible(true);
+                    obs.disconnect();
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        observer.observe(barchartRef.current);
+
+        return () => observer.disconnect();
+    }, []);
 
     return (
         <>
@@ -255,7 +256,10 @@ function App() {
                 ></ImageAnimation>
             </div>
             <div className="rankflow-container">
-                <RankFlowChart data={f1_teams_data}></RankFlowChart>
+                <F1TeamsRankFlowChart data={f1_teams_data}></F1TeamsRankFlowChart>
+            </div>
+            <div className="rankflow-container">
+                <TopDriversRankFlowChart data={top_drivers_data}></TopDriversRankFlowChart>
             </div>
 
             <TitleText
@@ -270,9 +274,8 @@ function App() {
             </div>
             <div className='container'>
                 <div
-                    className={`text-container ${
-                        waffleWinnersInView ? 'in-view' : ''
-                    }`}
+                    className={`text-container ${waffleWinnersInView ? 'in-view' : ''
+                        }`}
                     ref={waffleWinnersRef}
                 >
                     <div className='subtext' ref={waffleEmptyRef}>
@@ -288,7 +291,7 @@ function App() {
                         Hover on the bars to see the exact driver count.
                     </div>
                     <div className='subtext'>
-                    You can now hover to see the percentage of race winners.<br></br>Not as many as you would think...
+                        You can now hover to see the percentage of race winners.<br></br>Not as many as you would think...
                     </div>
                 </div>
                 {waffleEmptyInView && !waffleBarsInView && (
@@ -341,12 +344,12 @@ function App() {
             />
             <div className='text-section'>
                 <TextSection text={items[3]} />
-            </div>            
+            </div>
             <AlonsoTimeline></AlonsoTimeline>
             <div ref={barchartRef}>
                 <div className="barchart-container">
-                    <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>  
-                    <Barchart data={barchartData} isVisible={isVisible}  /> 
+                    <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>
+                    <Barchart data={barchartData} isVisible={isVisible} />
                 </div>
             </div>
 
@@ -359,14 +362,14 @@ function App() {
             <div className='text-section'>
                 <TextSection text={items[4]} />
             </div>
-            <HeatMap width={1000} height={800} data={processedResults}  />
+            <HeatMap width={1000} height={800} data={processedResults} />
             <div className='text-section'>
                 <TextSection text={items[6]} />
             </div>
             <TitleText
                 title={'Unleashed Chaos: The Dark Side of Formula 1 Accidents'}
             />
-            
+
             <div className='text-section'>
                 <TextSection text={items[5]} />
             </div>

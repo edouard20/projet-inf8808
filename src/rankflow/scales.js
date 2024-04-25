@@ -2,13 +2,13 @@ import * as d3 from 'd3';
 import * as preprocess from './preprocess.js'
 
 /**
- * Defines the linear scale used to position in Y.
+ * Defines the linear scale used to position in Y for the rankflow chart.
  *
  * @param {number} height The height of the graph
  * @param {object} data The data to be used
  * @returns {*} The linear scale in Y
  */
-export function setYScaleRank(height, data) {
+export function setYScaleRankRankflow(height, data) {
 
     const dataScale = d3.scaleLinear()
         .domain([preprocess.getMaxRankingFromData(data)+1, 1])
@@ -18,18 +18,18 @@ export function setYScaleRank(height, data) {
 }
 
 /**
- * Defines the linear scale used for the years.
+ * Defines the linear scale used for the years for the rankflow chart.
  *
  * @param {number} width The width of the graph
  * @param {object} data The data to be used
  * @returns {*} The linear scale in X
  */
-export function setXScaleYears(width, data) {
+export function setXScaleRankflow(width, data) {
     
     const years = new Set();
 
-    Object.keys(data).forEach((teamName) => {
-        Object.keys(data[teamName]['ranking']).forEach((year) => {
+    Object.keys(data).forEach((key) => {
+        Object.keys(data[key]['ranking']).forEach((year) => {
             years.add(parseInt(year));
         });
     });

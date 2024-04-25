@@ -1,13 +1,12 @@
 import d3Legend from 'd3-svg-legend'
 
 /**
- * Draws the color legend.
+ * Draws the color legend for the rankflow chart
  *
  * @param {*} colorScale The color scale used for the legend
  * @param {*} g The d3 Selection of the SVG g elemnt containing the legend
  */
-export function drawLegend(colorScale, g, width) {
-    // TODO : Generate the legend
+export function drawRankflowChartLegend(colorScale, g, width) {
     const legendGroup = g.append('g')
         .attr('id', 'legend')
         .attr('transform', 'translate(' + (width) + ',0)')
@@ -25,5 +24,4 @@ export function drawLegend(colorScale, g, width) {
         .orient('vertical')
 
     legendGroup.call(legend)
-    // For help, see : https://d3-legend.susielu.com/
 }
