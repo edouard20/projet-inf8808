@@ -366,8 +366,8 @@ function App() {
             
             <div ref={barchartRef}>
                 <div className="barchart-container"></div>
-            </div>            
-            <AlonsoTimeline></AlonsoTimeline>
+            </div>      
+                  
             <div className='text-section'>
                 <TextSection text={items[7]} />
             </div>
