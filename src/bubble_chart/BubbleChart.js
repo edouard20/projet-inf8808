@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import './BubbleChart.css';
-import continentColors from '../bubble_preprocess/continent_colors.json';
+import continentColors from './bubble_preprocess/continent_colors.json';
 /**
  * The bubble chart component for the crashes.
  *

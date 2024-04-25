@@ -12,8 +12,8 @@ import './App.css';
 import ParallaxText from './ParallaxText';
 import { useInView } from 'framer-motion';
 import Square from './Square.js';
-import preprocessDrivers from './wafflechart_preprocess/waffle_preprocess.js';
-import driversData from './wafflechart_preprocess/drivers.json';
+import preprocessDrivers from './waffle_chart/wafflechart_preprocess/waffle_preprocess.js';
+import driversData from './waffle_chart/wafflechart_preprocess/drivers.json';
 import HeatMap from './heat_map/HeatMap.js';
 import processResults from './heat_map/heatmap_preprocess/preprocessResult.js';
 import circuit from './bubble_chart/bubble_preprocess/circuits.json';
@@ -23,9 +23,9 @@ import countriesByContinent from './bubble_chart/bubble_preprocess/country_by_co
 import BubbleChartTimeline from './bubble_chart/timelineAdvancement.js';
 import BubbleLegend from './bubble_chart/BubbleLegend.js';
 import Barchart from './bar_chart/Barchart.js';
-import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
+import barchartPreprocess from './bar_chart/barchart_preprocess/barchart_preprocess.js';
 import preprocessF1Teams from './rankflow/preprocess.js';
-import standingsData from './wafflechart_preprocess/results.json';
+import standingsData from './waffle_chart/wafflechart_preprocess/results.json';
 import f1TeamsData from './rankflow/data/f1_teams.json';
 import RankFlowChart from './rankflow/RankFlowChart.js';
 

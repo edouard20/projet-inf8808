@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import important_crashes from '../bubble_preprocess/important_crashes.json';
+import important_crashes from './bubble_preprocess/important_crashes.json';
 import './timelineAdvancement.css';
 /**
  * Component for the timeline under the bubble legend.
