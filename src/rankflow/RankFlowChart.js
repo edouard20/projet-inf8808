@@ -268,11 +268,11 @@ export const TopDriversRankFlowChart = ({ data }) => {
             .style("font-size", "16px");
 
         g.append("g")
-        .call(d3.axisLeft(yScale)
-            .tickValues([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-            .tickFormat(d => d))
-        .selectAll("text")
-        .style("font-size", "16px");
+            .call(d3.axisLeft(yScale)
+                .tickValues([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                .tickFormat(d => d))
+            .selectAll("text")
+            .style("font-size", "16px");
 
         const legendColorScale = d3.scaleOrdinal().domain(driverNames).range(colors);
         legend.drawRankflowChartLegend(legendColorScale, d3.select(svgRef.current), Math.round(svgSize.width * 0.8))

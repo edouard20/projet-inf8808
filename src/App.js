@@ -28,10 +28,6 @@ import { preprocessF1Teams, preprocessTopDrivers } from './rankflow/preprocess.j
 import standingsData from './waffle_preprocess/results.json';
 import f1TeamsData from './rankflow/data/f1_teams.json';
 import { F1TeamsRankFlowChart, TopDriversRankFlowChart } from './rankflow/RankFlowChart.js';
-import NumberInput from './NumberInput';
-import { ThemeProvider } from '@mui/material/styles';
-import materialTheme from './matherialTheme.js';
-
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -39,6 +35,8 @@ const { waffle_data, winner_data } = preprocessDrivers(
     columnsToDropDrivers,
     standingsData,
 );
+
+const topDrivers = preprocessTopDrivers();
 
 const processedResults = processResults(results);
 const f1_teams_data = preprocessF1Teams(f1TeamsData)
@@ -207,22 +205,6 @@ function App() {
         return () => observer.disconnect();
     }, []);
 
-
-    /* Drivers Rankflow Chart related */
-    const [driversNumber, setDriversNumber] = useState(2);
-    const [driversYears] = useState(10);
-    const [topDrivers, setTopDrivers] = useState(preprocessTopDrivers(driversNumber, driversYears));
-    const [redrawDriversChart, setRedrawDriversChart] = useState(false);
-
-    const handleDriversNumberChange = (newValue) => {
-        setRedrawDriversChart(true)
-        setDriversNumber(parseInt(newValue));
-        setTopDrivers(preprocessTopDrivers(newValue, driversYears))
-        setTimeout(() => {
-            setRedrawDriversChart(false)
-        }, 5);
-    };
-
     return (
         <>
             <ProgressBar />
@@ -282,12 +264,9 @@ function App() {
             </div>
             <div className="rankflow-container">
                 <div className='text-section'>
-                    <TextSection text='Top F1 drivers dominance over the last 10 years' />
+                    <TextSection text='Here is a visualization displaying the most notable drivers over the last 10 years. Every point total over the last 10 years is shown with their respective rank amongst these drivers.' />
                 </div>
-                {
-                    !redrawDriversChart
-                    && (<TopDriversRankFlowChart data={topDrivers}></TopDriversRankFlowChart>)
-                }
+                <TopDriversRankFlowChart data={topDrivers}></TopDriversRankFlowChart>
             </div>
 
             <TitleText

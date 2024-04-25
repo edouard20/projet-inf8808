@@ -34,11 +34,11 @@ export function getMaxRankingFromData(data) {
  * @param {*} n The desired number of drivers to return
  * @param {*} m The desired number of years from now to return
  */
-export function preprocessTopDrivers(n, m) {
+export function preprocessTopDrivers() {
 
     const validYears = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022];
     const validDriverNames = ["Lewis Hamilton", "Sebastian Vettel", "Valtteri Bottas", "Max Verstappen", "Daniel Ricciardo", "Charles Leclerc", "Sergio Pérez", "Carlos Sainz", "Fernando Alonso", "Esteban Ocon"]
-    const driverColors = ['#FFD700', '#C0C0C0', '#0000FF', '#FF0000', '#FFA500', '#02a3c0', '#FF4500', '#ab00cd', '#00FF00', '#FF1493'];
+    const driverColors = ['#FFD700', '#C0C0C0', '#0000FF', '#FF0000', '#FFA500', '#02a3c0', '#ab00cd', '#FF4500', '#00FF00', '#FF1493'];
     const combinedData = driverStandings.map(d => ({
         ...d,
         driver: drivers.find(driver => driver.driverId === d.driverId),
