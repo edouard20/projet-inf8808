@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import WaffleChart from './waffle_chart/WaffleChart.js';
-import ProgressBar from './ProgressBar';
+import ProgressBar from './progress_bar/ProgressBar.js';
 import BubbleChart from './bubble_chart/BubbleChart.js';
 import TitleText from './TitleText';
 import TextSection from './TextSection';
