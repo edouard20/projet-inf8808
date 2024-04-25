@@ -281,7 +281,7 @@ function App() {
             </div>
             <div className="rankflow-container">
                 <div className='text-section'>
-                    <TextSection text='Here is a visualization displaying the most notable drivers over the last 10 years. Every point total over the last 10 years is shown with their respective rank amongst these drivers.' />
+                    <TextSection text='Here is a visualization displaying the most notable drivers over the last 9 years. Every point total over the last 9 years is shown with their respective rank amongst these drivers.' />
                 </div>
                 <FlowChart data={topDrivers}></FlowChart>
             </div>
