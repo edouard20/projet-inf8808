@@ -28,6 +28,7 @@ import preprocessF1Teams from './rankflow/preprocess.js';
 import standingsData from './waffle_chart/wafflechart_preprocess/results.json';
 import f1TeamsData from './rankflow/data/f1_teams.json';
 import RankFlowChart from './rankflow/RankFlowChart.js';
+import Methodology from './Methodology.js'
 
 const columnsToDropDrivers = ['driverRef', 'number', 'code', 'dob', 'url'];
 const { waffle_data, winner_data } = preprocessDrivers(
@@ -202,6 +203,12 @@ function App() {
 
     return () => observer.disconnect();
   }, []);
+
+  const [showMethodology, setShowMethodology] = useState(false);
+  
+    const handleClose = () => {
+      setShowMethodology(false);
+    };
 
     return (
         <>
@@ -408,6 +415,20 @@ function App() {
             </div>
             <div style={{ paddingBottom: '100px' }}>
                 <BubbleChartTimeline currentYear={currentYear} />
+            </div>
+
+            <ParallaxText baseVelocity={-5}>
+                <img src='f1car.png' alt='F1 car' width='300' height='200' />
+            </ParallaxText>
+
+            
+            <div>
+                <p className="methodology-link" onClick={() => setShowMethodology(true)}>
+                   <center>Vous souhaitez connaître la méthodologie ? <span>Cliquez ici pour en savoir plus.</span></center> 
+                </p>
+                {showMethodology && (
+                    <Methodology onClose={handleClose} />
+                )}
             </div>
 
         </>
