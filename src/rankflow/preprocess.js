@@ -82,7 +82,7 @@ export function preprocessTopDrivers(n, m) {
         let color;
         do {
             color = generateRandomColor();
-        } while (isColorDark(color) || color === '#000000' || color.length !== 7); // Ensure 6-digit hex code
+        } while (isColorDark(color) || color === '#000000' || color.length !== 7);
         colors[driver[0]] = color;
     }
 
