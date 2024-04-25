@@ -1,31 +1,31 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import WaffleChart from './WaffleChart.js';
-import ProgressBar from './ProgressBar';
+import WaffleChart from './waffle_chart/WaffleChart.js';
+import ProgressBar from './progress_bar/ProgressBar.js';
 import BubbleChart from './bubble_chart/BubbleChart.js';
 import TitleText from './TitleText';
 import TextSection from './TextSection';
 import ImageAnimation from './ImageAnimation';
 import data from './texts.json';
 import AlonsoTimeline from './AlonsoTimeline';
-import processRaces from './bubble_preprocess/accident_preprocess.js';
+import processRaces from './bubble_chart/bubble_preprocess/accident_preprocess.js';
 import './App.css';
 import ParallaxText from './ParallaxText';
 import { useInView } from 'framer-motion';
 import Square from './Square.js';
-import preprocessDrivers from './waffle_preprocess/waffle_preprocess.js';
-import driversData from './waffle_preprocess/drivers.json';
-import HeatMap from './HeatMap/HeatMap.js';
-import processResults from './proprocessResult.js';
-import circuit from './bubble_preprocess/circuits.json';
-import results from './bubble_preprocess/results.json';
-import races from './bubble_preprocess/races.json';
-import countriesByContinent from './bubble_preprocess/country_by_continent.json';
+import preprocessDrivers from './waffle_chart/wafflechart_preprocess/waffle_preprocess.js';
+import driversData from './waffle_chart/wafflechart_preprocess/drivers.json';
+import HeatMap from './heat_map/HeatMap.js';
+import processResults from './heat_map/heatmap_preprocess/preprocessResult.js';
+import circuit from './bubble_chart/bubble_preprocess/circuits.json';
+import results from './bubble_chart/bubble_preprocess/results.json';
+import races from './bubble_chart/bubble_preprocess/races.json';
+import countriesByContinent from './bubble_chart/bubble_preprocess/country_by_continent.json';
 import BubbleChartTimeline from './bubble_chart/timelineAdvancement.js';
 import BubbleLegend from './bubble_chart/BubbleLegend.js';
-import Barchart from './Barchart.js';
-import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
+import Barchart from './bar_chart/Barchart.js';
+import barchartPreprocess from './bar_chart/barchart_preprocess/barchart_preprocess.js';
 import preprocessF1Teams from './rankflow/preprocess.js';
-import standingsData from './waffle_preprocess/results.json';
+import standingsData from './waffle_chart/wafflechart_preprocess/results.json';
 import f1TeamsData from './rankflow/data/f1_teams.json';
 import RankFlowChart from './rankflow/RankFlowChart.js';
 
@@ -328,11 +328,6 @@ function App() {
             <ParallaxText baseVelocity={-5}>
                 <img src='f1car.png' alt='F1 car' width='300' height='200' />
             </ParallaxText>
-
-            <TitleText title={'Iconic Circuits: The Heartbeat of Formula 1'} />
-            <div className='text-section'>
-                <TextSection text={items[2]} />
-            </div>
 
             <TitleText
                 title={
