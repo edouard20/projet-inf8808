@@ -54,15 +54,21 @@ const HeatMap = ({ data }) => {
 
         const xAxis = svg.append("g")
            .call(d3.axisTop(x).tickSize(0));
+        
+        xAxis.selectAll("text")
+            .style("font-size", "14px");
 
         const yAxis = svg.append("g")
            .call(d3.axisLeft(y).tickSize(0));
 
+        yAxis.selectAll("text")
+           .style("font-size", "14px");
+
         xAxis.append("text")
             .attr("x", graphSize.width / 1.75)
-            .attr("y", -margin.top / 2)
+            .attr("y", -margin.top / 2 - 4)
             .attr("text-anchor", "end")
-            .attr("font-size", "2em")
+            .attr("font-size", "1.8em")
             .attr("fill", "white")
             .text("Ending Position")
         
@@ -70,16 +76,13 @@ const HeatMap = ({ data }) => {
             .attr("x", -graphSize.width / 4)
             .attr("y", -margin.top)
             .attr("text-anchor", "end")
-            .attr("font-size", "2em")
+            .attr("font-size", "1.8em")
             .attr("fill", "white")
             .attr("transform", "rotate(-90)")
             .text("Starting Position")
 
         svg.selectAll("rect")
-    
-        svg.append("g").call(d3.axisTop(x).tickSize(0));
-        svg.append("g").call(d3.axisLeft(y).tickSize(0));
-    
+        
         const groups = svg.selectAll(".rect-group")
                           .data(data)
                           .enter()
