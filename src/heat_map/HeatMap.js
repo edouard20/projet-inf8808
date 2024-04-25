@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import { useMemo } from 'react';
 import * as legend from './legend.js'
-import '../HeatMap.css'
+import './HeatMap.css'
 
 const margin = { top: 35, right: 0, bottom: 35, left: 200 }
 

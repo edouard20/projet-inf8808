@@ -15,7 +15,7 @@ import Square from './Square.js';
 import preprocessDrivers from './wafflechart_preprocess/waffle_preprocess.js';
 import driversData from './wafflechart_preprocess/drivers.json';
 import HeatMap from './heat_map/HeatMap.js';
-import processResults from './heatmap_preprocess/preprocessResult.js';
+import processResults from './heat_map/heatmap_preprocess/preprocessResult.js';
 import circuit from './bubble_preprocess/circuits.json';
 import results from './bubble_preprocess/results.json';
 import races from './bubble_preprocess/races.json';
