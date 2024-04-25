@@ -287,3 +287,20 @@ body {
 .rankflow-container {
   margin-top: 100px;
 }
+
+
+.methodology-link {
+  color: #0077cc;
+  cursor: pointer;
+  font-size: 16px; 
+}
+
+.methodology-link span {
+  text-decoration: underline; 
+  font-weight: bold;
+}
+
+.methodology-link:hover {
+  color: #0055a5; 
+}
+
