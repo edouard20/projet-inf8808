@@ -269,6 +269,7 @@ export const TopDriversRankFlowChart = ({ data }) => {
 
         g.append("g")
         .call(d3.axisLeft(yScale)
+            .tickValues([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
             .tickFormat(d => d))
         .selectAll("text")
         .style("font-size", "16px");
