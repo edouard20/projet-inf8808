@@ -4,25 +4,25 @@ const materialTheme = createTheme({
         MuiTextField: {
             styleOverrides: {
                 root: {
-                    color: 'white', // Text color
+                    color: 'white',
                     '& .MuiInputLabel-root': {
-                        color: 'white', // Label color
+                        color: 'white',
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: 'white', // Label color when focused
+                        color: 'white',
                     },
                     '& .MuiOutlinedInput-root': {
                         '& fieldset': {
-                            borderColor: 'white', // Border color
+                            borderColor: 'white',
                         },
                         '&:hover fieldset': {
-                            borderColor: 'white', // Border color on hover
+                            borderColor: 'white',
                         },
                         '&.Mui-focused fieldset': {
-                            borderColor: 'white', // Border color when focused
+                            borderColor: 'white',
                         },
                         '& input': {
-                            color: 'white', // Input text color
+                            color: 'white',
                         },
                     },
                 },
