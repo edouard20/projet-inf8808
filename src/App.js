@@ -25,6 +25,7 @@ import BubbleLegend from './bubble_chart/BubbleLegend.js';
 import Barchart from './Barchart.js';
 import barchartPreprocess from './barchart_preprocess/barchart_preprocess.js';
 import preprocessF1Teams from './rankflow/preprocess.js';
+import standingsData from './waffle_preprocess/results.json';
 import f1TeamsData from './rankflow/data/f1_teams.json';
 import RankFlowChart from './rankflow/RankFlowChart.js';
 
