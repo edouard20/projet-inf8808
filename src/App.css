@@ -78,6 +78,7 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -164,13 +165,13 @@ body {
   width: 250px;
   top: 0px;
   z-index: 90;
-  }
-  
-  .step {
+}
+
+.step {
   margin-bottom: 200px;
-  }
-  
-  #vis {
+}
+
+#vis {
   display: inline-block;
   position: static;
   top: 60px;
@@ -178,7 +179,7 @@ body {
   margin-left: 0;
   height: 600px;
   width: 600px;
-  }
+}
 
 .timeline-box {
   display: flex;
@@ -186,6 +187,7 @@ body {
   align-items: center;
   margin: 2em;
 }
+
 .legend-container {
   display: flex;
   justify-content: center;
@@ -200,7 +202,7 @@ body {
   margin: 40px;
 }
 
-.img-2{
+.img-2 {
   width: 600px;
   height: 400px;
   border-radius: 20%;
@@ -226,7 +228,7 @@ body {
 
 .grid-item {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   padding: 20px;
 }
@@ -234,6 +236,7 @@ body {
 .grid-item:nth-child(1), .grid-item:nth-child(2), .grid-item:nth-child(3) {
   height: 100px;
 }
+
 .grid-item:nth-child(4), .grid-item:nth-child(6) {
   align-self: start;
   height: 50%;
@@ -241,13 +244,13 @@ body {
 }
 
 .text-container {
-  width: 50%; 
+  width: 50%;
 }
 
 .chart-container {
   position: sticky;
   top: 50px;
-  width: 50%; 
+  width: 50%;
 }
 
 .in-view .chart-container {
@@ -268,13 +271,12 @@ body {
   font-size: 20px;
 }
 
-.hover-text:hover 
-{
+.hover-text:hover {
   font-weight: bold;
 }
 
 .subtext b {
-  color:#BF0A30;
+  color: #BF0A30;
 }
 
 .barchart-container {
@@ -287,6 +289,11 @@ body {
   margin-top: 100px;
 }
 
+.rankflow-input-container {
+  margin: 30px 95px;
+  display: 'flex';
+  justify-content: 'center';
+}
 
 .methodology-link {
   color: #0077cc;
@@ -302,4 +309,3 @@ body {
 .methodology-link:hover {
   color: #0055a5; 
 }
-
