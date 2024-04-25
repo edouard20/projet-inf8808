@@ -217,6 +217,18 @@ function App() {
                 <h1 className='title-text'>
                     Speed Through Time: The Evolution of Formula 1
                 </h1>
+                <h4>
+                    By: Alexis Lavigne, Édouard Fréchette, Maxime Pichet, Ahmed Hammami, Ndeye Fagnan Beye, Franck Tiomo Epongo Einstein
+                </h4>
+                <h4>
+                    Project for the course INF8808 - Data Visualization at Polytechnique Montréal
+                </h4>
+                <h4>
+                    Presented to professor Thomas Hurtut
+                </h4>
+                <h4>
+                    April 25, 2024
+                </h4>
             </div>
 
             <TitleText
@@ -243,9 +255,7 @@ function App() {
                     img={
                         'https://cdn.ferrari.com/cms/network/media/img/resize/5e33f7f70bd18308db1a854b-ferrari-scuderia-1991-alesi-prost-cover-mob?width=768&height=1024'
                     }
-                    description={
-                        'Scuderia Ferrari 1981, Jean Alesi and Alain Prost'
-                    }
+                    description={'Scuderia Ferrari 1981, Jean Alesi and Alain Prost'}
                     delay={1.5}
                     duration={1.5}
                     height={'500px'}
@@ -337,14 +347,20 @@ function App() {
             </ParallaxText>
 
             <TitleText
-                title={
-                    'Aging like Fine Wine: The Timeless Veterans of the Sport'
-                }
+                title={'Aging like Fine Wine: The Timeless Veterans of the Sport'}
             />
             <div className='text-section'>
                 <TextSection text={items[3]} />
             </div>            
             <AlonsoTimeline></AlonsoTimeline>
+            
+            <div ref={barchartRef}>
+                <div className="barchart-container"></div>
+            </div>            
+            <AlonsoTimeline></AlonsoTimeline>
+            <div className='text-section'>
+                <TextSection text={items[7]} />
+            </div>
             <div ref={barchartRef}>
                 <div className="barchart-container">
                     <div id="tooltip" className="tooltip" style={{ opacity: 0 }}></div>  
