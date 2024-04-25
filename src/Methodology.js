@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import './Methodology.css';
+import { ReactComponent as CloseIcon } from './assets/xmark-solid.svg';
 
 const Methodology = ({ onClose }) => {
     const contentRef = useRef(null);
@@ -15,9 +16,11 @@ const Methodology = ({ onClose }) => {
     <>
       <div className="overlay" onClick={onClose}></div>
       <div className="methodology-container">
-        <button className="close-btn" onClick={onClose}>&times;</button>
+        <div className='header'>
+          <span>Méthodologie de Visualisation des Données de Formule 1</span>
+          <button className="close-btn" onClick={onClose}><CloseIcon/></button>
+        </div>
         <div className="content" ref={contentRef}> 
-        <h1>Méthodologie de Visualisation des Données de Formule 1</h1>
         
         <div id="source">
           <h2>1. Source des Données</h2>
