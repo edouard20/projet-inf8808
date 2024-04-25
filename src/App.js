@@ -223,15 +223,6 @@ function App() {
         }, 5);
     };
 
-    // const handleDriversYearsChange = (newValue) => {
-    //     setRedrawDriversChart(true)
-    //     setDriversYears(parseInt(newValue));
-    //     setTopDrivers(preprocessTopDrivers(driversNumber, newValue))
-    //     setTimeout(() => {
-    //         setRedrawDriversChart(false)
-    //     }, 5);
-    // };
-
     return (
         <>
             <ProgressBar />
@@ -297,7 +288,6 @@ function App() {
                     <ThemeProvider theme={materialTheme}>
                         <div style={{ display: 'flex', justifyContent: 'end', marginBottom: '20px', maxWidth: '200px' }}>
                             <NumberInput label="Top N Drivers" value={driversNumber} onChange={handleDriversNumberChange} />
-                            {/* <NumberInput label="Last M Years" value={driversYears} onChange={handleDriversYearsChange} /> */}
                         </div>
                     </ThemeProvider>
                 </div>
