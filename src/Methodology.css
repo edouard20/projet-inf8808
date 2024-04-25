@@ -22,12 +22,6 @@
     z-index: 1040;
   }
   
-  .methodology-container h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 16px;
-  }
-  
   .methodology-container h2 {
     font-size: 18px;
     color: #333;
@@ -69,11 +63,10 @@
 
   .header span {
     color: #333;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
   }
 
-  
   .content {
     height: 500px; 
     overflow-y: auto;
@@ -97,5 +90,4 @@
   .scroll-btn.down {
     bottom: 10px;
   }
-  
   
