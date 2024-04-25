@@ -1,5 +1,5 @@
-import drivers from '../barchart_preprocess/drivers.json';
-import races from '../barchart_preprocess/races.json';
+import drivers from '../bar_chart/barchart_preprocess/drivers.json';
+import races from '../bar_chart/barchart_preprocess/races.json';
 import driverStandings from './data/driver_standings.json';
 /**
  * Exports the already processed f1 teams data from https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020/data
