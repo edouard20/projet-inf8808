@@ -22,6 +22,7 @@ const HeatMap = ({ data }) => {
             width: svgSize.width - margin.right - margin.left,
             height: svgSize.height - margin.bottom - margin.top
         }
+
         const counts = data.map(d => d.count);
         const maxValue = Math.max(...counts);
         const colorScale = d3.scaleSequential(d3.interpolateOrRd)
@@ -51,7 +52,7 @@ const HeatMap = ({ data }) => {
                     .range([0, graphSize.height])
                     .padding(0.1);
 
-                    const xAxis = svg.append("g")
+        const xAxis = svg.append("g")
            .call(d3.axisTop(x).tickSize(0));
 
         const yAxis = svg.append("g")
@@ -94,7 +95,6 @@ const HeatMap = ({ data }) => {
                     d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr('transform', 'scale(1.2)')
                     .style('stroke', '#ffffff')
                     .style('stroke-width', 2)
                     .style('cursor', 'pointer');
@@ -103,13 +103,13 @@ const HeatMap = ({ data }) => {
                     .append('text')
                     .text(Math.round(d.count))
                     .attr('x', x.bandwidth() / 2)
-                    .attr('y', y.bandwidth() / 2 + 10)
+                    .attr('y', y.bandwidth() / 2 + 7)
                     .attr('text-anchor', 'middle')
                     .style('font-size', '1em')
                     .style('fill', d.count < 100 ? '#000000': '#ffffff')
                     .style('pointer-events', 'none');
               })
-              .on('mouseleave', function(event) {
+              .on('mouseleave', function(_) {
                   d3.select(this)
                     .transition()
                     .duration(200)
