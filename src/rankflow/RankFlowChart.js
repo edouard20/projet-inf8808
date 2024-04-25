@@ -65,7 +65,6 @@ function drawChartComponents(
         let driver = false;
         const rankingData = data[key].ranking;
         const pointsData = data[key].points;
-        console.log(data);
 
         const items = Object.keys(rankingData).map((year) => {
             const item = {

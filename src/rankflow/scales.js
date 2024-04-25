@@ -27,7 +27,6 @@ export function setYScaleRankRankflow(height, data) {
 export function setXScaleRankflow(width, data) {
     
     const years = new Set();
-    console.log(data)
     Object.keys(data).forEach((key) => {
         Object.keys(data[key]['ranking']).forEach((year) => {
             years.add(parseInt(year));
