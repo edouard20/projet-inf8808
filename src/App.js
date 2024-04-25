@@ -23,7 +23,7 @@ import countriesByContinent from './bubble_chart/bubble_preprocess/country_by_co
 import BubbleChartTimeline from './bubble_chart/timelineAdvancement.js';
 import BubbleLegend from './bubble_chart/BubbleLegend.js';
 import { preprocessF1Teams, preprocessTopDrivers } from './rankflow/preprocess.js';
-import { F1TeamsRankFlowChart, TopDriversRankFlowChart } from './rankflow/RankFlowChart.js';
+import { FlowChart} from './rankflow/RankFlowChart.js';
 import Barchart from './bar_chart/Barchart.js';
 import barchartPreprocess from './bar_chart/barchart_preprocess/barchart_preprocess.js';
 import standingsData from './waffle_chart/wafflechart_preprocess/results.json';
@@ -277,13 +277,13 @@ function App() {
                 <div className='text-section'>
                     <TextSection text='Top F1 teams dominance over the last 10 years' />
                 </div>
-                <F1TeamsRankFlowChart data={f1_teams_data}></F1TeamsRankFlowChart>
+                <FlowChart data={f1_teams_data}></FlowChart>
             </div>
             <div className="rankflow-container">
                 <div className='text-section'>
                     <TextSection text='Here is a visualization displaying the most notable drivers over the last 10 years. Every point total over the last 10 years is shown with their respective rank amongst these drivers.' />
                 </div>
-                <TopDriversRankFlowChart data={topDrivers}></TopDriversRankFlowChart>
+                <FlowChart data={topDrivers}></FlowChart>
             </div>
 
             <TitleText
