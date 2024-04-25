@@ -12,7 +12,6 @@
     z-index: 1050;
   }
   
-  /* Style pour l'arrière-plan obscurci */
   .overlay {
     position: fixed;
     top: 0;
