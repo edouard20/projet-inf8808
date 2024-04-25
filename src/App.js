@@ -227,7 +227,7 @@ function App() {
                     Presented to professor Thomas Hurtut
                 </h4>
                 <h4>
-                    April 25 2024
+                    April 25, 2024
                 </h4>
             </div>
 
